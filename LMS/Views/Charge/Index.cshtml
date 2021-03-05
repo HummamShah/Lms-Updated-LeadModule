@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<div ng-controller="ChargeCtrl" ng-init="initIndex()">
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <div class="col-md-9">
+                <h2>{{TypeOfCharge}} List</h2>
+            </div>
+            <div class="col-md-3 ">
+                <a class="btn btn-primary pull-right" style=" margin-top: 20px;" href="/Charge/Add?Type={{TypeOfCharge}}">Add</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="jumbotron PageHeading">
+        <table class="table table-hover" width="100%">
+            <tr class="table-head noHover">
+                <th>
+                    Id
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Value
+                </th>
+                <th>
+                    Created At
+                </th>
+                <th>
+                    Created By
+                </th>
+                <th style="width:6%;">
+                    Action
+                </th>
+            </tr>
+            <tr ng-repeat="Charge in Charges">
+                <td>
+                    {{Charge.Id}}
+                </td>
+                <td>
+                    {{Charge.Name}}
+                </td>
+                <td>
+                    {{Charge.Value}}
+                </td>
+                <td>
+                    {{Charge.CreatedAt |  date:'MMM d, y'}}
+                </td>
+                <td>
+                    {{Charge.CreatedBy}}
+                </td>
+                <td>
+                    <a href="/Charge/Edit?Id={{Charge.Id}}?Type={{TypeOfCharge}}" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+

@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Detail";
+}
+<div ng-controller="VendorCtrl" ng-init="EditInit()">
+    <div class="jumbotron PageHeading">
+        <div class="row"><div class="col-md-3"><h2>Details</h2></div></div>
+    </div>
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <form id="VendorAddForm ">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Name</label>
+                        <input type="text" readonly class="form-control" ng-model="Vendor.Name" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Description</label>
+                        <input type="text" readonly class="form-control" ng-model="Vendor.Description" />
+                    </div>
+                </div>
+                <div class="form-group" ng-if="Vendor.UpdatedAt != null">
+                    <div class="col-md-3">
+                        <label>Updated At</label>
+                        <span type="date" readonly class="form-control">
+                            {{Vendor.UpdatedAt | date:'MMM d, y'}}</span>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="Vendor.UpdatedAt != null">
+                    <div class="col-md-3">
+                        <label>UpdatedBy</label>
+                        <input type="text" readonly class="form-control" ng-model="Vendor.UpdatedBy"/>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <br/>
+        <div class="row float-right">
+            <a class="btn btn-danger" readonly href="/Vendor">Cancle</a>
+        </div>
+
+    </div>
+</div>

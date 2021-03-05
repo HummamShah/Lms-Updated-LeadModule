@@ -1,0 +1,220 @@
+﻿@{
+    ViewBag.Title = "Details";
+}
+<div ng-controller="CompanyCtrl" ng-init="EditInit()">
+    <div class="jumbotron PageHeading">
+        <div class="row"><div class="col-md-3"><h2>Company Details</h2></div></div>
+    </div>
+    <div class="jumbotron PageHeading">
+        <div class="row text-center">
+            <h2 class="SegmentHeading">Basic Information</h2>
+        </div>
+        <div class="row">
+            <form id="VendorAddForm ">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Name</label>
+                        <input type="text" readonly class="form-control" ng-model="Company.Name" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Description</label>
+                        <input type="text" readonly class="form-control" ng-model="Company.Description" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Address</label>
+                        <input type="text" readonly class="form-control" ng-model="Company.Address" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Email</label>
+                        <input type="email" readonly class="form-control" ng-model="Company.Email" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Contact</label>
+                        <input type="text" readonly class="form-control" ng-model="Company.Contact" />
+                    </div>
+                </div>
+                <div class="form-group" ng-if="Company.IsBranch">
+                    <div class="col-md-3">
+                        <label ng-model="Company.ParentCompanyId">Parent Company</label>
+                        <input type="text" readonly class="form-control" ng-model="Company.Name" />
+                    </div>
+                </div>
+
+
+                <div class="form-group" ng-if="Company.UpdatedBy != null">
+                    <div class="col-md-3">
+                        <label>Last Updated By</label>
+                        <input type="text" readonly class="form-control" ng-model="Company.UpdatedBy" />
+                    </div>
+                </div>
+                <div class="form-group" ng-if="Company.UpdatedAt != null">
+                    <div class="col-md-3">
+                        <label>Last Updated On</label>
+                        <span readonly class="form-control">{{Company.UpdatedAt | date:'MMM d, y'}}</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    @*contact information*@
+    <div class="jumbotron PageHeading">
+        <div class="row text-center">
+            <h2 class="SegmentHeading">Contact Information</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label>Mode Of Communication</label>
+                <input type="text" readonly class="form-control" ng-model="Company.MOCEnum" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Business Operation Time</label>
+                <input type="text" readonly class="form-control" ng-model="Company.BOTEnum" />
+            </div>
+
+            <div class="col-md-4 form-group">
+
+                <label>Email</label>
+                <input type="email" readonly class="form-control" ng-model="Company.Email" />
+
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Contact</label>
+                <input type="text" readonly class="form-control" ng-model="Company.Contact" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Alternate Number</label>
+                <input type="text" readonly class="form-control" ng-model="Company.CompanyAlternateContact" placeholder="033xxxx.." />
+            </div>
+            @*<div class="col-md-4 form-group">
+            <label>Phone Number</label>
+            <input type="text" class="form-control" ng-model="Company.CompanyContact" placeholder="033xxxx.." />
+        </div>*@
+            @*<div class="col-md-4 form-group">
+            <label>Alternate Number</label>
+            <input type="text" class="form-control" ng-model="Company.CompanyAlternateContact" placeholder="033xxxx.." />
+        </div>*@
+            @*<div class="col-md-4 form-group">
+            <label>Email</label>
+            <input type="email" class="form-control" ng-model="Company.CompanyEmail" placeholder="johndoe@live.com" />
+        </div>*@
+            <div class="col-md-4 form-group">
+                <label>Website</label>
+                <input type="text" readonly class="form-control" ng-model="Company.Website" placeholder="www.sharptel.com" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Latitude</label>
+                <input type="number" readonly class="form-control" ng-model="Company.Latitude" placeholder="Latitude" />
+                @*<select ng-model="Company.Area" class="form-control">
+                <option selected value="">Area</option>
+                <option value="0">Korangi Industrial</option>
+                <option value="1">II Chudrigarh</option>
+                <option value="3">Shafeeq Mor</option>
+            </select>*@
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Longitude</label>
+                <input type="number" readonly class="form-control" ng-model="Company.Longitude" placeholder="Longitude" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>City</label>
+                <input type="text" readonly class="form-control" ng-model="Company.CityEnum" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Address</label>
+                <input type="text" readonly ng-model="Company.Address" class="form-control" />
+            </div>
+
+        </div>
+    </div>
+
+    <div class="jumbotron PageHeading">
+        <div class="row text-center">
+            <h2 class="SegmentHeading">Business Infromation</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label>Number Of Users</label>
+                <input type="text" readonly class="form-control" ng-model="Company.NOEEnum" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Numbe of Branch offices</label>
+                <input type="number" readonly ng-model="Company.NoBracnhOffices" class="form-control" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Business Industry</label>
+                <input type="text" readonly class="form-control" ng-model="Company.BusinessIndustryEnum" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>NTN</label>
+                <input type="text" readonly ng-model="Company.NTN" class="form-control" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Currently using IT platform</label>
+                <input type="text" readonly ng-model="Company.CurrentItPlatform" class="form-control" />
+            </div>
+            @*<div class="col-md-4 form-group">
+                <label>Future plan for extension in IT Service</label>
+                <input type="text" ng-model="Company.FuturePlanOFExtention" class="form-control" />
+            </div>*@
+            <div class="col-md-4 form-group">
+                <label>Currently Used Medium</label>
+                <input type="text" readonly ng-model="Company.CUDSEnum" class="form-control" />
+            </div>
+            <div class="col-md-4 form-group" ng-if="Company.CUDS == null">
+                <span ng-if="Company.CUDS == null">N/A</span>
+            </div>
+            <div class="col-md-4 form-group" ng-if="Company.CUDS != null">
+                <span ng-if="Company.CUDS != '4' ">
+                    <label>Selected Service</label>
+                    <input type="text" readonly ng-model="Company.CUDSServiceEnum" class="form-control" />
+                </span>
+                <span ng-if="Lead.CUDS == '4' ">
+                    <label>Selected service</label>
+                    <input type="text" readonly class="form-control" ng-model="Company.CUDSOtherServiceEnum" />
+                </span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Number of links</label>
+                <input type="number" readonly class="form-control" ng-model="Company.NoLinks" />
+            </div>
+            @*<div class="col-md-4 form-group">
+                <label>Budget</label>
+                <input type="text" class="form-control" ng-model="Company.Budget" />
+            </div>*@
+            @*<div class="col-md-4 form-group">
+                <label>Estimated Closing Date</label>
+                <input type="date" class="form-control" ng-model="Company.EstimatedClosingDate" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Comments</label>
+                <input type="text" class="form-control" ng-model="Company.Comments" />
+            </div>*@
+            @*<div class="col-md-4 form-group">
+                <label>Is our Existing Customer</label>
+                <input type="checkbox" ng-model="Lead.IsEsisting" />
+            </div>*@
+            @*<div class="col-md-4 form-group">
+                <label>Ever Tried Our Service Before</label>
+                <input type="checkbox" ng-model="Lead.HasTriedOurServie" />
+            </div>*@
+
+        </div>
+        <div class="row float-right">
+            <a class="btn btn-danger" style="margin-right: 57px;" href="/Company">Cancel</a>
+        </div>
+    </div>
+
+
+
+
+
+</div>

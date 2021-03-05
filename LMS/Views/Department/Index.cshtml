@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div ng-controller="DepartmentCtrl" ng-init="initIndex()">
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <div class="col-md-3">
+                <h2>Department List</h2>
+            </div>
+            <div class="col-md-9 ">
+                <a class="btn btn-primary pull-right" style=" margin-top: 20px;" href="/Department/Add">Add</a>
+            </div>
+        </div>
+    </div>
+    <div class="jumbotron PageHeading">
+        <table class="table" width="100%">
+            <tr class="table-head">
+                <th>
+                    Id
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Created At
+                </th>
+                <th>
+                    Created By
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+            <tr ng-repeat="Department in Departments">
+                <td>
+                    {{Department.Id}}
+                </td>
+                <td>
+                    {{Department.Name}}
+                </td>
+                <td>
+                    {{Department.Description}}
+                </td>
+             
+                <td>
+                    {{Department.CreatedAt | date:'MMM d, y'}}
+                </td>
+                <td>
+                    {{Department.CreatedBy}}
+                </td>
+                <td>
+                    <a href="/Department/Edit?Id={{Department.Id}}" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+

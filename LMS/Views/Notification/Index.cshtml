@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div ng-controller="NotificationCtrl" ng-init="initNotification()">
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <div class="col-md-3">
+                <h2>Notification List</h2>
+            </div>
+        </div>
+    </div>
+    <div class="jumbotron PageHeading">
+        
+        <table class="table" width="100%">
+            <tr class="table-head">
+                <th>
+                    S.No
+                </th>
+                <th width="86%">
+                    Content
+                </th>
+                <th>
+                    Recieved At
+                </th>
+            </tr>
+            <tr ng-repeat="noti in notification">
+                <td>
+                    {{$index+1}}
+                </td>
+                <td>
+                    <a href={{noti.Link}}>{{noti.Content}}</a>
+                </td>
+                <td>
+                    {{noti.Date | date:'MMM d, y'}}
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+</div>
+

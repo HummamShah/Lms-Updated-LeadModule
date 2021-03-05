@@ -1,0 +1,225 @@
+﻿@model LMS.Models.Feature.Invoice.GetInvoiceResponse
+@{
+    ViewBag.Title = "Print";
+    Layout = "~/Views/Shared/_PrintLayout.cshtml";
+    var indianCulture = new System.Globalization.CultureInfo("hi-IN");
+}
+<style>
+    .background-e8e8e8{
+        background: #e8e8e8;
+    }
+    .border-t-3 {
+        border-top: 3px solid;
+    }
+    .h-30px {
+        font-size: 30px;
+        font-weight: 200;
+    }
+    .f-size-12 {
+        font-size: 12px;
+    }
+    .p-r-30 {
+        padding-right: 30px;
+    }
+    .float-right {
+        float: right;
+        padding-right: 10px;
+    }
+
+    .border-1 {
+        border: 1px black solid;
+    }
+
+    .p-r-0 {
+        padding-right: 0px;
+    }
+
+    .p-l-0 {
+        padding-left: 0px;
+    }
+
+    .p-l-10 {
+        padding-left: 10px;
+    }
+
+    .right-heading-text {
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+
+    .text-align-center {
+        text-align: center;
+    }
+
+    .text-align-left {
+        text-align: left;
+    }
+
+    .text-align-right {
+        text-align: right !important;
+    }
+</style>
+<div class="row">
+
+    <div class="col-md-12 float-right">
+        <img class="float-right" src="~/Content/Images/SharptelLogo.png" />
+    </div>
+</div>
+<div class=" row text-center text-capitalize h-30px">
+    @if (ViewBag.IsSalesTax)
+    {
+        <span>Sales Tax Invoice (Corporate)</span>
+    }
+    else
+    {
+        <span>Service Tax Invoice (Corporate)</span>
+    }
+</div>
+<div class="row" style="width:100%">
+
+    <div>
+        <div class="col-md-6 col-xs-5 p-l-0">
+            <table class="f-size-12">
+                <tr>
+                    <th>
+                        @Model.CompanyName
+                    </th>
+
+                </tr>
+                <tr>
+                    <td><u>Attn:</u>   @Model.AttendantName</td>
+
+                </tr>
+                <tr>
+                    <td>@Model.CompanyAddress,<br /> @Model.City</td>
+
+
+                </tr>
+                <tr><td>@Model.CompanyContact</td></tr>
+                <tr><td>NTN: @Model.NTN</td></tr>
+                <tr><td>Email:@Model.CompanyEmail</td></tr>
+            </table>
+        </div>
+        <div class="col-md-6 col-xs-7 pull-right p-r-0 ">
+            <table class="pull-right table-bordered border-1 f-size-12">
+                <tr><td class="p-r-30 right-heading-text p-l-10">Invoice Number</td><td class="p-l-10 right-heading-text">BILL-@Model.Id</td></tr>
+                <tr>
+                    <td class="right-heading-text p-l-10" >Invoice Period</td>
+                    <td class="p-l-10 right-heading-text">
+                        @if (Model.StartDate.HasValue)
+                        {@Model.StartDate.Value.ToString("dd-MMM-yyyy")} To @if (Model.EndDate.HasValue)
+                        {@Model.EndDate.Value.ToString("dd-MMM-yyyy")}
+                    </td>
+                </tr>
+                <tr><td class="right-heading-text p-l-10">Account Number</td><td class="p-l-10 right-heading-text">SNG-@Model.AccountId</td></tr>
+            </table>
+        </div>
+    </div>
+
+</div>
+<br />
+@*    <br />*@
+<div class="row" style="width:100%">
+    <table class="table table-bordered f-size-12 border-t-3" width="100%">
+        <tr class="background-e8e8e8">
+            <th>
+                Bill To
+            </th>
+            <th>
+                Link Name
+            </th>
+
+            <th width="20%">
+                Package
+            </th>
+            <th>
+                Monthly Charges
+            </th>
+            <th>
+                Invoice Date
+            </th>
+            <th>
+                Due Date
+            </th>
+        </tr>
+        <tr>
+            <td style="width: 180px">
+                @Model.CompanyName
+            </td>
+            <td style="width: 180px">
+                @Model.LinkName
+            </td>
+            <td style="width: 100px">
+                @Model.PackageId
+            </td>
+
+            <td style="width:70px;">
+                @string.Format(indianCulture, "{0:N}", Model.MonthlyCharges)
+            </td>
+            <td style="width:100px;">
+                @Model.Date.Value.ToString("dd-MMM-yyyy")
+            </td>
+            <td style="width: 102px;">
+                @Model.DueDate.Value.ToString("dd-MMM-yyyy")
+            </td>
+        </tr>
+    </table>
+
+
+</div>
+<div class="row" style="width:100%">
+    <table class="table table-bordered f-size-12 border-t-3" width="100%">
+        <tr class="background-e8e8e8">
+            @*<th class=" text-align-left">Sno #</th>*@
+            <th width="70%" class=" text-align-left">
+                Description
+            </th>
+            <th width="20%" class=" text-align-right">
+                Amount(PKR)
+            </th>
+
+
+        </tr>
+        @*@{ var i = 1;}*@
+        @foreach (var row in Model.InvoiceDetails)
+        {
+
+            <tr>
+                @*<td class=" text-align-left">
+                    @i
+                </td>*@
+                <td class=" text-align-left">
+                    @row.Description
+                </td>
+                <td class=" text-align-right">
+                    @string.Format(indianCulture, "{0:N}", row.Amount)
+                </td>
+
+            </tr>
+            //i++;
+        }
+        @foreach (var tax in Model.InvoiceTaxes)
+        {
+            <tr>
+                @*<td class=" text-align-left">
+                    @i
+                </td>*@
+                <td class=" text-align-left">
+                    @tax.Name
+                </td>
+                <td class=" text-align-right">
+                    @string.Format(indianCulture, "{0:N}", tax.Amount)
+                </td>
+            </tr>
+            //i++;
+        }
+
+        <tr>
+            <td class="text-align-right">
+                <span class="text-align-right"><b>Total Payable</b></span>
+            </td>
+            <td class="text-align-right"><b>  @string.Format(indianCulture, "{0:N}", Model.TotalAmount)</b></td>
+        </tr>
+    </table>
+</div>
+

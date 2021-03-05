@@ -1,0 +1,108 @@
+﻿<style>
+    .f-size-12 {
+        font-size: 12px;
+    }
+
+    .PrintFooter {
+        text-align: center;
+        font-size: 10px;
+        color: black !important;
+    }
+    .Font-Black{
+        color:black!important;
+    }
+    body{
+        background-color :white !important;
+        font-size:12px !important;
+        
+    }
+    .body-content {
+        font-size: 12px !important;
+        
+    }
+    @@media print {
+        .HeadingRow {
+            color: lightgrey !important;
+        }
+    }
+    @@page {
+        size: A4;
+        margin-left: 60px;
+        
+    }
+</style>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - LMS &#64 SharpTel</title>
+    @*@Styles.Render("~/Content/css")*@
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script type="text/javascript" src="~/Content/js/Jquery.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container body-content">
+        @*<div class="float-right">
+                <img src="~/Content/Images/SharptelLogo.png" />
+            </div>*@
+        @RenderBody()
+        @*<hr />*@
+        <div style="margin-left: -16px;">
+            <span><b><u>Payment Mode: </u></b>Cheque, or payOrder; drwan in the name of "<b>SHARP TELECOM (PRIVATE) LIMITED.</b>"</span>
+            <br />
+            <span>
+                <b><u>Online Payment Transfer:</u></b>
+            </span>
+            @*<br />*@
+            <div>
+                <table class="table table-bordered f-size-12" style="width:99%">
+                    <thead>
+                        <tr>
+                            <th>Bank Name : Faysal Bank Limited</th>
+                            <th>Bank Name : Meezan Bank Limited</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Account # 0110-006-0042437</td>
+                            <td>Account # 03170101461076</td>
+                        </tr>
+                        <tr>
+                            <td>IBAN Code : PK38FAYS0001100060042437</td>
+                            <td>IBAN Code : PK09MEZN0003170101461076</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <span><b><u>Note: </u> Please share the successful transaction slip on the following Email: azam.khan@sharptel.pk Whatsapp# 03018266718</b></span>
+                <br/>
+                <span>
+                    <b><u>Payment Options</u></b>
+                    <br /><b>1: Please contact Mr.Azam Khan(0301-8266718) for payment pickup.</b>
+                    <br />2: Courier the cross cheque/pay order to below address <br /> Azam Khan <br />The smart tower, 5th Floor Plot# C-10/2, Shara e faisal Karachi, Pakistan.
+                    Opposite FTC Building.<br />
+                    If you have any questions concerning this invoice, please contact AZAM KHAN Cell : 0301-8266718.
+                    <br />You can also contact our help desk at 03111284373 or email at servicedesk@sharptel.pk
+                    <br />NTN# : <u>3145528-0</u>
+                    <br />GST : <u>17-50-8527-001-55</u>
+                </span>
+            </div>
+
+        </div>
+        <footer class="PrintFooter">
+            <p class="Font-Black"><b>THANK YOU FOR YOUR BUSINESS</b></p>
+        </footer>
+    </div>
+    <script src="~/Content/js/jquery.min.js"></script>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+<script>
+    window.print();
+</script>

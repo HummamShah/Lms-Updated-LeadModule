@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div ng-controller="CompanySubcriptionCtrl" ng-init="initIndex()">
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <div class="col-md-9">
+                <h2>Subcription List</h2>
+            </div>
+            <div class="col-md-3 ">
+                <a class="btn btn-primary pull-right" style=" margin-top: 20px;" href="/CompanySubcription/Add">Add</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="jumbotron PageHeading">
+        <table class="table" width="100%">
+            <tr class="table-head">
+                <th>
+                    Id
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    OTC / MRC
+                </th>
+                <th>
+                    Company Name
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Created At
+                </th>
+                <th>
+                    Created By
+                </th>
+
+                <th style="width:6%;">
+                    Action
+                </th>
+            </tr>
+            <tr ng-repeat="sub in Subcriptions">
+                <td>
+                    {{sub.Id}}
+                </td>
+                <td>
+                    {{sub.Name}}
+                </td>
+                <td>
+                    {{sub.OTC}} / {{sub.MRC}}
+                </td>
+                <td>
+                    {{sub.CompanyName}}
+                </td>
+                <td>
+                    {{sub.Description}}
+                </td>
+                <td>
+                    {{sub.CreatedAt |  date:'MMM d, y'}}
+                </td>
+                <td>
+                    {{sub.CreatedBy}}
+                </td>
+                <td>
+                    <a href="#" title="Delete" ng-click="DeleteSubcription(sub)"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

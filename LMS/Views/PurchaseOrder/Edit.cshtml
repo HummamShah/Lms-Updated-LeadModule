@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+}
+<div class="container" ng-controller="PurchaseOrderCtrl" ng-init="EditInit()">
+    <div class="jumbotron PageHeading">
+        <div class="row"><div class="col-md-3"><h2>Edit Purchase Order</h2></div></div>
+    </div>
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-3">
+                    <label>Is Referal Lead?</label>
+                    <input type="checkbox" ng-model="IsReferal"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <form>
+                <div class="form-group" ng-if="IsReferal">
+                    <div class="col-md-3">
+                        <label>LeadId</label>
+                        <input type="number" class="form-control" ng-model="PurchaseOrder.LeadId" />
+                    </div>
+                </div>
+                <div class="form-group" ng-if="!IsReferal">
+                    <div class="col-md-3">
+                        <label>Company</label>
+                        <select ng-change="GetCompanyData(PurchaseOrder.CompanyId)" ng-model="PurchaseOrder.CompanyId" class="form-control">
+                            <option selected value="">Select Company</option>
+                            <option ng-disabled="PurchaseOrder.LeadId != null" ng-repeat="Company in Companies" ng-selected="Company.Id == PurchaseOrder.CompanyId" value="{{Company.Id}}">{{Company.Name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>OTC</label>
+                        <input type="number" class="form-control" ng-model="PurchaseOrder.OTC" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>MRC</label>
+                        <input type="number" class="form-control" ng-model="PurchaseOrder.MRC" />
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Package</label>
+                            <input type="text" class="form-control" ng-model="PurchaseOrder.Package" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Description</label>
+                            <textarea class="form-control" ng-model="PurchaseOrder.Description"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row float-right">
+            <a href="/PurchaseOrder/Index" class="btn btn-danger">Cancel</a>
+            <button class="btn btn-primary" style=" margin-right: 61px!important;" ng-click="ValidatePurchaseOrderEdit(PurchaseOrder)">Update</button>
+        </div>
+    </div>
+</div>

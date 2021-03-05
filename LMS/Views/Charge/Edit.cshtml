@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+}
+<div class="container" ng-controller="ChargeCtrl" ng-init="EditInit()">
+    <div class="jumbotron PageHeading">
+        <div class="row"><div class="col-md-3"><h2>Edit {{TypeOfCharge}}</h2></div></div>
+    </div>
+
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <form>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Name</label>
+                        <input type="text" class="form-control" ng-model="Charge.Name" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Value</label>
+                        <input type="number" class="form-control" ng-model="Charge.Value" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row float-right">
+            <a href="/Charge/Index?Type={{TypeOfCharge}}" class="btn btn-danger">Cancel</a>
+            <button class="btn btn-primary" style=" margin-right: 61px!important;" ng-click="EditCharge(Charge)">Update</button>
+        </div>
+    </div>
+</div>

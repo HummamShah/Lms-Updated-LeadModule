@@ -1,0 +1,35 @@
+﻿CREATE TABLE [dbo].[Ticket]
+(
+	[Id] INT NOT NULL PRIMARY KEY Identity(1,1),
+	[AgentId] int not null,
+	[AccountId] int not null,
+	[AssignedToId] int,
+	[AssignedDepartmentId] int,
+	[Status] int not null default(0),
+	[Name] nvarchar(max),
+	[Media] nvarchar(max),
+	[VendorId] int,
+	[Region] nvarchar(max),
+	[ComplaintMedia] nvarchar(max),
+	[Remarks] nvarchar(max),
+	[VisitCall] nvarchar(max),
+	[EscalationDateTime] DateTime,
+	[RestorationDateTime] DateTime,
+	[ShiftEngineerAgentId] int,
+	[RFO] nvarchar(max),
+	[OwnerShip] nvarchar(max),
+	[Problem] nvarchar(max),
+
+	[CreatedAt] Datetime ,
+	[UpdatedAt] Datetime ,
+	[CreatedBy] nvarchar(max),
+	[UpdatedBy] nvarchar(max),
+	[Date] Datetime,
+	Constraint [FK_Ticket_Agent] foreign key ([AgentId]) References [dbo].[Agent] ([Id]),
+	Constraint [FK_Ticket_Account] foreign key ([AccountId]) References [dbo].[Account] ([Id]),
+	Constraint [FK_Ticket_AssignedTo] foreign key ([AssignedToId]) References [dbo].[Agent] ([Id]),
+	Constraint [FK_Ticket_Vendor] foreign key ([VendorId]) References [dbo].[Vendor] ([Id]),
+	Constraint [FK_Ticket_ShiftEngineerAgent] foreign key ([ShiftEngineerAgentId]) References [dbo].[Agent] ([Id]),
+	
+)
+

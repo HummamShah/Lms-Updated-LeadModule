@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div ng-controller="AgentAttendanceCtrl" ng-init="initIndex()">
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <div class="col-md-9">
+                <h2>Attendance List</h2>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <input type="date" class="form-control" ng-model="Date" />
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="float-right">
+                    <button class="btn btn-primary" ng-click="GetAttendance(Date)">Get</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="jumbotron PageHeading">
+        <table class="table table-hover" width="100%">
+            <tr class="table-head noHover">
+                <th width="5%">
+                    Id
+                </th>
+                <th width="65%">
+                    Agent
+                </th>
+                <th>
+                    Marked At
+                </th>
+                <th>
+                    SignedOff At
+                </th>
+
+            </tr>
+            <tr ng-repeat="Attendance in AttendanceList">
+                <td>
+                    {{Attendance.Id}}
+                </td>
+                <td>
+                    {{Attendance.AgentName}}
+                </td>
+
+                <td>
+                    {{Attendance.StartDateTime |  date:'MMM d, y hh:mm a'}}
+                </td>
+                <td>
+                    {{Attendance.EndDateTime |  date:'MMM d, y hh:mm a'}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

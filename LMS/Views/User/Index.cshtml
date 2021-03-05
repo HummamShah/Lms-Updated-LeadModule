@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div ng-controller="UserCtrl" ng-init="initIndex()">
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <div class="col-md-9">
+                <h2>Users List</h2>
+            </div>
+            @if (User.IsInRole("HR"))
+            {
+                <div class="col-md-3 ">
+                    <a class="btn btn-primary pull-right" style=" margin-top: 20px;" href="/User/Add">Add</a>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="jumbotron PageHeading">
+        <table class="table table-hover" width="100%">
+            <tr class="table-head noHover">
+                <th>
+                    Id
+                </th>
+                <th>
+                    First Name
+                </th>
+                <th>
+                    Last Name
+                </th>
+                <th>
+                    Contact
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Department
+                </th>
+                <th>
+                    Created By
+                </th>
+                <th>
+                    Created At
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+            <tr ng-repeat="User in Users">
+                <td>
+                    {{User.Id}}
+                </td>
+                <td>
+                    {{User.FirstName}}
+                </td>
+                <td>
+                    {{User.LastName}}
+                </td>
+                <td>
+                    {{User.Contact1}}
+                </td>
+                <td>
+                    {{User.Email}}
+                </td>
+                <td>
+                    {{User.DepartmentName}}
+                </td>
+                <td>
+                    {{User.CreatedBy}}
+                </td>
+                <td>
+                    {{User.CreatedAt | date:'MMM d, y'}}
+                </td>
+                <td>
+                    <a href="/User/Edit?Id={{User.Id}}" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+

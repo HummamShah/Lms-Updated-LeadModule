@@ -1,0 +1,277 @@
+﻿<style>
+    .bg-lightgrey {
+        background-color: lightgrey;
+    }
+    .w-16{
+        width:16%!important;
+    }
+    .w-17 {
+        width: 17% !important;
+    }
+    .w-46 {
+        width: 46% !important;
+    }
+    .w-14 {
+        width: 14% !important;
+    }
+    .w-10 {
+        width: 10% !important;
+    }
+    .w-20 {
+        width: 20% !important;
+    }
+    .w-60 {
+        width: 60% !important;
+    }
+    .w-53 {
+        width: 53% !important;
+    }
+    .p-r-0{
+        padding-right:0px!important;
+    }
+    .w-19 {
+        width: 19% !important;
+    }
+</style>
+@{
+    ViewBag.Title = "Details";
+}
+<div class="container" ng-controller="PurchaseOrderCtrl" ng-init="EditInit()">
+    <div class="jumbotron PageHeading">
+        <div class="row"><div><h2>Purchase Order Details</h2></div></div>
+    </div>
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <form>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>LeadId</label>
+                        <input type="number" readonly class="form-control" ng-model="PurchaseOrder.LeadId" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Company</label>
+                        <select disabled @*ng-change="GetCompanyData(PurchaseOrder.CompanyId)"*@ ng-model="PurchaseOrder.CompanyId" class="form-control">
+                            <option selected value="">Select Company</option>
+                            <option ng-repeat="Company in Companies" ng-selected="Company.Id == PurchaseOrder.CompanyId" value="{{Company.Id}}">{{Company.Name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>OTC</label>
+                        <input type="number" readonly class="form-control" ng-model="PurchaseOrder.OTC" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>MRC</label>
+                        <input type="number" readonly class="form-control" ng-model="PurchaseOrder.MRC" />
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Package</label>
+                            <input type="text" readonly class="form-control" ng-model="PurchaseOrder.Package" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label>Description</label>
+                            <textarea class="form-control" readonly ng-model="PurchaseOrder.Description"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </form>
+        </div>
+        @if (User.IsInRole("Accounts"))
+        {
+            <div class="row float-right" style="margin-top:10px" ng-if="PurchaseOrder.BillingStatus == 0">
+                <button class="btn btn-primary " ng-if="IsCoreHasFilledInput" ng-click="EnableBilling(PurchaseOrder)">Mark Billing Enabled</button>
+            </div>
+        }
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="row float-right" style="margin-top:10px" ng-if="PurchaseOrder.PresalesApproval == 2">
+                <button class="btn btn-primary " ng-click="ChangeApprovalStatus(PurchaseOrder.Id,4)">Mark Approved</button>
+                <button class="btn btn-primary " ng-click="ChangeApprovalStatus(PurchaseOrder.Id,5)">Mark Not Approved</button>
+            </div>
+        }
+        @if (User.IsInRole("Pmd_Feasibility"))
+        {
+            <div class="jumbotron PageHeading">
+                <div class="row"><div class=""><h2>Department Wise Working</h2></div></div>
+                <br />
+                <br />
+                <table class="table table-bordered table-responsive p-r-0" width="100%">
+                    <thead>
+                        <tr class="table-head">
+                            <th class="w-16">
+                                PreSales Approval
+                            </th>
+                            <th class="w-46">
+                                SD Recommendations
+                            </th>
+                            <th class="w-17">
+                                Core
+                            </th>
+                            <th class="w-19">
+                                SD Client Verification
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                {{PurchaseOrder.PresalesApprovalEnum}}
+                            </td>
+
+                            <td>
+                                <table class="table table-bordered">
+                                    <tr class="bg-lightgrey">
+                                        <th width="33%">Vendor 1</th>
+                                        <th width="33%">Vendor 2</th>
+                                        <th width="33%">Vendor 3</th>
+                                    </tr>
+                                    <tr>
+                                        <th>{{PurchaseOrder.SDSuggestedVendorName1}}</th>
+                                        <th>{{PurchaseOrder.SDSuggestedVendorName2}}</th>
+                                        <th>{{PurchaseOrder.SDSuggestedVendorName3}}</th>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td>
+                                IP : {{PurchaseOrder.CoreIp}}<br />
+                                # : {{PurchaseOrder.CoreVlanId_}}
+                            </td>
+                            <td width="15%">
+                                <span ng-if="PurchaseOrder.SDClientVerification">Verified</span>
+                                <span ng-if="PurchaseOrder.SDClientVerification == null">Not Verified</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                @*<div class="row ">
+                    <div class="form-group" style=" margin-left: 12px;">
+                        <label>Approval Status By Presales</label>
+                        <span class="form-group">{{PurchaseOrder.PresalesApprovalEnum}}</span>
+                    </div>
+                </div>*@
+            </div>
+
+
+        }
+
+        @if (User.IsInRole("Pmd_Feasibility"))
+        {
+            <div class="row float-right">
+                <button class="btn btn-primary" ng-if="PurchaseOrder.SDClientVerification != null && PurchaseOrder.StatusEnum != 'Completed'" ng-click="MarkPurchaseOrderComplete(PurchaseOrder)">Complete</button>
+                <a href="/PurchaseOrder/" class="btn btn-danger" style=" margin-right: 61px!important;" @*ng-click="AddApproval(PurchaseOrder.ApprovalId)"*@>Cancel</a>
+            </div>
+        }
+
+    </div>
+    @if (User.IsInRole("PreSale"))
+    {
+        <div class="jumbotron PageHeading">
+            <div class="row"><div class="col-md-3"><h2>Presales</h2></div></div>
+            <br />
+            <br />
+            <div class="row ">
+                <div class="form-group" style=" margin-left: 12px;">
+                    <label>Select Approval</label>
+                    <select ng-model="PurchaseOrder.PresalesApproval" class="form-control ">
+                        <option selected value="">Select Approval</option>
+                        <option ng-selected="PurchaseOrder.PresalesApproval == 4" value="4">None</option>
+                        <option ng-selected="PurchaseOrder.PresalesApproval == 0" value="0">Approved</option>
+                        <option ng-selected="PurchaseOrder.PresalesApproval == 2" value="2">Approval required</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="row float-right">
+                <button class="btn btn-primary " ng-click="AddApproval(PurchaseOrder)">Save</button>
+                <button class="btn btn-primary " ng-if="PresalesApproval != 4" ng-click="UnassignPurchaseOrder(PurchaseOrder)">Complete</button>
+            </div>
+
+        </div>
+
+
+    }
+    @if (User.IsInRole("SD"))
+    {
+        <div class="jumbotron PageHeading">
+            <div class="row"><div class="col-md-3"><h2>Service Desk</h2></div></div>
+            <br />
+            <br />
+            <div class="row " ng-if="!IsSuggestionGiven">
+                <div class="form-group" style=" margin-left: 12px;">
+                    <div class="col-md-4">
+                        <label>Recommend Vendor 1</label>
+                        <select ng-model="PurchaseOrder.SDSuggestedVendorId1" class="form-control">
+                            <option selected value="">Select Vendor</option>
+                            <option ng-repeat="Vendor in Vendors" value="{{Vendor.Id}}" ng-selected="PurchaseOrder.SDSuggestedVendorId1 == Vendor.Id">{{Vendor.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Recommend Vendor 2</label>
+                        <select ng-model="PurchaseOrder.SDSuggestedVendorId2" class="form-control">
+                            <option selected value="">Select Vendor</option>
+                            <option ng-repeat="Vendor in Vendors" value="{{Vendor.Id}}" ng-selected="PurchaseOrder.SDSuggestedVendorId2 == Vendor.Id">{{Vendor.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Recommend Vendor 3</label>
+                        <select ng-model="PurchaseOrder.SDSuggestedVendorId3" class="form-control">
+                            <option selected value="">Select Vendor</option>
+                            <option ng-repeat="Vendor in Vendors" value="{{Vendor.Id}}" ng-selected="PurchaseOrder.SDSuggestedVendorId3 == Vendor.Id">{{Vendor.Name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <br />
+                <br />
+            </div>
+            <div class="row float-right" style="margin-top:50px;">
+                <button class="btn btn-primary " ng-if="!IsCustomerVerificationFilled" ng-click="AddRecommendation(PurchaseOrder)">Update</button>
+                <button class="btn btn-primary " @*ng-if="IsSuggestionGiven && !IsCustomerVerificationFilled"*@ ng-click="UnassignPurchaseOrder(PurchaseOrder)">Submit</button>
+                <button class="btn btn-primary " ng-if="IsSuggestionGiven && !IsCustomerVerificationFilled" ng-click="AddClientVerification(PurchaseOrder)">Add Client Verification</button>
+            </div>
+
+        </div>
+
+
+    }
+    @if (User.IsInRole("Core"))
+    {
+        <div class="jumbotron PageHeading">
+            <div class="row"><div class="col-md-3"><h2>Core</h2></div></div>
+            <br />
+            <br />
+            <div class="row ">
+                <div class="form-group" style=" margin-left: 12px;">
+                    <div class="col-md-6">
+                        <label>Ip</label>
+                        <input type="text" class="form-control" style="max-width: inherit;" ng-model="PurchaseOrder.CoreIp" />
+                    </div>
+                    <div class="col-md-6">
+                        <label>Vlan Id</label>
+                        <input type="text" class="form-control" style="max-width: inherit;" ng-model="PurchaseOrder.CoreVlanId_" />
+                    </div>
+                </div>
+            </div>
+            <div class="row float-right" style="margin-top:10px">
+                <button class="btn btn-primary " ng-click="AddCoreInput(PurchaseOrder)">Save</button>
+                <button class="btn btn-primary " ng-if="IsCoreHasFilledInput" ng-click="UnassignPurchaseOrder(PurchaseOrder)">Complete</button>
+            </div>
+
+        </div>
+
+
+    }
+    
+</div>

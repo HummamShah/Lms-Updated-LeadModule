@@ -1,0 +1,714 @@
+﻿
+@{
+    ViewBag.Title = "Detail";
+}
+
+<div ng-controller="LeadCtrl" ng-init="Editinit()">
+    <div class="jumbotron PageHeading">
+        <div class="col-md-3 col-sm-3 col-lg-3"><h2>Lead Details</h2></div>
+        <div class="col-md-4 col-sm-4 col-lg-4" style=" margin-top: 15px; float: right; text-align: right;">
+            Domain
+            <div class="form-group" style="display:inline-block;">
+                <input readonly type="text" class="form-control" ng-model="Lead.DomainName" />
+            </div>
+        </div>
+       
+    </div>
+    <div class="jumbotron PageHeading">
+        <div class="row" >
+            <table class="table  table-bordered  " width="100%">
+                <tr class="table-head">
+                    <th>CreatedBy</th>
+                    <th>CreatedAt</th>
+                    <th>UpdatedBy</th>
+                    <th>UpdatedAt</th>
+                    <th width="10%">Lead</th>
+                    <th width="10%" ng-if="Lead.Domain == 1">Feasibility</th>
+                    <th width="10%">Quatation</th>
+                    <th width="10%">Approval</th>
+                </tr>
+                <tr>
+                    <td><span>{{Lead.CreatedBy}}</span></td>
+                    <td><span>{{Lead.CreatedAt | date:'MMM d, y  hh:mm a'}}</span></td>
+                    <td><span ng-if="Lead.UpdatedBy != null">{{Lead.UpdatedBy}}</span><span ng-if="Lead.UpdatedBy == null">Not Updated Yet</span></td>
+                    <td><span ng-if="Lead.UpdatedBy != null">{{Lead.UpdatedAt | date:'MMM d, y  hh:mm a'}}</span><span ng-if="Lead.UpdatedBy == null">--</span></td>
+                    <td><small ng-class="Lead.LeadStatusEnum" class="badge">{{Lead.LeadStatusEnum}}</small></td>
+                    <td ng-if="Lead.Domain == 1"><small ng-class="Lead.PmdStatusEnum" class="badge">{{Lead.PmdStatusEnum}}</small></td>
+                    <td><small ng-class="Lead.QuotationStatusEnum" class="badge">{{Lead.QuotationStatusEnum}}</small></td>
+                    <td>
+                        <small ng-if="Lead.IsApproved==true" class="badge Approved">Approved</small>
+                        <small ng-if="Lead.IsApproved==false" class="badge NotApproved">Not Approved</small>
+                        <span ng-if="Lead.IsApproved==null" >None</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="text-center">
+            <div class="row"> <h2 class="SegmentHeading">General Lead Information</h2></div>
+        </div>
+        <div class="row">
+            <form id="LeadAddForm ">
+                @*<div class="form-group">
+                    <div class="col-md-3">
+                        <label>Lead Name</label>
+                        <input type="text" readonly class="form-control" ng-model="Lead.Name" />
+                    </div>
+                </div>*@
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Company</label>
+                        <input type="text" readonly class="form-control" ng-model="Lead.CompanyName" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Contact Person Name</label>
+                        <input type="text" readonly class="form-control" ng-model="Lead.ContactPersonName" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Contact Person Number</label>
+                        <input type="text" readonly class="form-control" ng-model="Lead.ContactPersonNumber" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Contact Person Email</label>
+                        <input type="text" readonly class="form-control" ng-model="Lead.ContactPersonEmail" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Contact Person Title</label>
+                        <input type="text" readonly class="form-control" ng-model="Lead.ContactPersonTitle" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Contact Person Department</label>
+                        <input type="text" readonly class="form-control" ng-model="Lead.ContactPersonDepartment" />
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        @*<div class="row float-right">
+            <button class="btn btn-primary" ng-click="AddLead(Lead)">Add</button>
+        </div>*@
+    </div>
+    <!-- Connectivity -->
+    <div class="jumbotron PageHeading" ng-if="Lead.Domain == 1">
+        <div class="row text-center">
+            <h2 class="SegmentHeading">Connectivity Details</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label>Currently Used medium </label>
+                <input type="text" readonly class="form-control" ng-model="Lead.ConnectivityDetails.CurrentlyUsedMedium" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Required Medium</label>
+                <input type="text" readonly ng-model="Lead.ConnectivityDetails.RequiredMedium" class="form-control" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Connectivity Type</label>
+                <span class="form-control" readonly>{{Lead.ConnectivityDetails.ConnectivityTypeEnum}}</span>
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Target Price</label>
+                <input type="number" class="form-control" readonly ng-model="Lead.ConnectivityDetails.Budget" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Estimated Closing Date</label>
+                <input type="date" class="form-control" readonly ng-model="Lead.ConnectivityDetails.EstimatedClosingDate" />
+            </div>
+
+            @*<div class="col-md-4 form-group">
+                    <label>Number of Branch offices</label>
+                    <input type="text" ng-model="Lead.ConnectivityDetails.NoBracnhOffices" readonly class="form-control" />
+                </div>*@
+            <div class="col-md-4 form-group">
+                <label>Bandwidth</label>
+                <input type="text" placeholder="5 MBs" readonly ng-model="Lead.ConnectivityDetails.Bandwidth" class="form-control" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Comments</label>
+                <input type="text" class="form-control" readonly ng-model="Lead.ConnectivityDetails.Comments" />
+            </div>
+            <div class="col-md-4 form-group" style="padding-bottom: 35px;">
+                <label>Is our Existing Customer</label>
+                <input type="checkbox" disabled ng-model="Lead.ConnectivityDetails.IsEsisting" />
+            </div>
+            <div class="col-md-4 form-group" style="padding-bottom: 35px;">
+                <label>Ever Tried Our Service Before</label>
+                <input type="checkbox" disabled ng-model="Lead.ConnectivityDetails.HasTriedOurServie" />
+            </div>
+            @if (User.IsInRole("PreSale"))
+            {
+                <div ng-if="Lead.QuotationStatusEnum == 'None' || Lead.QuotationStatusEnum =='OverBudget'">
+                    <div class="col-md-3 form-group">
+                        <label>MRC Assigned By PreSales</label>
+                        <input type="number" ng-model="Lead.QuotationMrc" class="form-control" />
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>OTC Assigned By PreSales</label>
+                        <input type="number" ng-model="Lead.QuotationOtc" class="form-control" />
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>Commercial Status</label>
+                        <select ng-model="Lead.QuotationStatus" class="form-control">
+
+                            <option selected value="">Select Type</option>
+                            <option ng-selected="Lead.QuotationStatus== 0" value="0">In Budget</option>
+                            <option ng-selected="Lead.QuotationStatus== 1" value="1">Over Budget</option>
+                            <option ng-selected="Lead.QuotationStatus== 2" value="2">None</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label>Quotation Remarks</label>
+                        @*<input type="text" ng-model="Lead.QuotationRemarks" class="form-control" />*@
+                        <textarea type="text" class="form-control" ng-model="Lead.QuotationRemarks"></textarea>
+                    </div>
+                </div>
+            }
+            <div ng-if="Lead.QuotationStatusEnum == 'InBudget'">
+                <div class="col-md-3 form-group">
+                    <label>MRC Assigned By PreSales</label>
+                    <input type="number" readonly ng-model="Lead.QuotationMrc" class="form-control" />
+                </div>
+                <div class="col-md-3 form-group">
+                    <label>OTC Assigned By PreSales</label>
+                    <input type="number" readonly ng-model="Lead.QuotationOtc" class="form-control" />
+                </div>
+                <div class="col-md-3 form-group">
+                    <label>Commercial Status</label>
+                    <select ng-model="Lead.QuotationStatus" class="form-control" disabled>
+                        <option selected value="">Select Type</option>
+                        <option ng-selected="Lead.QuotationStatus== 0" value="0">In Budget</option>
+                        <option ng-selected="Lead.QuotationStatus== 1" value="1">Over Budget</option>
+                        <option ng-selected="Lead.QuotationStatus== 2" value="2">None</option>
+                    </select>
+                </div>
+                <div class="col-md-3 form-group">
+                    <label>PreSales Remarks</label>
+                    @*<input type="text" readonly ng-model="Lead.QuotationRemarks" class="form-control" />*@
+                    <textarea type="text" readonly class="form-control" ng-model="Lead.QuotationRemarks"></textarea>
+                </div>
+            </div>
+            @if (User.IsInRole("Admin"))
+            {
+                <div ng-if="Lead.IsApproved==null">
+                    <div class="col-md-4 form-group">
+                        <label>Admin Remarks</label>
+                        <textarea type="text" class="form-control" ng-model="Lead.AdminRemarks"></textarea>
+                        @*<input type="text" ng-model="Lead.AdminRemarks" class="form-control" />*@
+                    </div>
+                </div>
+            }
+            <div ng-if="Lead.IsApproved!=null">
+                <div class="col-md-4 form-group">
+                    <label>Admin Remarks</label>
+                    <textarea type="text" readonly class="form-control" ng-model="Lead.AdminRemarks"></textarea>
+                    @*<input type="text" readonly ng-model="Lead.AdminRemarks" class="form-control" />*@
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row float-right">
+            @if (User.IsInRole("PreSale") || User.IsInRole("Pmd_Feasibility"))
+            {
+                <a href="/Lead/List" class="btn btn-danger">Cancel</a>
+            }
+            else
+            {
+                <a href="/Lead" class="btn btn-danger">Cancel</a>
+            }
+
+            @if (User.IsInRole("Lead_Sales"))
+            {
+
+                <button class="btn btn-primary" ng-if="Lead.LeadStatus == 0" ng-click="EditLeadStatus(Lead.IsApproved,Lead.Id)">Mark Complete</button>
+                <button class="btn btn-primary" style=" margin-right: 61px!important;" ng-if="Lead.LeadStatus == 0" ng-click="ChangeLeadStatus(Lead.Id)">Mark Closed</button>
+            }
+            @if (User.IsInRole("Admin"))
+            {
+                <button class="btn btn-primary" ng-if="Lead.LeadStatus == 0 && Lead.IsApproved==null" ng-click="AddApproval(true, Lead.Id,Lead.AdminRemarks)">Approved</button>
+                <button class="btn btn-primary" style="" ng-if="Lead.LeadStatus == 0 && Lead.IsApproved==null " ng-click="AddApproval(false,Lead.Id,Lead.AdminRemarks)">Disapproved</button>
+                <button class="btn btn-primary" style=" margin-right: 61px!important" ; ng-if="Lead.LeadStatus == 0 && Lead.IsApproved==null " ng-click="AddApproval(null,Lead.Id,Lead.AdminRemarks)">Update Remarks</button>
+                <button class="btn btn-primary" ng-if="Lead.LeadStatus == 0 && Lead.IsApproved == true " ng-click="EditLeadStatus(Lead.IsApproved,Lead.Id)">Close Lead</button>
+            }
+            @if (User.IsInRole("PreSale"))
+            {
+                <button class="btn btn-primary" style=" margin-right: 61px!important;" ng-if="Lead.QuotationStatusEnum != 'InBudget' " ng-click="AddQuotation(Lead,Lead.Id)">Update</button>
+            }
+
+
+            @*<button class="btn btn-primary" style=" margin-right: 61px!important;" ng-click="AddLead(Lead)">Add</button>*@
+        </div>
+    </div>
+
+
+    <!-- Solution -->
+    <div class="jumbotron PageHeading" ng-if="Lead.Domain == 0 &&  Lead.CompanyId != null">
+        <div class="row text-center">
+            <h2 class="SegmentHeading">Solution Details</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label>Type of Solution</label>
+                <select ng-model="Lead.SolutionDetails.SolutionType" class="form-control" disabled>
+                    <option selected value="">Solution Type</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionType==0" value="0">Security</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionType==1" value="1">Wifi</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionType==2" value="2">Hardware Supplies</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionType==3" value="3">Video Conferencing</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionType==4" value="4">Colocation</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionType==5" value="5">Ip Telephony</option>
+                </select>
+            </div>
+
+
+
+            @*Security start*@
+            <div class="col-md-4 form-group" ng-if=" Lead.SolutionDetails.SolutionType==0">
+                <label>SubType of Solution</label>
+                <select ng-model="Lead.SolutionDetails.SolutionSubType" class="form-control" disabled>
+                    <option selected value="">Solution Type</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionSubType==0" value="0">End Point</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionSubType==1" value="1">Email</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionSubType==2" value="2">Firewall</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionSubType==3" value="3">Other</option>
+                </select>
+            </div>
+            @*Other start*@
+            <div class="col-md-4 form-group" ng-if="Lead.SolutionDetails.SolutionType == 0 &&Lead.SolutionDetails.SolutionSubType==3">
+                <label>Details of Sub type of solution</label>
+                <input type="text" ng-model="Lead.SolutionDetails.SolutionServiceProduct" readonly class="form-control" />
+            </div>
+            @*Other end*@
+            @*Firewall start*@
+            <div class="col-md-3 form-group" ng-if="Lead.SolutionDetails.SolutionType == 0 && Lead.SolutionDetails.SolutionSubType == 2">
+                <label>Product</label>
+                <select ng-model="Lead.SolutionDetails.SolutionServiceProduct" class="form-control" disabled>
+                    <option selected value="">Solution Product</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProduct==0" value="SOPHOS">SOPHOS</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProduct==1" value="Fortigate">Fortigate</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProduct==2" value="Sangfor">Sangfor</option>
+                </select>
+            </div>
+            @*Firewall end*@
+            @*Endpoint start*@
+            <div class="col-md-3 form-group" ng-if="Lead.SolutionDetails.SolutionType == 0 &&Lead.SolutionDetails.SolutionSubType == 0">
+                <label>Product</label>
+                <select ng-model="Lead.SolutionDetails.SolutionServiceProduct" class="form-control" disabled>
+                    <option selected value="">Select Product</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProduct==0" value="KaspersKy">KaspersKy</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProduct==1" value="TrendMicro">TrendMicro</option>
+                    @*<option ng-selected="Lead.SolutionDetails.SolutionServiceProduct==2" value="Sangfor">Other</option>*@
+                </select>
+            </div>
+            @*Endpoint end*@
+
+
+            @*Email start*@
+            <div class="col-md-3 form-group" ng-if=" Lead.SolutionDetails.SolutionType==0 && Lead.SolutionDetails.SolutionSubType == 1">
+                <label>Product</label>
+                <select ng-model="Lead.SolutionDetails.SolutionSubType" class="form-control" disabled>
+                    <option selected value="">Solution Type</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionSubType==0" value="0">Kaspersky</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionSubType==1" value="1">Trend Micro</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionSubType==2" value="2">Fortimail</option>
+                    @*<option ng-selected="Lead.SolutionDetails.SolutionSubType==3" value="3">Other</option>*@
+                </select>
+            </div>
+
+            @*Email end*@
+
+            @* Security end *@
+
+            @*Wifi Start*@
+            <div class="col-md-4 form-group" ng-if=" Lead.SolutionDetails.SolutionType==1">
+                <label>Solution Service Provider</label>
+                <select ng-model="Lead.SolutionDetails.SolutionServiceProvider" class="form-control" disabled>
+                    <option selected value="">Provider Type</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProvider=='RUCKUS'" value="RUCKUS">RUCKUS</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProvider== 'Grandstream'" value="Grandstream">Grandstream</option>
+                </select>
+            </div>
+            <div class="col-md-4 form-group" ng-if=" Lead.SolutionDetails.SolutionType==1">
+                <label>Solution Boundary Type</label>
+                <select ng-model="Lead.SolutionDetails.SolutionServiceProduct" class="form-control" disabled>
+                    <option selected value="">Select Wifi Boundary</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProduct=='OnPremises'" value="OnPremises">On Premises</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProduct=='CloudController'" value="CloudController">Cloud Controller</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProduct=='CloudControllerPlusOnPremises'" value="CloudControllerPlusOnPremises">Cloud Controller + On Premises</option>
+                </select>
+            </div>
+            @*Wifi end*@
+            @*Hardware Supplies start*@
+            <div class="col-md-4 form-group" ng-if=" Lead.SolutionDetails.SolutionType==2">
+                <label>Providers of Solution</label>
+                <select ng-model="Lead.SolutionDetails.SolutionServiceProvider" class="form-control" disabled>
+                    <option selected value="">Select Provider</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProvider=='HP'" value="HP">HP</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProvider=='Dell'" value="Dell">Dell</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProvider=='Lenovo'" value="Lenovo">Lenovo</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProvider=='Huawei'" value="Huawei">Huawei</option>
+                </select>
+            </div>
+            <div class="col-md-4 form-group" ng-if=" Lead.SolutionDetails.SolutionType==2">
+                <label>Products</label>
+                <select ng-model="Lead.SolutionDetails.SolutionServiceProduct" class="form-control" disabled>
+                    <option selected value="">Select Product</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProduct=='Switches'" value="Switches">Switches</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProduct=='Server'" value="Server">Server</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProduct=='Router'" value="Router">Router</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProduct=='Storage'" value="Storage">Storage</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProduct=='Laptop'" value="Laptop">Laptop</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProduct=='Desktop'" value="Desktop">Desktop</option>
+                </select>
+            </div>
+
+            @*Hardware Supplies end*@
+
+            @*Video Conferencing start*@
+            <div class="col-md-4 form-group" ng-if=" Lead.SolutionDetails.SolutionType==3">
+                <label>Type Of Solution</label>
+                <select ng-model="Lead.SolutionDetails.SolutionSubType" class="form-control" disabled>
+                    <option selected value="">Select Type</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionSubType== 0" value="0">P2P</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionSubType== 1" value="1">P2MP</option>
+                </select>
+            </div>
+            <div class="col-md-4 form-group" ng-if=" Lead.SolutionDetails.SolutionType==3">
+                <label>Providers of Solution</label>
+                <select ng-model="Lead.SolutionDetails.SolutionServiceProvider" class="form-control" disabled>
+                    <option selected value="">Select Provider</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProvider=='GrandStream'" value="GrandStream">GrandStream</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProvider=='Yealink'" value="Yealink">Yealink</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProvider=='Cisco'" value="Cisco">Cisco</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProvider=='Polycom'" value="Polycom">Polycom</option>
+                </select>
+            </div>
+            @*Video Conferencing end*@
+
+            @*Colocation start*@
+            <div class="col-md-4 form-group" ng-if=" Lead.SolutionDetails.SolutionType==4">
+                <label>Sub Type Of Solution</label>
+                <select ng-model="Lead.SolutionDetails.SolutionSubType" class="form-control" disabled>
+                    <option selected value="">Select Type</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionSubType== 0" value="0">Model of hardware</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionSubType== 1" value="1">Internet Or Data</option>
+                </select>
+            </div>
+            @*Colocation end*@
+
+
+            @*IpTelephony start*@
+            <div class="col-md-4 form-group" ng-if=" Lead.SolutionDetails.SolutionType==5">
+                <label>Type Of Brand</label>
+                <select ng-model="Lead.SolutionDetails.SolutionServiceProvider" class="form-control" disabled>
+                    <option selected value="">Select Brand</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProvider== 0" value="0">Grand Stream</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProvider== 1" value="1">Cisco</option>
+                    @*<option ng-selected="Lead.SolutionDetails.SolutionSubType== 2" value="2">Others</option>*@
+                </select>
+            </div>
+            <div class="col-md-4 form-group" ng-if=" Lead.SolutionDetails.SolutionType==5">
+                <label>Type Of Prodcut</label>
+                <select ng-model="Lead.SolutionDetails.SolutionSubType" class="form-control" disabled>
+                    <option selected value="">Select Type</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProduct== 0" value="0">PBX</option>
+                    <option ng-selected="Lead.SolutionDetails.SolutionServiceProduct== 1" value="1">IP-PHONEs</option>
+                </select>
+            </div>
+            <div class="col-md-4 form-group" ng-if=" Lead.SolutionDetails.SolutionType==5 && Lead.SolutionDetails.SolutionServiceProduct== 0">
+                <label>Number Of CoLines</label>
+                <input ng-model="Lead.SolutionDetails.OtherMeasurements" readonly class="form-control" />
+            </div>
+            <div class="col-md-4 form-group" ng-if=" Lead.SolutionDetails.SolutionType==5 && Lead.SolutionDetails.SolutionServiceProduct== 0">
+                <label>Number Of Users / Extensions</label>
+                <input ng-model="Lead.SolutionDetails.Quantity" readonly class="form-control" />
+            </div>
+            <div class="col-md-4 form-group" ng-if=" Lead.SolutionDetails.SolutionType==5 && Lead.SolutionDetails.SolutionServiceProduct== 1">
+                <label>Quantity</label>
+                <input ng-model="Lead.SolutionDetails.Quantity" readonly class="form-control" />
+            </div>
+            @*IpTelephony end*@
+
+            <div class="col-md-4 form-group" ng-if=" Lead.SolutionDetails.SolutionType == 2 ||( Lead.SolutionDetails.SolutionType==4 && Lead.SolutionDetails.SolutionSubType== 0)">
+                <label>Quantity</label>
+                <input type="number" readonly ng-model="Lead.SolutionDetails.Quantity" class="form-control" />
+            </div>
+            <div class="col-md-4" ng-if="Lead.SolutionDetails.SolutionType==4 && Lead.SolutionDetails.SolutionSubType== 1">
+                <label>Bandwidth</label>
+                <input type="number" readonly ng-model="Lead.SolutionDetails.Quantity" class="form-control" />
+            </div>
+
+            <div class="col-md-1 form-group" ng-if=" Lead.SolutionDetails.SolutionType==0 && Lead.SolutionDetails.SolutionSubType != null  && Lead.SolutionDetails.SolutionSubType != 3">
+                <label>IsNew</label>
+                <input type="checkbox" disabled ng-model="Lead.SolutionDetails.IsNew" class="form-control" />
+            </div>
+            <div class="col-md-4 form-group" ng-if="Lead.SolutionDetails.SolutionType==0 && Lead.SolutionDetails.IsNew">
+                <label>Go To Questionare</label>
+                <a class="btn btn-primary form-control" target="_blank" href="/Lead/Questionare?LeadId={{Lead.Id}}&Type={{Lead.SolutionDetails.SolutionSubType}}&IsViewOnly=true">Open</a>
+            </div>
+            <div class="col-md-4 form-group" ng-if="Lead.SolutionDetails.IsNew == false && Lead.SolutionDetails.SolutionSubType != null &&  Lead.SolutionDetails.SolutionSubType != 3 && Lead.SolutionDetails.SolutionType != 3 && Lead.SolutionDetails.SolutionType!=4 && Lead.SolutionDetails.SolutionType!=5">
+                <label>Existing SKU / Serial No.</label>
+                <input type="text" readonly ng-model="Lead.SolutionDetails.CurrentServiceInfo" class="form-control" />
+            </div>
+            <div class="col-md-4 form-group" ng-if="Lead.SolutionDetails.SolutionType == 0 && (Lead.SolutionDetails.SolutionSubType == 0 || Lead.SolutionDetails.SolutionSubType == 2)">
+                <label>Duration in Years</label>
+                <input type="text" readonly ng-model="Lead.SolutionDetails.Duration" class="form-control" />
+            </div>
+            <div class="col-md-4 form-group" ng-if="(Lead.SolutionDetails.SolutionType == 0  && Lead.SolutionDetails.SolutionSubType == 0) || Lead.SolutionDetails.SolutionType == 1">
+                <label>Number Of Users</label>
+                <input type="number" readonly ng-model="Lead.SolutionDetails.Quantity" class="form-control" />
+            </div>
+            <div class="col-md-4 form-group" ng-if="Lead.SolutionDetails.SolutionSubType != null">
+                <label>Remarks</label>
+                <input type="text" readonly ng-model="Lead.SolutionDetails.Remarks" class="form-control" />
+            </div>
+            @if (User.IsInRole("PreSale"))
+            {
+                <div ng-if="Lead.QuotationStatusEnum == 'None'">
+                    <div class="col-md-4 form-group">
+                        <label>Commercial Assigned By PreSales</label>
+                        <input type="number" ng-model="Lead.Quotation" class="form-control" />
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label>Commercial Status</label>
+                        <select ng-model="Lead.QuotationStatus" class="form-control">
+
+                            <option selected value="">Select Type</option>
+                            <option ng-selected="Lead.QuotationStatus== 0" value="0">In Budget</option>
+                            <option ng-selected="Lead.QuotationStatus== 1" value="1">Over Budget</option>
+                            <option ng-selected="Lead.QuotationStatus== 2" value="2">None</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label>Quotation Remarks</label>
+                        <input type="text" ng-model="Lead.QuotationRemarks" class="form-control" />
+                    </div>
+                </div>
+            }
+            <div ng-if="Lead.QuotationStatusEnum != 'None'">
+                <div class="col-md-4 form-group">
+                    <label>Commercial Assigned By PreSales</label>
+                    <input type="number" readonly ng-model="Lead.Quotation" class="form-control" />
+                </div>
+                <div class="col-md-4 form-group">
+                    <label>Commercial Status</label>
+                    <select ng-model="Lead.QuotationStatus" class="form-control" disabled>
+                        <option selected value="">Select Type</option>
+                        <option ng-selected="Lead.QuotationStatus== 0" value="0">In Budget</option>
+                        <option ng-selected="Lead.QuotationStatus== 1" value="1">Over Budget</option>
+                        <option ng-selected="Lead.QuotationStatus== 2" value="2">None</option>
+                    </select>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label>PreSales Remarks</label>
+                    <input type="text" readonly ng-model="Lead.QuotationRemarks" class="form-control" />
+                </div>
+            </div>
+            @if (User.IsInRole("Admin"))
+            {
+                <div ng-if="Lead.IsApproved==null">
+                    <div class="col-md-4 form-group">
+                        <label>Admin Remarks</label>
+                        <input type="text" ng-model="Lead.AdminRemarks" class="form-control" />
+                    </div>
+                </div>
+            }
+            <div ng-if="Lead.IsApproved!=null">
+                <div class="col-md-4 form-group">
+                    <label>Admin Remarks</label>
+                    <input type="text" readonly ng-model="Lead.AdminRemarks" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row float-right">
+            @if (User.IsInRole("PreSale") || User.IsInRole("Pmd_Feasibility"))
+            {
+                <a href="/Lead/List" class="btn btn-danger">Cancel</a>
+            }
+            else
+            {
+                <a href="/Lead" class="btn btn-danger">Cancel</a>
+            }
+
+            @*@if (User.IsInRole("Lead_Sales"))
+        {
+
+            <button class="btn btn-primary" style=" margin-right: 61px!important;" ng-if="Lead.LeadStatus == 0" ng-click="EditLeadStatus(Lead.IsApproved,Lead.Id)">CloseLead</button>
+        }*@
+            @if (User.IsInRole("Admin"))
+            {
+                <button class="btn btn-primary" ng-if="Lead.LeadStatus == 0 && Lead.IsApproved==null" ng-click="AddApproval(true, Lead.Id,Lead.AdminRemarks)">Approved</button>
+                <button class="btn btn-primary" style="" ; ng-if="Lead.LeadStatus == 0 && Lead.IsApproved==null " ng-click="AddApproval(false,Lead.Id,Lead.AdminRemarks)">Disapproved</button>
+                <button class="btn btn-primary" style=" margin-right: 61px!important" ; ng-if="Lead.LeadStatus == 0 && Lead.IsApproved==null " ng-click="AddApproval(null,Lead.Id,Lead.AdminRemarks)">Update Remarks</button>
+                <button class="btn btn-primary" ng-if="Lead.LeadStatus == 0 && Lead.IsApproved == true " ng-click="EditLeadStatus(Lead.IsApproved,Lead.Id)">Close Lead</button>
+            }
+            @if (User.IsInRole("PreSale"))
+            {
+                <button class="btn btn-primary" style=" margin-right: 61px!important;" ng-if="Lead.QuotationStatusEnum == 'None'" ng-click="AddQuotation(Lead,Lead.Id)">Update</button>
+            }
+            @if (User.IsInRole("Lead_Sales"))
+            {
+
+                <button class="btn btn-primary" ng-if="Lead.LeadStatus == 0" ng-click="EditLeadStatus(Lead.IsApproved,Lead.Id)">Mark Complete</button>
+                <button class="btn btn-primary" style=" margin-right: 61px!important;" ng-if="Lead.LeadStatus == 0" ng-click="ChangeLeadStatus(Lead.Id)">Mark Closed</button>
+            }
+            @*<button class="btn btn-primary" style=" margin-right: 61px!important;" ng-click="AddLead(Lead)">Add</button>*@
+        </div>
+    </div>
+
+    <!-- Business Contact -->
+    <div class="jumbotron PageHeading">
+        <div class="row text-center">
+            <h2 class="SegmentHeading">
+                Company Information
+                <span ng-click="ExpandCollapse('CI')"><i class="fas fa-plus" ng-if="ShowContactInformation == false"></i></span>
+                <span ng-click="ExpandCollapse('CI')"><i class="fas fa-minus" ng-if="ShowContactInformation == true"></i></span>
+            </h2>
+        </div>
+        <div class="row" ng-if="ShowContactInformation == true">
+            <div class="col-md-4 form-group">
+                <label>Mode Of Communication</label>
+                <input type="text" readonly class="form-control" ng-model="Lead.CompanyDetails.MOCName" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Business Operation Time</label>
+                <input type="text" readonly class="form-control" ng-model="Lead.CompanyDetails.BOTEnum" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Phone Number</label>
+                <input type="text" readonly class="form-control" ng-model="Lead.CompanyDetails.Contact" placeholder="033xxxx.." />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Alternate Number</label>
+                <input type="text" readonly class="form-control" ng-model="Lead.CompanyDetails.CompanyAlternateContact" placeholder="033xxxx.." />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Email</label>
+                <input type="email" readonly class="form-control" ng-model="Lead.CompanyDetails.Email" placeholder="johndoe@live.com" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Website</label>
+                <input type="text" readonly class="form-control" ng-model="Lead.CompanyDetails.Website" placeholder="www.sharptel.com" />
+            </div>
+            @*<div class="col-md-4 form-group">
+                    <label>Area / Territory</label>
+                    <select ng-model="Lead.Area" class="form-control">
+                        <option selected value="">Area</option>
+                        <option ng-selected="Lead.Area==0" value="0">Korangi Industrial</option>
+                        <option ng-selected="Lead.Area==1" value="1">II Chudrigarh</option>
+                        <option ng-selected="Lead.Area==2" value="2">Shafeeq Mor</option>
+                    </select>
+                </div>*@
+            <div class="col-md-4 form-group">
+                <label>Latitude</label>
+                <input type="number" readonly class="form-control" ng-model="Lead.CompanyDetails.Latitude" placeholder="Latitude" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Longitude</label>
+                <input type="number" readonly class="form-control" ng-model="Lead.CompanyDetails.Longitude" placeholder="Longitude" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>City</label>
+                <input type="text" readonly class="form-control" ng-model="Lead.CompanyDetails.CityEnum" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Address</label>
+                <input type="text" readonly ng-model="Lead.CompanyDetails.Address" class="form-control" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Number of Branch offices</label>
+                <input type="text" readonly ng-model="Lead.CompanyDetails.NoBracnhOffices" class="form-control" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Business Industry</label>
+                <input type="text" readonly ng-model="Lead.CompanyDetails.BusinessIndustryEnum" class="form-control" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>NTN</label>
+                <input type="text" readonly ng-model="Lead.CompanyDetails.NTN" class="form-control" />
+            </div>
+        </div>
+    </div>
+    @if (User.IsInRole("PreSale") || User.IsInRole("Pmd_Feasibility") || (User.IsInRole("Admin")))
+    {
+        <div class="jumbotron PageHeading" id="Feasibility" ng-if="Lead.FeasibilityDetails.length > 0">
+            <div class="row text-center">
+                <h2 class="SegmentHeading">
+                    Lead's Feasibility Infromation
+                    @if (User.IsInRole("Pmd_Feasibility"))
+                    {
+                        <a href="/Lead/EditFeasibility?Id={{Lead.Id}}" ng-if="Lead.PmdStatusEnum == 'None'" target="_blank"><i class="fas fa-pencil-alt EditFeasibiltyIcon"></i></a>
+                    }
+                </h2>
+            </div>
+            <div>
+                <table class="table " width="100%">
+                    <tr>
+                        <th>SR#</th>
+                        <th>Vendor</th>
+                        <th>OTC</th>
+                        <th>MRC</th>
+                        <th>Bandwidth</th>
+                        <th>Connection Type</th>
+                        <th>Remarks</th>
+                    </tr>
+                    <tr ng-repeat="feasibility in Lead.FeasibilityDetails">
+                        <td>{{$index+1}}</td>
+                        <td>
+                            {{feasibility.VendorName}}
+                        </td>
+                        <td>
+                            {{feasibility.OTC  | number}}
+                        </td>
+                        <td>
+                            {{feasibility.MRC | number}}
+                        </td>
+                        <td>
+                            {{feasibility.Bandwidth}}
+                        </td>
+                        <td>{{feasibility.ConnectivityTypeEnum}}</td>
+                        <td>
+                            {{feasibility.Remarks}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <br />
+            <br />
+            <br />
+            <div class="row float-right">
+                @if (User.IsInRole("Admin"))
+                {
+                    @*<button class="btn btn-primary" ng-if="Lead.LeadStatus == 0 && Lead.IsApproved==null" ng-click="AddApproval(true, Lead.Id,Lead.AdminRemarks)">Approved</button>
+                        <button class="btn btn-primary" ng-if="Lead.LeadStatus == 0 && Lead.IsApproved==null " ng-click="AddApproval(false,Lead.Id,Lead.AdminRemarks)">Disapproved</button>*@
+                    @*<button class="btn btn-primary"  ng-if="Lead.LeadStatus == 0 && Lead.IsApproved == true " ng-click="EditLeadStatus(Lead.IsApproved,Lead.Id)">Close Lead</button>*@
+
+                }
+                @if (User.IsInRole("Pmd_Feasibility"))
+                {
+
+                    <a href="/Lead/List" style=" margin-right: 61px!important;" class="btn btn-danger">Cancel</a>
+
+                }
+                @*else
+                    {
+
+                            <a href="/Lead/" style=" margin-right: 61px!important;" class="btn btn-danger">Cancel</a>
+
+                    }*@
+            </div>
+
+        </div>
+    }
+        
+    </div>

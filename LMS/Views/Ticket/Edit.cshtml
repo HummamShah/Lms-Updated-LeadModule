@@ -1,0 +1,157 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+}
+<div class="container" ng-controller="TicketCtrl" ng-init="EditInit()">
+    <div class="jumbotron PageHeading">
+        <div class="row"><div class="col-md-12"><h2>Edit Ticket</h2></div></div>
+    </div>
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <form>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Account</label>
+                        <ui-select ng-model="AccountId" theme="select2" class="form-control CompanySearch" ng-change="GetAccountData(AccountId)">
+                            <ui-select-match placeholder="Select an account in the list...">{{$select.selected.Name}}</ui-select-match>
+                            <ui-select-choices repeat="item in Accounts | filter: $select.search">
+                                <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Name</label>
+                        <input type="text" class="form-control" ng-model="Ticket.Name" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Media</label>
+                        <ui-select ng-model="Ticket.Media" theme="select2" class="form-control CompanySearch">
+                            <ui-select-match placeholder="Select a media in the list...">{{$select.selected}}</ui-select-match>
+                            <ui-select-choices repeat="item in MediaTypes | filter: $select.search">
+                                <div ng-bind-html="item | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Vendor</label>
+                        <select ng-model="Ticket.VendorId" class="form-control">
+                            <option selected value="">Select Vendor</option>
+                            <option ng-repeat="Vendor in Vendors" value="{{Vendor.Id}}" ng-selected="Ticket.VendorId == Vendor.Id">{{Vendor.Name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Region</label>
+                        <ui-select ng-model="Ticket.Region" theme="select2" class="form-control CompanySearch">
+                            <ui-select-match placeholder="Select a region in the list...">{{$select.selected}}</ui-select-match>
+                            <ui-select-choices repeat="item in TicketRegions | filter: $select.search">
+                                <div ng-bind-html="item | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Complaint Media</label>
+                        <ui-select ng-model="Ticket.ComplaintMedia" theme="select2" class="form-control CompanySearch">
+                            <ui-select-match placeholder="Select a media in the list...">{{$select.selected}}</ui-select-match>
+                            <ui-select-choices repeat="item in MediumsOfComplaint | filter: $select.search">
+                                <div ng-bind-html="item | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Visit / Call</label>
+                        <ui-select ng-model="Ticket.VisitCall" theme="select2" class="form-control CompanySearch">
+                            <ui-select-match placeholder="Select a type in the list...">{{$select.selected}}</ui-select-match>
+                            <ui-select-choices repeat="item in VisitCalls | filter: $select.search">
+                                <div ng-bind-html="item | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Shift Enginner</label>
+                        <ui-select ng-model="ShiftEngineer" theme="select2" class="form-control CompanySearch" ng-change="GetShiftEngineerData(ShiftEngineer)">
+                            <ui-select-match placeholder="Select an engineer in the list...">{{$select.selected.Name}}</ui-select-match>
+                            <ui-select-choices repeat="item in ShiftEngineers | filter: $select.search">
+                                <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Ownership</label>
+                        <ui-select ng-model="Ticket.OwnerShip" theme="select2" class="form-control CompanySearch">
+                            <ui-select-match placeholder="Select a ownership in the list...">{{$select.selected}}</ui-select-match>
+                            <ui-select-choices repeat="item in TicketOwnerShips | filter: $select.search">
+                                <div ng-bind-html="item | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Department</label>
+                        <select ng-model="Ticket.AssignedDepartmentId" class="form-control">
+                            <option selected value="">Select Department</option>
+                            <option ng-repeat="Depart in Departments" value="{{Depart.Id}}" ng-selected="Ticket.AssignedDepartmentId == Depart.Id">{{Depart.Name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Problem</label>
+                        <ui-select ng-model="Ticket.Problem" theme="select2" class="form-control CompanySearch">
+                            <ui-select-match placeholder="Select a problem in the list...">{{$select.selected}}</ui-select-match>
+                            <ui-select-choices repeat="item in TicketProblems | filter: $select.search">
+                                <div ng-bind-html="item | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                @*<div class="form-group">
+                    <div class="col-md-3">
+                        <label>RFO</label>
+                        <input type="text" ng-model="Ticket.RFO" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Escalation DateTime</label>
+                        <input type="datetime-local" ng-model="Ticket.EscalationDateTime" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Restoration DateTime</label>
+                        <input type="datetime-local" ng-model="Ticket.RestorationDateTime" class="form-control" />
+                    </div>
+                </div>*@
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Remarks</label>
+                        <textarea class="form-control" rows="4" ng-model="Ticket.Remarks"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row float-right">
+            <a href="/Ticket/" class="btn btn-danger">Cancel</a>
+            <button class="btn btn-primary" style=" margin-right: 61px!important;" ng-click="EditTicket(Ticket)">Add</button>
+        </div>
+    </div>
+</div>
+

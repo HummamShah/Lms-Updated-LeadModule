@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "Add Admin";
+}
+<div ng-controller="UserCtrl" ng-init="AddAdminInit()">
+    <div class="jumbotron PageHeading">
+        <div class="row"><div class="col-md-3"><h2>Add Admin</h2></div></div>
+    </div>
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <form id="InventoryAddForm ">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>First Name</label>
+                        <input type="text" class="form-control" ng-model="Admin.FirstName" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Last Name</label>
+                        <input type="text" class="form-control" ng-model="Admin.LastName" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Primary Contact</label><span style="color:red">*</span>
+                        <input type="text" class="form-control" ng-model="Admin.Contact1" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Secondary Contact</label>
+                        <input type="text" class="form-control" ng-model="Admin.Contact2" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Address</label>
+                        <input type="text" class="form-control" ng-model="Admin.Address" />
+                    </div>
+                </div>
+                @*<div class="form-group">
+                    <div class="col-md-3">
+                        <label>Designation Or Role</label>
+                        <select ng-model="User.Designation" class="form-control">
+                            <option value="0">Inventory Supplier</option>
+                            <option value="1">Sales Man</option>
+                            <option value="2">Quality Assurance</option>
+                            <option value="3">Admin</option>
+                            <option value="4">Lead</option>
+                        </select>
+                    </div>
+                </div>*@
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Email</label>
+                        <input type="text" class="form-control" ng-model="Admin.Email" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Password</label>
+                        <input type="password" class="form-control" ng-model="Admin.Password" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Confirm Password</label>
+                        <input type="password" class="form-control" ng-model="Admin.ConfirmPassword" />
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="row float-right">
+            <button class="btn btn-primary" style="margin-top: 10px; margin-right: 10px;" ng-click="AddAdmin(Admin)">Add</button>
+        </div>
+    </div>
+    </div>
+

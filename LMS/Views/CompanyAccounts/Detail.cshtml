@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "Detail";
+}
+<div class="container" ng-controller="CompanyAccountsCtrl" ng-init="InitDetails()">
+    <div class="jumbotron PageHeading">
+        <div class="row"><div class="col-md-9"><h2>Accounts Details</h2></div></div>
+    </div>
+
+    <div class="jumbotron PageHeading">
+        @*<div class="row" style="margin-right:15px">
+            <table class="table  table-bordered  Ticket-table-margin" width="100%">
+                <tr class="table-head">
+                    <th>CreatedBy</th>
+                    <th>CreatedAt</th>
+                    <th>UpdatedBy</th>
+                    <th>UpdatedAt</th>
+                    <th width="10%">Status</th>
+                </tr>
+                <tr>
+                    <td><span>{{Ticket.CreatedBy}}</span></td>
+                    <td><span>{{Ticket.CreatedAt | date:'MMM d, y  hh:mm a'}}</span></td>
+                    <td><span ng-if="Ticket.UpdatedBy != null">{{Ticket.UpdatedBy}}</span><span ng-if="Ticket.UpdatedBy == null">Not Updated Yet</span></td>
+                    <td><span ng-if="Ticket.UpdatedBy != null">{{Ticket.UpdatedAt | date:'MMM d, y  hh:mm a'}}</span><span ng-if="Ticket.UpdatedBy == null">--</span></td>
+                    <td><small ng-class="Ticket.StatusEnum" class="badge">{{Ticket.StatusEnum}}</small></td>
+                </tr>
+            </table>
+        </div>*@
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-hover" width="100%">
+                    <tr class="table-head noHover"><th colspan="5">{{CompanyAccounts.CompanyName}}</th></tr>
+                    <tr class="noHover">
+                        <th width="4%">SR#</th>
+                        <th width="8%">Credit</th>
+                        <th width="8%">Debit</th>
+                        <th width="70%">Description</th>
+                        <th width="15%">CreatedAt</th>
+                    </tr>
+                    <tr ng-repeat="AccountsDetails in CompanyAccounts.Data">
+                        <td>{{$index+1}}</td>
+                        <td class="text-align-right">
+                            {{AccountsDetails.Credit | number}}
+                        </td>
+                        <td >
+                            {{AccountsDetails.Debit  | number}}
+                        </td>
+                        <td>
+                            {{AccountsDetails.Description }}
+                        </td>
+                        <td>
+                            {{AccountsDetails.CreatedAt | date:'MMM d, y'}}
+                        </td>
+                    </tr>
+                    @*<tr>
+                        <th class="text-right" >Total</th>
+                        <th>{{TotalDebit - TotalCredit | number}}</th>
+                    </tr>*@
+
+                </table>
+                <div class="row" style="margin-left:7px;">
+                    <span><b><u>Total Balance : {{TotalDebit - TotalCredit | number}}</u></b></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

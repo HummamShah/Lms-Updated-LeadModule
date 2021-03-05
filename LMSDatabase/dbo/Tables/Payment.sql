@@ -1,0 +1,23 @@
+﻿CREATE TABLE [dbo].[Payment]
+(
+	[Id] INT NOT NULL PRIMARY KEY Identity(1,1),
+	[Amount] decimal(18,3) not null default(0),
+	[AccountId] int,
+	[Description] nvarchar(max),
+	[CompanyId] int not null,
+	[PaymentType] int not null default(0),
+	[CheckNumber] nvarchar(max),
+	[BankName] nvarchar(max),
+	[DepositedBank] nvarchar(max),
+	[CheckDate] Datetime,
+	[Status] int not null default(0),
+	[IsPosted] bit default(0),
+	[Discount] decimal(18,3)default(0),
+	[CreatedBy] nvarchar(max),
+	[CreatedAt] DateTime,
+	[UpdatedBy] nvarchar(max),
+	[UpdatedAt] DateTime,
+	[Date] Datetime,
+	Constraint [FK_Payment_Company] foreign key ([CompanyId]) References [dbo].[Company] ([Id]),
+	Constraint [FK_Payment_Account] foreign key ([AccountId]) References [dbo].[Account] ([Id]),
+)

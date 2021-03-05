@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+}
+<div class="container" ng-controller="CompanySubcriptionCtrl" ng-init="AddInit()">
+    <div class="jumbotron PageHeading">
+        <div class="row"><div class="col-md-3"><h2>Add Subcription</h2></div></div>
+    </div>
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <form>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Company</label>
+                        <ui-select ng-model="CompanyId" theme="select2" class="form-control CompanySearch" ng-change="GetCompanyData(CompanyId)">
+                            <ui-select-match placeholder="Select a company in the list...">{{$select.selected.Name}}</ui-select-match>
+                            <ui-select-choices repeat="item in Companies | filter: $select.search">
+                                <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Name</label>
+                        <input type="text" class="form-control" ng-model="Subcription.Name" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>OTC</label>
+                        <input type="number" class="form-control" ng-model="Subcription.OTC" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>MRC</label>
+                        <input type="number" class="form-control" ng-model="Subcription.MRC" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Date From</label>
+                        <input type="date" class="form-control" ng-model="Subcription.DateFrom" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Date To</label>
+                        <input type="date" class="form-control" ng-model="Subcription.DateTo" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Description</label>
+                        <textarea cols="4" class="form-control" ng-model="Subcription.Description"></textarea>
+                        @*<input type="number" class="form-control" ng-model="Subcription.Description" />*@
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+        <div class="row float-right">
+            <a href="/CompanySubcription/" class="btn btn-danger">Cancel</a>
+            <button class="btn btn-primary" style=" margin-right: 61px!important;" ng-click="AddSubcription(Subcription)">Add</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,122 @@
+﻿@using Microsoft.AspNet.Identity;
+@using UserRoles = LMS.Models.Enums.Roles;
+@{
+    ViewBag.Title = "Home Page";
+    var UserId = User.Identity.GetUserId();
+}
+
+<div class="container" ng-init="initDashboard()">
+    <div class="clearfix">
+        <h3 class="pull-left">Dashboard</h3>
+    </div>
+    <div>
+        @*@if (User.IsInRole(UserRoles.Admin))*@
+        @* { *@
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-lg-4 col-sm-12 col-md-4 col-xs-12">
+                    <div class="panel hvr-glow">
+                        <div class="panel-heading crd-heading-bg-color">
+                            <h3 class="panel-title text-uppercase">
+                                <b>Leads</b><span class="float-right" style="padding-right:0px!important;">({{UserReportData.TotalLeadsData.TotalCountOfLeads}})</span></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div col-4>
+                                Open<span class="label text-capitalize float-right Open Badge-Width">{{UserReportData.TotalLeadsData.TotalOpenLeads}}</span>
+</div>
+                            <div col-4>
+                                Complete<span class="label label-success text-capitalize float-right Badge-Width">{{UserReportData.TotalLeadsData.TotalCompletedLeads}}</span>
+                            </div>
+                            <div col-4>
+                                Cancelled<span class="label label-danger text-capitalize float-right Badge-Width">{{UserReportData.TotalLeadsData.TotalCancelledLeads}}</span>
+                            </div>
+                        </div>
+                        <div class="panel-footer text-center text-capitalize" style="padding: 0;">See More <span class="fa fa-chevron-circle-right"></span></div>
+                    </div>
+                </div>
+                @* Card 2 *@
+                <div class="col-lg-4 col-sm-12 col-md-4 col-xs-12">
+                    <div class="panel hvr-glow">
+                        <div class="panel-heading crd-heading-bg-color">
+                            <h3 class="panel-title text-uppercase"><b>Leads Feasibility</b></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div col-4>
+                                Pending<span class="label label-warning text-capitalize float-right Badge-Width">{{UserReportData.TotalLeadsData.TotalPendingByPMDLeads}}</span>
+                            </div>
+                            <div col-4>
+                                Feasible<span class="label label-success text-capitalize float-right Badge-Width">{{UserReportData.TotalLeadsData.TotalFeasibleLeads}}</span>
+                            </div>
+                            <div col-4>
+                                Not-Feasible<span class="label label-danger text-capitalize float-right Badge-Width">{{UserReportData.TotalLeadsData.TotalNotFeasibleLeads}}</span>
+                            </div>
+                        </div>
+                        <div class="panel-footer text-center text-capitalize" style="padding: 0;">See More <span class="fa fa-chevron-circle-right"></span></div>
+                    </div>
+                </div>
+                @* Card 03 *@
+                <div class="col-lg-4 col-sm-12 col-md-4 col-xs-12">
+                    <div class="panel hvr-glow">
+                        <div class="panel-heading crd-heading-bg-color">
+                            <h3 class="panel-title text-uppercase"><b>Leads Approval</b></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div col-4>
+                                Pending<span class="label label-warning text-capitalize float-right Badge-Width">{{UserReportData.TotalLeadsData.TotalPendingByAdminLeads}}</span>
+                            </div>
+                            <div col-4>
+                                Approved<span class="label label-success text-capitalize float-right Badge-Width">{{UserReportData.TotalLeadsData.TotalApprovedLeads}}</span>
+                            </div>
+                            <div col-4>
+                                Not-Approved<span class="label label-danger text-capitalize float-right Badge-Width">{{UserReportData.TotalLeadsData.TotalNotApprovedLeads}}</span>
+                            </div>
+                        </div>
+                        <div class="panel-footer text-center text-capitalize" style="padding: 0;">See More <span class="fa fa-chevron-circle-right"></span></div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+
+            <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <h3 class=" pull-left" style="padding-bottom:20px">Sales leads</h3>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div class="pull-right">
+                            <div class="btn-group" role="group" aria-label="...">
+                                <button type="button" class="btn btn-default">today</button>
+                                <button type="button" class="btn btn-default">this week</button>
+                                <button type="button" class="btn btn-default">this Month</button>
+
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        calender
+                                     <span><i class="far fa-calendar-alt"></i></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li style="min-width: 165px;"><input  type="date"></li>
+                                    </ul>
+                                </div>
+                                
+                            </div>
+                            </div>
+                        </div>
+                    </div>   
+            <div class="row">
+                <div class="col-12">
+                    <canvas id="bar" class="chart chart-bar"
+                            chart-data="data" chart-labels="labels"
+                            chart-series="series">
+                    </canvas>
+                </div>
+            </div>
+            </div>
+
+        </div>
+        @* } *@
+       
+    </div>
+    @*<div class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
+
+    </div>*@
+

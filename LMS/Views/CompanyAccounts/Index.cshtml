@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div ng-controller="CompanyAccountsCtrl" ng-init="initIndex()">
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Accounts List</h2>
+            </div>
+        </div>
+    </div>
+    <div class="jumbotron PageHeading">
+        <table class="table table-hover" width="100%">
+            <tr class="table-head noHover">
+                <th>
+                    Id
+                </th>
+                @*<th>
+                    Account Name
+                </th>*@
+                <th>
+                    Company Name
+                </th>
+                <th>Balance</th>
+                @*<th>Amount</th>*@
+                <th>
+                    Created At
+                </th>
+                <th>
+                    Created By
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+            <tr ng-repeat="Account in CompanyAccounts">
+                <td>
+                    {{Account.Id}}
+                </td>
+                <td>
+                    {{Account.CompanyName}}
+                </td>
+                <td>{{Account.Balance | number}}</td>
+                @*<td>
+                    {{Account.Amount | number}}
+                </td>*@
+                <td>
+                    {{Account.CreatedAt | date:'MMM d, y'}}
+                </td>
+                <td>
+                    {{Account.CreatedBy}}
+                </td>
+                <td>
+                    <a href="/CompanyAccounts/Detail?Id={{Account.Id}}" title="Details"><i class="fas fa-file"></i></a>
+                    @*<a href="/Ticket/Add?Id={{Account.Id}}" title="Create Ticket"><i class="fas fa-ticket-alt"></i></a>*@
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+

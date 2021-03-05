@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div ng-controller="BillingCtrl" ng-init="initIndex()">
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <div class="">
+                <h2>Companies Billing List</h2>
+            </div>
+            @*<div class="col-md-9 ">
+                <a class="btn btn-primary pull-right" style=" margin-top: 20px;" href="/BugReport/Add">Add</a>
+            </div>*@
+        </div>
+    </div>
+
+    <div class="jumbotron PageHeading">
+        <table class="table table-hover" width="100%">
+            <tr class="table-head noHover">
+                <th width="5%">
+                    Id
+                </th>
+                <th>
+                    Company
+                </th>
+                <th>
+                    Address1
+                </th>
+                <th>
+                    Billing Format
+                </th>
+                <th>
+                    Delivery Mode
+                </th>
+                <th>CreatedBy</th>
+                <th width="12%">CreatedAt</th>
+                <th style="width:6%;">
+                    Action
+                </th>
+            </tr>
+            <tr ng-repeat="Company in Companies">
+                <td>
+                    {{Company.Id}}
+                </td>
+                <td>
+                    {{Company.CompanyName}}
+                </td>
+                <td>
+                    {{Company.Address1}}
+                </td>
+                <td>
+                    {{Company.BillingFormatType}}
+                </td>
+                <td>
+                    {{Company.DeliveryMode}}
+                </td>
+                <td>
+                    {{Company.CreatedBy}}
+                </td>
+                <td>
+                    {{Company.CreatedAt |  date:'MMM d, y'}}
+                </td>
+
+                <td>
+                    <a href="/Billing/UpdateBilling?Id={{Company.CompanyId}}" title="Update Billing Information"><i class="fas fa-pencil-alt"></i></a>
+                    <a href="/Billing/Details?Id={{Company.CompanyId}}" title="Details"><i class="fas fa-file"></i></a>
+                    @*<a href="/CompanySubcription/Index?Id={{Company.CompanyId}}" title="Subcriptions"><i class="fas fa-external-link-square"></i></a>*@
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+

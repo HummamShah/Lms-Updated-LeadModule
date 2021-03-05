@@ -1,0 +1,95 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div ng-controller="PaymentCtrl" ng-init="EditInit()">
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Edit Payment</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <form id="VendorAddForm ">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label>Company</label>
+                        <ui-select ng-model="Company" theme="select2" class="form-control CompanySearch" ng-change="OnCompanyChange(Company)">
+                            <ui-select-match placeholder="Select a company in the list...">{{$select.selected.Name}}</ui-select-match>
+                            <ui-select-choices repeat="item in Companies | filter: $select.search">
+                                <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <label>Description</label>
+                        <textarea type="text" class="form-control" style="max-width:92%;" ng-model="Payment.Description"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label>Amount</label>
+                        <input type="number" class="form-control" ng-model="Payment.Amount" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label>Payment Type</label>
+                        <select ng-model="Payment.PaymentType" class="form-control">
+                            <option selected value="">Select Payment Type</option>
+                            <option ng-selected="Payment.PaymentType==0" value="0">Cash</option>
+                            <option ng-selected="Payment.PaymentType==1" value="1">Cheque</option>
+                        </select>
+                    </div>
+                </div>
+                <div ng-if="Payment.PaymentType=='1'">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label>Check-No</label>
+                            <input type="text" ng-model="Payment.CheckNumber" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label>Cheque Date</label>
+                            <input type="date" ng-model="Payment.CheckDate" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label>Bank Name</label>
+                            <select ng-model="Payment.BankName" class="form-control">
+                                <option selected value="">Select Bank</option>
+                                <option ng-selected="Payment.BankName=='BAFL'" value="BAFL">BAFL</option>
+                                <option ng-selected="Payment.BankName=='FBL'" value="FBL">FBL</option>
+                                <option ng-selected="Payment.BankName=='SCB'" value="SCB">SCB</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label>Deposited Bank</label>
+                            <select ng-model="Payment.DepositedBank" class="form-control">
+                                <option selected value="">Select Bank</option>
+                                <option ng-selected="Payment.DepositedBank=='FBL'" value="FBL">FBL</option>
+                                <option ng-selected="Payment.DepositedBank=='HBL'" value="HBL">HBL</option>
+                                <option ng-selected="Payment.DepositedBank=='MBL'" value="MBL">MBL</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="row float-right" style="margin-top:25px;">
+            <a href="/Payment" class="btn btn-danger">Cancel</a>
+            <button class="btn btn-primary" style=" margin-right: 61px!important;" ng-click="EditPayment(Payment)">Update</button>
+        </div>
+    </div>
+    
+</div>

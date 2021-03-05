@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="812a8267753c45948f79b40b7b372a7e" Name="Diagram1" ZoomLevel="97">
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.AspNetUsers" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.Agent" Width="1.5" PointX="8.625" PointY="1.125" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.CompanyBranches" Width="1.5" PointX="8" PointY="11.25" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.Department" Width="1.5" PointX="6.375" PointY="15.125" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.Employee" Width="1.5" PointX="6.125" PointY="6.5" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.PmdDetails" Width="1.5" PointX="3" PointY="9.625" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.Vendor" Width="1.5" PointX="0.75" PointY="17" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Agent_Department" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Agent_User" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_PMD_Vendor" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.Company" Width="1.5" PointX="5.75" PointY="8.125" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Agent_Company" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Company_ParentCompany" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Emp_Comp" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Agent_Agent" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.Lead" Width="1.5" PointX="10.875" PointY="15.625" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Lead_Agent_Lead" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Lead_Agent_PMD" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Lead_Agent_PreSale" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_PMD_Leads" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Lead_Company" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Lead_Agent_Creator" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.SolutionDetails" Width="1.5" PointX="13.125" PointY="19.75" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_SolutionDetails_Leads" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.QuestionnareDetails" Width="1.5" PointX="13.125" PointY="25.875" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Questionnare_Lead" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.BugReporting" Width="1.5" PointX="10.875" PointY="3" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Bug_Agent" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.Account" Width="1.5" PointX="8.25" PointY="29.625" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.AccountEntries" Width="1.5" PointX="10.5" PointY="29.875" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.BillingDetails" Width="1.5" PointX="3" PointY="20.875" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.BillingInformation" Width="1.5" PointX="0.75" PointY="9.875" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Account_Company" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_AccountEntries_Account" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_BillingDetails_BillingInfromation" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Company_BillingInformation" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.Notification" Width="1.5" PointX="10.875" PointY="7" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Notification_Agent" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Company_Agent" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.Charge" Width="1.5" PointX="13.875" PointY="7.625" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.ChargeDetails" Width="1.5" PointX="16.125" PointY="13.5" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.Invoice" Width="1.5" PointX="13.875" PointY="11.875" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.InvoiceDetails" Width="1.5" PointX="16.125" PointY="18.25" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Invoice_Account" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Invoice_Agent" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_ChargeDetails_Charge" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_ChargeDetails_Invoice" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Invoice_Company" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_InvoiceDetails_Invoice" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.Payment" Width="1.5" PointX="13.375" PointY="0.75" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Payment_Account" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Payment_Company" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.PurchaseOrder" Width="1.5" PointX="16.125" PointY="6.5" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_PO_CoreAgent" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_PO_PresaleAgent" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_PO_SDAgent" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_PO_Company" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_PO_Lead" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.AgentAttendance" Width="1.5" PointX="10.875" PointY="0.75" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.CompanySubcription" Width="1.5" PointX="8" PointY="21.375" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_AgentAttendace_Agent" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_CompanySubcription_Company" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.Ticket" Width="1.5" PointX="15.875" PointY="22.25" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.TicketComments" Width="1.5" PointX="18.125" PointY="24.125" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Ticket_Account" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Ticket_Agent" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Ticket_AssignedTo" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Ticket_ShiftEngineerAgent" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Ticket_Vendor" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_TicketDetails_Ticket" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

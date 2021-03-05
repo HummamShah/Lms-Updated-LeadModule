@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div ng-controller="TicketCtrl" ng-init="initIndex()">
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <div class="col-md-9">
+                <h2>Ticket List</h2>
+            </div>
+            <div class="col-md-3">
+                <a class="btn btn-primary pull-right" style=" margin-top: 20px;" href="/Ticket/Add?Id=0">Add</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="jumbotron PageHeading">
+        <table class="table table-hover" width="100%">
+            <tr class="table-head noHover">
+                <th>
+                    Id
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Account
+                </th>
+                <th>Department</th>
+                <th>Status</th>
+                <th>
+                    Created At
+                </th>
+                <th>
+                    Created By
+                </th>
+                <th style="width:6%;">
+                    Action
+                </th>
+            </tr>
+            <tr ng-repeat="Ticket in Tickets">
+                <td>
+                    {{Ticket.Id}}
+                </td>
+                <td>
+                    {{Ticket.Name}}
+                </td>
+                <td>
+                    Acc-{{Ticket.AccountId}}
+                </td>
+                <td>
+                    {{Ticket.AssignedDepartmentName}}
+                </td>
+                <td><small ng-class="Ticket.StatusEnum" class="badge">{{Ticket.StatusEnum}}</small></td>
+                <td>
+                    {{Ticket.CreatedAt |  date:'MMM d, y hh:mm a'}}
+                </td>
+                <td>
+                    {{Ticket.AgentName}}
+                </td>
+                <td>
+                    <a class="float-left" ng-if="Ticket.StatusEnum != 'Resolved'" href="/Ticket/Edit?Id={{Ticket.Id}}" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                    <a class="float-right" href="/Ticket/Detail?Id={{Ticket.Id}}" title="Edit"><i class="fas fa-file"></i></a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+

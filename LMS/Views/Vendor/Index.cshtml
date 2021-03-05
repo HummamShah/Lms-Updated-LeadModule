@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div ng-controller="VendorCtrl" ng-init="initIndex()">
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <div class="col-md-9">
+                <h2>Vendors List</h2>
+            </div>
+            <div class="col-md-3">
+                <a class="btn btn-primary pull-right" style=" margin-top: 20px;" href="/Vendor/Add">Add</a>
+            </div>
+        </div>
+    </div>
+    <div class="jumbotron PageHeading">
+        <table class="table table-hover " width="100%">
+            <thead>
+                <tr class="table-head noHover">
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Name
+                    </th>
+
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Created At
+                    </th>
+                    <th>
+                        Created By
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="Vendor in Vendors">
+                    <td>
+                        {{Vendor.Id}}
+                    </td>
+                    <td>
+                        {{Vendor.Name}}
+                    </td>
+                    <td>
+                        {{Vendor.Description}}
+                    </td>
+                    <td>
+                        {{Vendor.CreatedAt | date:'MMM d, y'}}
+                    </td>
+                    <td>
+                        {{Vendor.CreatedBy}}
+                    </td>
+                    <td>
+                        <a href="/Vendor/Edit?Id={{Vendor.Id}}" title="Edit"><i class="fas fa-pencil-alt" title="Edit"></i></a>
+                        <a href="/Vendor/Detail?Id={{Vendor.Id}}" title="Details"><i class="fas fa-file" title="Details"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+            
+        </table>
+    </div>
+    
+
+</div>
+

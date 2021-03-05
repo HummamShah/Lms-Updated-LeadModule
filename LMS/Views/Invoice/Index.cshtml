@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    .bg-green{
+        color:green
+    }
+    .bg-red {
+        color: red
+    }
+</style>
+<div ng-controller="InvoiceCtrl" ng-init="initIndex()">
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <div class="col-md-9">
+                <h2>Invoice List</h2>
+            </div>
+            <div class="col-md-3 ">
+                <a class="btn btn-primary pull-right" style=" margin-top: 20px;" href="/Invoice/Add">Add</a>
+            </div>
+        </div>
+    </div>
+    <div class="jumbotron PageHeading">
+        <table class="table table-hover" width="100%">
+            <tr class="table-head noHover">
+                <th>
+                    Id
+                </th>
+                <th>
+                    Account Name
+                </th>
+                <th>
+                    Company Name
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>Is Posted</th>
+                <th>Amount</th>
+                <th>
+                    Created At
+                </th>
+                <th>
+                    Created By
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+            <tr ng-repeat="Invoice in Invoices">
+                <td>
+                    {{Invoice.Id}}
+                </td>
+                <td>
+                    {{Invoice.AccountName}}
+                </td>
+                <td>
+                    {{Invoice.CompanyName}}
+                </td>
+                <td>
+                    <small class="badge" ng-class="Invoice.StatusEnum">{{Invoice.StatusEnum}}</small> 
+                </td>
+                <td>
+                    {{Invoice.IsPosted}}
+                </td>
+                <th class="noHover">
+                    {{Invoice.TotalAmount | number}}
+                </th>
+
+                <td>
+                    {{Invoice.CreatedAt | date:'MMM d, y'}}
+                </td>
+                <td>
+                    {{Invoice.CreatedBy}}
+                </td>
+                <td>
+
+                    <a target="_blank" href="/Invoice/Print?Id={{Invoice.Id}}&type=Sales" title="Print Sales"><i class="fas fa-print bg-green" title="Print Sales"></i></a>
+                    <a target="_blank" href="/Invoice/Print?Id={{Invoice.Id}}" title="Print Service"><i class="fas fa-print bg-red" title="Print Service"></i></a>
+                    <a href="/Invoice/Detail?Id={{Invoice.Id}}" title="Details"><i class="fas fa-file"></i></a>
+                    <a ng-if="!Invoice.IsPosted" href="/Invoice/Edit?Id={{Invoice.Id}}" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+

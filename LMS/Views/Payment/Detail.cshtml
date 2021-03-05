@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "Detail";
+}
+<div ng-controller="PaymentCtrl" ng-init="">
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Edit Payment</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <form id="VendorAddForm ">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label>Company</label>
+                        <input type="text" class="form-control" ng-model="Payment.Company" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <label>Description</label>
+                        <textarea type="text" class="form-control" style="max-width:92%;" ng-model="Payment.Description"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label>Amount</label>
+                        <input type="number" class="form-control" ng-model="Payment.Amount" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label>Payment Type</label>
+                        <select ng-model="Payment.PaymentType" class="form-control">
+                            <option selected value="">Select Payment Type</option>
+                            <option ng-selected="Payment.PaymentType==0" value="0">Cash</option>
+                            <option ng-selected="Payment.PaymentType==1" value="1">Cheque</option>
+                        </select>
+                    </div>
+                </div>
+                <div ng-if="Payment.PaymentType=='1'">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label>Check-No</label>
+                            <input type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label>Cheque Date</label>
+                            <input type="date" ng-model="Payment.CheckDate" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label>Bank Name</label>
+                            <select ng-model="Payment.BankName" class="form-control">
+                                <option selected value="">Select Bank</option>
+                                <option ng-selected="Payment.BankName==0" value="BAFL">BAFL</option>
+                                <option ng-selected="Payment.BankName==1" value="FBL">FBL</option>
+                                <option ng-selected="Payment.BankName==2" value="SCB">SCB</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label>Deposited Bank</label>
+                            <select ng-model="Payment.DepositedBank" class="form-control">
+                                <option selected value="">Select Bank</option>
+                                <option ng-selected="Payment.DepositedBank==0" value="FBL">FBL</option>
+                                <option ng-selected="Payment.DepositedBank==1" value="HBL">HBL</option>
+                                <option ng-selected="Payment.DepositedBank==2" value="MBL">MBL</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row float-right">
+        <a href="/Payment" class="btn btn-danger">Cancel</a>
+    </div>
+</div>

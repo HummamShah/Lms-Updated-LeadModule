@@ -1,0 +1,258 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+}
+<div class="container" ng-controller="InvoiceCtrl" ng-init="EditInit()">
+    <div class="jumbotron PageHeading">
+        <div class="row"><div class="col-md-3"><h2>Invoice Detail</h2></div></div>
+    </div>
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <div class="col-md-6">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label>Company</label><span class="text-danger">*</span>
+
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <ui-select ng-model="Company" theme="select2" class="form-control CompanySearch" ng-change="GetCompanyData(Company)" disabled>
+                                    <ui-select-match placeholder="Select a company in the list...">{{$select.selected.Name}}</ui-select-match>
+                                    <ui-select-choices repeat="item in Companies | filter: $select.search">
+                                        <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label>Attendant Name</label><span class="text-danger">*</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" class="form-control" ng-model="Invoice.AttendantName" readonly/>
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label>Address</label><span class="text-danger">*</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" class="form-control" ng-model="Invoice.CompanyAddress" readonly/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label>Contact</label><span class="text-danger">*</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" class="form-control" ng-model="Invoice.CompanyContact" readonly />
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label>Email</label><span class="text-danger">*</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" class="form-control" ng-model="Invoice.CompanyEmail" readonly />
+                            </div>
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label>Invoice Number</label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <span class="form-control" style="max-width: inherit;" readonly>INV-{{Invoice.Id}}</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label>Invoice Period</label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <div class="col-md-5" style=" padding-left: 0px; padding-right: 0px;">
+                                    <input type="date" class="form-control" ng-model="Invoice.StartDate" readonly/>
+                                </div>
+                                <div class="col-md-2" style=" margin-top: 10px; text-align: center;">
+                                    To
+                                </div>
+                                <div class="col-md-5" style=" padding-left: 0px; padding-right: 0px;padding-bottom: 20px;">
+                                    <input type="date" class="form-control" ng-model="Invoice.EndDate" readonly />
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label>Invoice Date</label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="Date" style="max-width: inherit;" class="form-control" readonly ng-model="Invoice.Date"  />
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label>Account Number</label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input class="form-control" readonly style="max-width: inherit;" placeholder="Auto Select" ng-model="Invoice.AccountId" >
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label>NTN</label><span class="text-danger">*</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="text" readonly style="max-width: inherit;" class="form-control" ng-model="Invoice.NTN"  />
+                            </div>
+                        </td>
+
+                    </tr>
+                </table>
+
+            </div>
+
+
+        </div>
+
+    </div>
+    <div class="jumbotron PageHeading">
+        <table class="table" width="100%">
+            <tr class="table-head">
+                <th width="25%">
+                    Bill To
+                </th>
+                <th>
+                    Link Name
+                </th>
+
+                <th>
+                    Package
+                </th>
+                <th>
+                    Monthly Charges
+                </th>
+                @*<th>
+                        Invoice Date
+                    </th>*@
+                <th>
+                    Due Date
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    {{CompanyName}}
+                </td>
+                <td>
+                    <input type="text" class="form-control" ng-model="Invoice.LinkName" readonly/>
+                </td>
+                <td>
+                    <input type="text" class="form-control" ng-model="Invoice.PackageId" readonly/>
+                </td>
+
+                <td>
+                    <input type="number" class="form-control" ng-model="Invoice.MonthlyCharges" readonly />
+                </td>
+                @*<td>
+                        <input type="Date" class="form-control" readonly ng-model="Invoice.Date" />
+                    </td>*@
+                <td>
+                    <input type="Date" class="form-control" ng-model="Invoice.DueDate" readonly/>
+                </td>
+            </tr>
+        </table>
+        <br />
+        <br />
+
+        <table class="table" width="100%">
+            <tr class="table-head">
+                <th width="80%" class=" text-align-center">
+                    Description
+                </th>
+                <th width="20%" class=" text-align-center">
+                    Amount(PKR)
+                </th>
+            </tr>
+            <tr ng-repeat="row in InvoiceDetails">
+                <td class=" text-align-center">
+                    <div><input type="text" style="max-width:100%!important" class="form-control" ng-model="row.Description" readonly/></div>
+                </td>
+                <td class=" text-align-center">
+                    <input type="number" class="form-control" ng-change="UpdateTotalAmount()" ng-model="row.Amount" readonly/>
+                </td>
+                @*<td>
+                    <i class="fas fa-trash-alt" ng-click="RemoveRow($index)"></i>
+                </td>*@
+            </tr>
+            <tr ng-repeat="tax in Invoice.InvoiceTaxes">
+                <td>
+                    {{tax.Name}}
+                </td>
+                <td>
+                    @*<input type="text" class="form-control" ng-model="row.Amount" />*@
+                    {{tax.Amount | number}}({{tax.Value}}%)
+                </td>
+                @*<td>
+                    <i class="fas fa-trash-alt" ng-click="RemoveTaxRow($index)"></i>
+                </td>*@
+            </tr>
+            <tr>
+                <td class="text-right">
+                    Total
+                </td>
+                <td class="text-left"><b>{{Invoice.TotalAmount | number}}</b></td>
+            </tr>
+        </table>
+        <div class="row float-right">
+            <a href="/Invoice" class="btn btn-danger">Cancel</a>
+            <button ng-if="!Invoice.IsPosted" class="btn btn-primary" style=" margin-right: 61px!important;" ng-click="PostInvoice(Invoice)">Post</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,142 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div ng-controller="LeadCtrl" ng-init="initIndex()">
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <div class="col-md-9">
+                <h2>Leads List</h2>
+            </div>
+            <div class="col-md-3">
+                <a class="btn btn-primary pull-right" style=" margin-top: 20px;" href="/Lead/Add">Add</a>
+            </div>
+        </div>
+    </div>
+    <div class="jumbotron PageHeading">
+        <table class="table table-hover pre-scrollable" width="100%">
+            <tr class="table-head noHover">
+                <th>
+                    Id
+                </th>
+                <th>
+                    Domain
+                </th>
+                <th width="15%">
+                    Company
+                </th>
+
+                <th>
+                    PMD
+                </th>
+                <th>
+                    Presales
+                </th>
+                <th>Assigned To</th>
+                <th>
+                    Feasibility
+                </th>
+
+                <th>Qutation</th>
+                <th>
+                    Status
+                </th>
+                @*<th>Stage</th>*@
+                <th>
+                    Created By
+                </th>
+                <th>
+                    Created At
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+            <tr ng-repeat="Lead in Leads">
+                <td>{{Lead.Id}}</td>
+                <td>{{Lead.DomainName}}</td>
+                <td>{{Lead.CompanyName}}</td>
+                <td>{{Lead.AssingnedPmdName}}</td>
+                <td>{{Lead.AssignedPreSaleName}}</td>
+                <td>{{Lead.AssignedToName}}</td>
+                <td><small ng-class="Lead.PmdStatusEnum" class="badge">{{Lead.PmdStatusEnum}}</small></td>
+                <td><small ng-class="Lead.QuotationStatusEnum" class="badge">{{Lead.QuotationStatusEnum}}</small></td>
+                <td><small ng-class="Lead.LeadStatusEnum" class="badge">{{Lead.LeadStatusEnum}}</small></td>
+                @*<td>-</td>*@
+                <td>{{Lead.CreatedBy}}</td>
+                <td>{{Lead.CreatedAt | date:'MMM d, y'}}</td>
+                <td>
+                    <a href="/Lead/Detail?Id={{Lead.Id}}" class="text-align-left" title="Details"><i class="fas fa-file"></i></a>
+                    <a href="/Lead/Edit?Id={{Lead.Id}}" class="text-align-right" ng-if="(Lead.AssingnedPmdName == null || Lead.AssingnedPmdName == '') && (Lead.AssignedPreSaleName == null || Lead.AssignedPreSaleName == '') && Lead.LeadStatusEnum != 'Closed'" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                    <a href="#" class="text-align-right" data-toggle="modal" data-target="#myModal" ng-if="((Lead.Domain==1 && Lead.AssignedPmdId ==null)||(Lead.Domain==0 && Lead.AssignedPreSaleId ==null))  && Lead.LeadStatusEnum != 'Closed'" ng-click="SetAssigningDataToModal(Lead)" title="Assign Lead"><i class="fas fa-users"></i></a>
+
+
+                </td>
+            </tr>
+            @*<tfoot>
+                <tr>
+                    <td colspan="11" class="float-right">
+                        <button ng-disabled="ListingOptions.CurrentPage == 1" ng-click="PreviousPage()">Previous</button> {{ListingOptions.CurrentPage}}
+                        <button ng-disabled="ListingOptions.TotalRecords < (ListingOptions.CurrentPage  * ListingOptions.PageSize)" ng-click="NextPage()">Next</button>
+                    </td>
+                </tr>
+            </tfoot>*@
+        </table>
+        <div>
+            <div class="float-right">
+                <button ng-disabled="ListingOptions.CurrentPage == 1" ng-click="PreviousPage()">Previous</button>
+                <span>{{ListingOptions.CurrentPage}}</span>
+                <button ng-disabled="ListingOptions.TotalRecords < (ListingOptions.CurrentPage  * ListingOptions.PageSize)" ng-click="NextPage()">Next</button>
+                <span>
+                    <small class="Pagination-text">Showing from {{(ListingOptions.PageSize  * (ListingOptions.CurrentPage - 1))}} - {{ListingOptions.PageSize * ListingOptions.CurrentPage}} outof {{ListingOptions.TotalRecords}}</small>
+                </span>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">{{Assignment.Header}}</h4>
+                </div>
+                <div class="">
+                    <form id="AssignmentForm ">
+
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label>Assigning Agent Type</label>
+                                <select ng-model="Assignment.Type" class="form-control" ng-change="SetAssigningType(Assignment.Type)">
+                                    <option selected value="">Select Agent To Assign</option>
+                                    <option ng-repeat="Type in AssignmentTypes" value="{{Type}}" ng-hide="(Assignment.Domain == 0 && Type =='PMD')||(Assignment.Domain == 1 && Type =='PreSale')">{{Type}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label>Users</label>
+                                <select ng-model="Assignment.AssignedUserId" class="form-control">
+                                    <option selected value="">Select Agent To Assign</option>
+                                    <option ng-repeat="Agent in AssignmentAgents" value="{{Agent.Id}}">{{Agent.Name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" style=" margin-top: 25px;" data-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" style=" margin-top: 25px;" data-dismiss="modal" ng-click="AssignUser(Assignment,false)">Assign</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

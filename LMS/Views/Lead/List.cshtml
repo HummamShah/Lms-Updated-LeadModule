@@ -1,0 +1,168 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div ng-controller="LeadCtrl" ng-init="initPmdIndex()">
+    @*ng-controller="UserCtrl" ng-init="initIndex()"*@
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <div class="col-md-3">
+                <h2>Leads List</h2>
+            </div>
+            @*<div class="col-md-9 ">
+                    <a class="btn btn-primary pull-right" style=" margin-top: 20px;" href="/Lead/Add">Add</a>
+                </div>*@
+        </div>
+    </div>
+    <div class="jumbotron PageHeading">
+        <table class="table" width="100%">
+            <tr class="table-head">
+                <th>
+                    Id
+                </th>
+                @*<th>
+                    Name
+                </th>*@
+                <th>
+                    Company 
+                </th>
+
+                <th>
+                     PMD
+                </th>
+                <th>
+                    Feasibility
+                </th>
+                <th>
+                     PreSale
+                </th>
+                <th>
+                    Assigned to
+                </th>
+                <th>Qutation</th>
+                <th>
+                     Status
+                </th>
+                <th>Stage</th>
+                <th>
+                    Created By
+                </th>
+                <th style="width: 10%;">
+                    Created At
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+            <tr ng-repeat="Lead in Leads">
+                <td>{{Lead.Id}}</td>
+                @*<td>{{Lead.Name}}</td>*@
+                <td>{{Lead.CompanyName}}</td>
+                <td>{{Lead.AssingnedPmdName}}</td>
+                <td><small ng-class="Lead.PmdStatusEnum" class="badge">{{Lead.PmdStatusEnum}}</small></td>
+                <td>{{Lead.AssignedPreSaleName}}</td>
+                <td>{{Lead.AssignedToName}}</td>
+                <td><small ng-class="Lead.QuotationStatusEnum" class="badge">{{Lead.QuotationStatusEnum}}</small></td>
+                <td><small ng-class="Lead.LeadStatusEnum" class="badge">{{Lead.LeadStatusEnum}}</small></td>
+                <td>-</td>
+                <td>{{Lead.CreatedBy}}</td>
+                <td>{{Lead.CreatedAt | date:'MMM d, y'}}</td>
+                <td>
+
+                    <a class="float-right" href="/Lead/Detail?Id={{Lead.Id}}" title="Details"><i class="fas fa-file"></i></a>
+                    @if (User.IsInRole("Pmd_Feasibility"))
+                    {
+                        <a class="float-left" ng-if="(Lead.PmdStatusEnum == 'None' && Lead.IsFeasibilityAdded == false) " href="/Lead/AddFeasibility?Id={{Lead.Id}}" title="Add Feasibility"><i class="fas fa-plus"></i></a>
+                        <a class="float-left" href="/Lead/EditFeasibility?Id={{Lead.Id}}" ng-if="(Lead.PmdStatusEnum == 'None' && Lead.IsFeasibilityAdded == true)|| Lead.QuotationStatusEnum =='OverBudget'" title="Edit Feasibility"><i class="fas fa-pencil-alt"></i></a>
+                        <a class="float-left" href="#" data-toggle="modal" ng-if="Lead.PmdStatus==0 && Lead.AssignedPreSaleId==null" ng-click="SetAssignmentModal(Lead);" data-target="#AssignmentModal" title="Assign Presale to this Lead"><i class="fas fa-users"></i></a>
+                    }
+                    @if (User.IsInRole("PreSale"))
+                    {
+
+                        <a class="float-left" href="#" data-toggle="modal" ng-if="Lead.QuotationStatusEnum == 'None'" ng-click="SetCommercialModal(Lead);" data-target="#myModal" title="Add Commercial to this Lead"><i class="fas fa-plus"></i></a>
+
+                    }
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add Commercial</h4>
+                </div>
+                <div class="">
+                    <form id="AssignmentForm ">
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label>Commercial </label>
+                                <input type="number" class="form-control" ng-model="Commercial.Quotation" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label>Commercial Status</label>
+                                <select ng-model="Commercial.QuotationStatus" class="form-control">
+                                    <option selected value="">Select Type</option>
+                                    <option ng-selected="Commercial.QuotationStatus== 0" value="0">In Budget</option>
+                                    <option ng-selected="Commercial.QuotationStatus== 1" value="1">Over Budget</option>
+                                    <option ng-selected="Commercial.QuotationStatus== 2" value="2">None</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label>Remarks </label>
+                                <input type="text" class="form-control" ng-model="Commercial.QuotationRemarks" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" style=" margin-top: 25px;" data-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" style=" margin-top: 25px;" data-dismiss="modal" ng-click="AddQuotation(Commercial,Commercial.LeadId)">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="AssignmentModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">{{Assignment.Header}}</h4>
+                </div>
+                <div class="">
+                    <form id="AssignmentForm ">
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label>Users</label>
+                                <select ng-model="Assignment.AssignedUserId" class="form-control">
+                                    <option selected value="">Select Agent To Assign</option>
+                                    <option ng-repeat="Agent in AssignmentAgents" value="{{Agent.Id}}">{{Agent.Name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" style=" margin-top: 25px;" data-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" style="margin-top: 25px;" data-dismiss="modal" ng-click="AssignUser(Assignment,true)">Assign</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
+</div>
+

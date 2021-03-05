@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div ng-controller="BugCtrl" ng-init="initIndex()">
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <div class="">
+                <h2>Bug List</h2>
+            </div>
+            <div class="col-md-9 ">
+                <a class="btn btn-primary pull-right" style=" margin-top: 20px;" href="/BugReport/Add">Add</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="jumbotron PageHeading">
+        <table class="table" width="100%">
+            <tr class="table-head">
+                <th>
+                    Id
+                </th>
+                <th>
+                    Type
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Created At
+                </th>
+                <th>
+                    Created By
+                </th>
+
+                <th style="width:6%;">
+                    Action
+                </th>
+            </tr>
+            <tr ng-repeat="Bug in Bugs">
+                <td>
+                    {{Bug.Id}}
+                </td>
+                <td>
+                    {{Bug.Type}}
+                </td>
+                <td>
+                    {{Bug.Description}}
+                </td>
+                <td>
+                    {{Bug.CreatedAt |  date:'MMM d, y'}}
+                </td>
+                <td>
+                    {{Bug.CreatedBy}}
+                </td>
+                <td>
+                    @*<a href="/Bug/Edit?Id={{Bug.Id}}" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                    <a href="/Bug/Detail?Id={{Bug.Id}}" title="Details"><i class="fas fa-file"></i></a>*@
+                </td>
+            </tr>
+        </table>
+     </div>
+</div>

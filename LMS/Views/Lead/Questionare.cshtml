@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Add";
+}
+<div ng-controller="QuestionnareCtrl" ng-init="AddInit()">
+    <div class="jumbotron PageHeading">
+        <div class="row"><div class="col-md-3"><h2>Add Questionnare</h2></div></div>
+    </div>
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <table class="table" width="100%">
+                <thead>
+                    <tr class="table-head">
+                        <th>Sno</th>
+                        <th>Requirements</th>
+                        <th>Head Office</th>
+                        <th>Branch Office</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="Questionnare in Questionnares">
+                        <td>
+                            {{$index+1}}
+                        </td>
+                        <td style=" width: 45%;">
+                            {{Questionnare.Requirements}}
+                        </td>
+                        <td style=" width: 14%;">
+                            <input type="text" ng-disabled="IsViewOnly == 'true'" class="form-control" ng-model="Questionnare.HeadOffice" />
+                        </td>
+                        <td style=" width: 14%;">
+                            <input type="text" class="form-control" ng-disabled="IsViewOnly == 'true'" ng-model="Questionnare.BranchOffice" />
+                        </td>
+                        <td style=" width: 35%;">
+                            <textarea  type="text" class="form-control" ng-disabled="IsViewOnly == 'true'" ng-model="Questionnare.Details" cols="4"></textarea>
+                            @*<input type="text" class="form-control" ng-model="Questionnare.Details" />*@
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row float-right">
+            <button class="btn btn-primary" ng-if="IsViewOnly == 'false'" ng-click="AddQuestionnare(Questionnares)">Save</button>
+        </div>
+    </div>
+
+</div>
+

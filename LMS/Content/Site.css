@@ -1,0 +1,542 @@
+﻿/*body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}*/
+
+/* Set padding to keep content from hitting the edges */
+/*.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}*/
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+.LoginBG {
+     background-color: white !important;
+    color: black;
+    /*border:dotted !important;*/
+    border-color: lavender;
+}
+
+    .LoginBG h2 {
+        text-align: center;
+    }
+
+.L-layout {
+    background-color: silver;
+}
+
+.L-input {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.float-none {
+    margin-left: 0% !important;
+    float: none !important;
+}
+.Footer {
+    background-color: #2f4f4f;
+    border-color: #080808;
+    color: #9d9d9d;
+    height: 40px;
+}
+
+    .Footer p {
+        margin-top: 10px;
+    }
+
+.MainFooter {
+    background-color: transparent;
+    border-color: #333333;
+    color: white!important;
+    height: 40px;
+    text-align: center;
+}
+
+    .MainFooter p {
+        margin-top: 10px;
+        color: #2f4f4f !important;
+    }
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #fafafa;
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+a,
+a:hover,
+a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+/* Side Bar*/
+
+
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+.wrapper {
+    display: flex;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: #2f4f4f;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+
+    #sidebar .sidebar-header {
+        padding: 0px;
+       /* background: #6d7fcc;*/
+    }
+
+    #sidebar ul.components {
+        padding: 20px 0;
+        /*border-bottom: 1px solid #47748b;*/
+    }
+
+    #sidebar ul p {
+        color: #fff;
+        padding: 10px;
+    }
+
+    #sidebar ul li a {
+        padding: 10px;
+        font-size: 1.1em;
+        display: block;
+        background:#2f4f4f;
+    }
+
+        #sidebar ul li a:hover {
+            color: black;
+            background: #DCDCDC;
+        }
+
+    #sidebar ul li.active > a,
+    a[aria-expanded="true"] {
+        color: #fff;
+        background: #E1E5E5;
+    }
+.LayoutProfile ul li.active > a,
+a[aria-expanded="true"] {
+    color: #fff;
+    background: none;
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20%;
+    transform: translateY(-50%);
+}
+
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #6d7fcc;
+}
+
+#content {
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+
+        #sidebar.active {
+            margin-left: 0;
+        }
+
+    #sidebarCollapse span {
+        display: none;
+    }
+}
+
+.nav {
+    padding-top: 10%;
+}
+
+.MainNavBar {
+    padding-left: 2%;
+}
+
+.NavBar {
+    height: 72px;
+    background-color: #6d7fcc;
+}
+
+#content {
+    padding: 0%;
+}
+
+.header {
+    padding: 0%;
+}
+
+
+.LayoutProfile {
+    display: inline-block;
+    float: right;
+    font-size: 19px;
+    margin-top: 5px!important;
+
+}
+.NotificationIcon {
+    font-size: 24px;
+    color: white;
+    margin-right: -14px;
+ 
+}
+
+.badge {
+    width: 80px;
+}
+.badge-notification {
+    background-color: red !important;
+    width: auto!important;
+}
+.HeaderMenu {
+    background-color: #2f4f4f;
+}
+.padding-t-12 {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-right: 18px;
+    padding-left: 9px;
+}
+
+.UserInfo a {
+    color: white !important;
+    padding-right: 10px;
+    padding-left: 8px;
+}
+.bg-none{
+    background-color:none!important;
+}
+.NavbarLink {
+    font-size: 13px;
+    float: right;
+}
+.PageHeading {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    padding-left: 15px !important;
+    background-color: white !important;
+    display: flow-root;
+    width: 100%;
+}
+.float-right{
+    float:right;
+    padding-right:10px;
+}
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    margin-top: 0px !important;
+    left: 0;
+    /* color: white!important; */
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 300px;
+    max-width: 300px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 15px;
+    text-align: left;
+    list-style: none;
+    background-color: #2f4f4f;
+    background-clip: padding-box;
+    /* border: 1px solid #ccc; */
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+}
+    .dropdown-menu li a,small{
+        color: white !important;
+        padding-right: 1px;
+        padding-left: 5px;
+        padding-bottom :0px;
+    }
+    .dropdown-menu li a:hover{
+        color: black !important;
+        background-color:#DCDCDC!important;
+    }
+.Pagination-text {
+    color: Black !important;
+}
+.Notification-read {
+    font-size: 15px;
+    padding-bottom: 7px;
+}
+
+.Notification-notread {
+    font-size: 15px;
+    padding-bottom: 7px;
+    background: #6f7d7d;
+}
+
+.dropdown-menu li, .dropdown-menu li a {
+    white-space: normal;
+    float: left;
+    width: 100%;
+    height: auto;
+    word-wrap: break-word;
+    padding-bottom: 5px;
+}
+
+.SegmentHeading {
+    margin-bottom: 30px;
+    color: white;
+    background: #2f4f4f;
+}
+.table-head {
+    background: #2f4f4f;
+    color: white;
+}
+    /*.table-head tr:hover {
+        background: #2f4f4f !important;
+        color: white !important;
+    }*/
+.noHover {
+    pointer-events: none;
+}
+    
+    .btn-primary {
+        background: #2f4f4f !important;
+        font: white !important;
+    }
+
+
+.table-hover th:hover {
+    color: white !important;
+    background-color: none !important;
+}
+
+#loader {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    bottom: 50%;
+    z-index: 1;
+    width: 120px;
+    background: transparent;
+    height: 120px;
+    margin: -76px 0 0 -76px;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #2f4f4f;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+    position: relative;
+    -webkit-animation-name: animatebottom;
+    -webkit-animation-duration: 1s;
+    animation-name: animatebottom;
+    animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+    from {
+        bottom: -100px;
+        opacity: 0
+    }
+
+    to {
+        bottom: 0px;
+        opacity: 1
+    }
+}
+
+@keyframes animatebottom {
+    from {
+        bottom: -100px;
+        opacity: 0
+    }
+
+    to {
+        bottom: 0;
+        opacity: 1
+    }
+}
+.LoaderActivate {
+    pointer-events:none;
+}
+.LoaderDeActivate {
+    pointer-events: auto;
+}
+.Open {
+    background: #00b7a6;
+}
+.Inprogress {
+    background: goldenrod;
+}
+.Completed {
+    background: green;
+}
+.Resolved {
+    background: green;
+}
+.FollowUp {
+    background:purple;
+}
+.ReOpen{
+    background:Orange;
+}
+.OnHold {
+    background: Maroon;
+}
+.Cancelled {
+    background: red;
+}
+.Closed {
+    background: red;
+}
+.None{
+    background: #f89406;
+}
+.Pending {
+    background: #f89406;
+}
+.Feasible{
+    background:green;
+}
+.NotFeasible{
+    background:red;
+}
+.Approved{
+    background:green;
+}
+.NotApproved{
+    background:red;
+    width:90px!important;
+}
+.crd-heading-bg-color {
+    color: white;
+    background-color: #2f4f4f;
+    border-color: #2f4f4f;
+}
+
+.hvr-glow {
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-property: box-shadow;
+    transition-property: box-shadow;
+}
+
+    .hvr-glow:hover, .hvr-glow:focus, .hvr-glow:active {
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+    }
+
+.dashbord-card {
+    background-color: #00a1e2;
+    color: black;
+    margin-bottom: 08px;
+}
+
+.CompanySearch {
+    padding: 0px;
+    height: inherit;
+    
+}
+
+.Badge-Width {
+    width: 30px !important;
+}
+.text-align-center{
+    text-align:center !important;
+}
+.text-align-left {
+    text-align: left !important;
+}
+.text-align-right {
+    text-align: right !important;
+}
+.m-l-20{
+    margin-left:20px;
+}
+.max-width {
+    max-width: 100%;
+}
+.Ticket-table-margin{
+    margin-left :15px!important;
+    margin-right:15px!important;
+}
+.float-left{
+    float:left;
+}

@@ -1,0 +1,131 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<div ng-controller="PurchaseOrderCtrl" ng-init="initIndex()">
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <div class="col-md-9">
+                <h2>Purchase Order List</h2>
+            </div>
+            @if (User.IsInRole("Pmd_Feasibility") @*|| User.IsInRole("Pmd_Feasibility")*@ )
+            {
+                <div class="col-md-3">
+                    <a class="btn btn-primary pull-right" style=" margin-top: 20px;" href="/PurchaseOrder/Add">Add</a>
+                </div>
+            }
+
+        </div>
+    </div>
+
+    <div class="jumbotron PageHeading">
+        <table class="table table-hover" width="100%">
+            <tr class="table-head noHover">
+                <th>
+                    Id
+                </th>
+                <th>
+                    Company
+                </th>
+                <th>
+                    LeadId
+                </th>
+                <th>
+                    OTC/MRC
+                </th>
+                <th>Billing</th>
+                <th>Status</th>
+                @*<th>Core</th>
+                    <th>SD</th>
+                    <th>PreSales</th>
+                    <th>Vendor</th>*@
+                <th>Assigned To</th>
+                <th>Created At</th>
+                <th>Created By</th>
+                <th style="width:6%;">Action</th>
+            </tr>
+            <tr ng-repeat="PurchaseOrder in PurchaseOrders">
+                <td>
+                    {{PurchaseOrder.Id}}
+                </td>
+                <td>
+                    {{PurchaseOrder.CompanyName}}
+                </td>
+                <td>
+                    {{PurchaseOrder.LeadId}}
+                </td>
+                <td class="text-align-left">
+                    {{PurchaseOrder.OTC | number}} / {{PurchaseOrder.MRC | number}}
+                </td>
+                <td>
+                    {{PurchaseOrder.BillingStatusEnum}}
+                </td>
+
+                <td>
+                    {{PurchaseOrder.StatsuEnum}}
+                </td>
+                @*<td>
+                        {{PurchaseOrder.CoreProcessStatusEnum}}
+                    </td>
+                    <td>
+                        {{PurchaseOrder.SdProcessStatusEnum}}
+                    </td>
+                    <td>
+                        {{PurchaseOrder.PresalesProcessStatusEnum}}
+                    </td>
+                    <td>
+                        {{PurchaseOrder.VendorProcessStatusEnum}}
+                    </td>*@
+                <td>
+                    {{PurchaseOrder.AssignedDepartmentName}}
+                </td>
+                <td>
+                    {{PurchaseOrder.CreatedAt |  date:'MMM d, y'}}
+                </td>
+                <td>
+                    {{PurchaseOrder.CreatedBy}}
+                </td>
+                <td>
+                    @if (User.IsInRole("Pmd_Feasibility"))
+                    {
+                        <a href="#" data-toggle="modal" data-target="#myModal" ng-if="(PurchaseOrder.AssignedDepartmentId == null || PurchaseOrder.AssignedDepartmentId == 0)  && PurchaseOrder.BillingStatusEnum == 'InActive' &&  PurchaseOrder.StatsuEnum != 'Cancelled'" ng-click="SetAssigningDataToModal(PurchaseOrder)" title="Assign Depart"><i class="fas fa-users"></i></a>
+                        @*<a href="#"  ng-if="PurchaseOrder.StatsuEnum != 'Completed'" ng-click="TagBilling(PurchaseOrder.Id)" title="Tag Billing"><i class="fas fa-users"></i></a>*@
+                        <a href="/PurchaseOrder/Edit?Id={{PurchaseOrder.Id}}" ng-if="(PurchaseOrder.AssignedDepartmentId == null || PurchaseOrder.AssignedDepartmentId == 0) && (PurchaseOrder.StatsuEnum != 'Completed' && PurchaseOrder.StatsuEnum != 'Cancelled')" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                    }
+
+                    <a href="/PurchaseOrder/Detail?Id={{PurchaseOrder.Id}}" title="Details"><i class="fas fa-file"></i></a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Assign Department</h4>
+                </div>
+                <div class="">
+                    <form id="AssignmentForm ">
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label>Departments</label>
+                                <select ng-model="Assignment.DepartmentId" class="form-control" >
+                                    <option selected value="">Select Department To Assign</option>
+                                    <option ng-repeat="Depart in Departments" value="{{Depart.Id}}" @*ng-hide="(Assignment.Domain == 0 && Type =='PMD')||(Assignment.Domain == 1 && Type =='PreSale')"*@>{{Depart.Name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" style=" margin-top: 25px;" data-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" style=" margin-top: 25px;" data-dismiss="modal" ng-click="AssignDepartment(Assignment)">Assign</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<div ng-controller="PaymentCtrl" ng-init="initIndex()">
+    <div class="jumbotron PageHeading">
+        <div class="row">
+            <div class="col-md-3">
+                <h2>Payment List</h2>
+            </div>
+            <div class="col-md-9 ">
+                <a class="btn btn-primary pull-right" style=" margin-top: 20px;" href="/Payment/Add">Add</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="jumbotron PageHeading">
+        <table class="table table-hover" width="100%">
+            <tr class="table-head noHover">
+                <th>
+                    Id
+                </th>
+                <th>
+                    AccountId
+                </th>
+                <th>
+                    Company
+                </th>
+                <th>
+                    Amount
+                </th>
+                <th>
+                    Payment Type
+                </th>
+                <th>Check#</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>IsPosted</th>
+                <th>
+                    Created At
+                </th>
+                <th>
+                    Created By
+                </th>
+                <th style="width:9%;">
+                    Action
+                </th>
+            </tr>
+            <tr ng-repeat="Payment in Payments">
+                <td>
+                    {{Payment.Id}}
+                </td>
+                <td>
+                    {{Payment.AccountId}}
+                </td>
+                <td>
+                    {{Payment.CompanyName}}
+                </td>
+                <td>
+                    {{Payment.Amount}}
+                </td>
+                <td>
+                    {{Payment.PaymentTypeEnum}}
+                </td>
+                <td>
+                    {{Payment.CheckNumber}}
+                </td>
+                <td>
+                    {{Payment.Description}}
+                </td>
+                <td>
+                    {{Payment.StatusEnum}}
+                </td>
+                <td>
+                    {{Payment.IsPosted}}
+                </td>
+                <td>
+                    {{Payment.CreatedAt |  date:'MMM d, y'}}
+                </td>
+                <td>
+                    {{Payment.CreatedBy}}
+                </td>
+                <td>
+                    <a href="/Payment/Edit?Id={{Payment.Id}}" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                    <a ng-if="!Payment.IsPosted" href="#"  ng-click="PostPayment(Payment)"><i class="fas fa-cash-register"></i></a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+

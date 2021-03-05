@@ -1,0 +1,287 @@
+﻿@{
+    ViewBag.Title = "Add";
+}
+<div ng-controller="CompanyCtrl" ng-init="AddInit()">
+    <div class="jumbotron PageHeading">
+        <div class="row"><div class="col-md-3"><h2>Add Company</h2></div></div>
+    </div>
+    @*basic Infromtaion*@
+    <div class="jumbotron PageHeading">
+        <div class="text-center">
+            <div class="row"> <h2 class="SegmentHeading">Basic Information</h2></div>
+        </div>
+        <div class="row">
+            <form id="VendorAddForm ">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" ng-model="Company.Name" placeholder="Company Name" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Description</label>
+                        <input type="text" class="form-control" ng-model="Company.Description" placeholder="Description" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-2">
+                        <label>Is Branch</label>
+                        <input type="checkbox" class="" ng-model="Company.IsBranch" />
+                    </div>
+                </div>
+                <div class="form-group" ng-if="Company.IsBranch">
+                    <div class="col-md-4">
+                        <label>Parent Company</label>
+                        <select ng-model="Company.ParentCompanyId" class="form-control">
+                            <option selected value="">Select Parent Company</option>
+                            <option ng-repeat="Company in Companies" value="{{Company.Id}}">{{Company.Name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    @*Contact Infromation*@
+    <div class="jumbotron PageHeading">
+        <div class="row text-center">
+            <h2 class="SegmentHeading">Company Contact Information<br /><small>(Do not enter POC's information)</small></h2> 
+        </div>
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label>Mode Of Communication</label>
+                <select ng-model="Company.MOCId" class="form-control">
+                    <option selected value="">Mode of Commincation</option>
+                    <option ng-repeat="MOC in MOCS" value="{{MOC.Id}}">{{MOC.Name}}</option>
+                </select>
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Business Operation Time</label>
+                <select ng-model="Company.BOT" class="form-control">
+                    <option selected value="">Operation Time</option>
+                    <option value="0">Morning</option>
+                    <option value="1">Evening</option>
+                    <option value="3">Night</option>
+                    <option value="2">24/7</option>
+                </select>
+            </div>
+
+            <div class="col-md-4 form-group">
+
+                <label>Email</label>
+                <input type="email" class="form-control" ng-model="Company.Email" placeholder="E-mail" />
+
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Contact <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" ng-model="Company.Contact" placeholder="03XX-XXXXXXX" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Alternate Number</label>
+                <input type="text" class="form-control" ng-model="Company.CompanyAlternateContact" placeholder="03XX-XXXXXXX" />
+            </div>
+            @*<div class="col-md-4 form-group">
+                    <label>Phone Number</label>
+                    <input type="text" class="form-control" ng-model="Company.CompanyContact" placeholder="033xxxx.." />
+                </div>*@
+            @*<div class="col-md-4 form-group">
+                    <label>Alternate Number</label>
+                    <input type="text" class="form-control" ng-model="Company.CompanyAlternateContact" placeholder="033xxxx.." />
+                </div>*@
+            @*<div class="col-md-4 form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" ng-model="Company.CompanyEmail" placeholder="johndoe@live.com" />
+                </div>*@
+            <div class="col-md-4 form-group">
+                <label>Website</label>
+                <input type="text" class="form-control" ng-model="Company.Website" placeholder="www.demo.com" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Latitude <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" ng-model="Company.Latitude" placeholder="Latitude" />
+                @*<select ng-model="Company.Area" class="form-control">
+                        <option selected value="">Area</option>
+                        <option value="0">Korangi Industrial</option>
+                        <option value="1">II Chudrigarh</option>
+                        <option value="3">Shafeeq Mor</option>
+                    </select>*@
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Longitude <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" ng-model="Company.Longitude" placeholder="Longitude" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>City</label>
+                <select ng-model="Company.City" class="form-control">
+                    <option selected value="">Select City</option>
+                    <option ng-repeat="City in CityDropDown" ng-selected="Company.City==City.id" value="{{City.id}}">{{City.Name}}</option>
+                </select>
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Address <span class="text-danger">*</span></label>
+                <input type="text" ng-model="Company.Address" class="form-control" placeholder="Address" />
+            </div>
+
+        </div>
+    </div>
+    @*Bussiness Information*@
+    <div class="jumbotron PageHeading">
+        <div class="row text-center">
+            <h2 class="SegmentHeading">Business Infromation</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label>Number of Users</label>
+                <select ng-model="Company.NOE" class="form-control">
+                    <option selected value="">Number of Users</option>
+                    <option value="0">1-5</option>
+                    <option value="1">5-10</option>
+                    <option value="3">10-50</option>
+                    <option value="3">50-100</option>
+                    <option value="4">100+</option>
+                </select>
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Numbe of Branch offices</label>
+                <input type="number" ng-model="Company.NoBracnhOffices" class="form-control" placeholder="No Of Branches" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Business Industry</label>
+                <select ng-model="Company.BusinessIndustry" class="form-control">
+                    <option selected value="">Business Industry</option>
+                    <option ng-repeat="segment in BusinessSegmentationDropDown" ng-selected="Company.BusinessIndustry==segment.id" value="{{segment.id}}">{{segment.Name}}</option>
+                </select>
+            </div>
+            <div class="col-md-4 form-group">
+                <label>NTN</label>
+                <input type="text" ng-model="Company.NTN" class="form-control" placeholder="XXXXXXX-X" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Currently using IT platform</label>
+                <input type="text" ng-model="Company.CurrentItPlatform" class="form-control" placeholder="IT Platform" />
+            </div>
+            @*<div class="col-md-4 form-group">
+                    <label>Future plan for extension in IT Service</label>
+                    <input type="text" ng-model="Company.FuturePlanOFExtention" class="form-control" />
+                </div>*@
+            @*<div class="col-md-4 form-group">
+                <label>Currently Used Medium</label>
+                <select ng-model="Company.CUDS" class="form-control" ng-change="GetDropdownForServies(Company.CUDS)">
+                    <option selected value="">Current Service</option>
+                    <option value="0">DSL</option>
+                    <option value="1">VSAT</option>
+                    <option value="2">WiWax</option>
+                    <option value="3">Fiber</option>
+                    <option value="4">Other</option>
+                </select>
+            </div>*@
+            @*<div class="col-md-4 form-group" ng-if="Company.CUDS == null">
+                    <span ng-if="Company.CUDS == null">Please Select Currently Used Data/Internet Service</span>
+                </div>*@
+            @*<div class="col-md-4 form-group" ng-if="Company.CUDS != null">
+                <span ng-if="Company.CUDS != '4' ">
+                    <label>Select Service</label>
+                    <select ng-model="Company.CUDSService" class="form-control">
+                        <option selected value="">Service Type</option>
+                        <option ng-repeat="service in CurrentServices" value="{{service.Id}}">{{service.Name}}</option>
+                    </select>
+                </span>
+                <span ng-if="Lead.CUDS == '4' ">
+                    <label>Select service</label>
+                    <input type="text" class="form-control" ng-model="Company.CUDSOtherService" placeholder="Other Service" />
+                </span>
+            </div>*@
+            <div class="col-md-4 form-group">
+                <label>Number of links</label>
+                <input type="number" class="form-control" ng-model="Company.NoLinks" placeholder="No Of Links" />
+            </div>
+            @*<div class="col-md-4 form-group">
+                    <label>Budget</label>
+                    <input type="text" class="form-control" ng-model="Company.Budget" />
+                </div>*@
+            @*<div class="col-md-4 form-group">
+                    <label>Estimated Closing Date</label>
+                    <input type="date" class="form-control" ng-model="Company.EstimatedClosingDate" />
+                </div>
+                <div class="col-md-4 form-group">
+                    <label>Comments</label>
+                    <input type="text" class="form-control" ng-model="Company.Comments" />
+                </div>*@
+            @*<div class="col-md-4 form-group">
+                    <label>Is our Existing Customer</label>
+                    <input type="checkbox" ng-model="Lead.IsEsisting" />
+                </div>*@
+            @*<div class="col-md-4 form-group">
+                    <label>Ever Tried Our Service Before</label>
+                    <input type="checkbox" ng-model="Lead.HasTriedOurServie" />
+                </div>*@
+
+        </div>
+        <div class="row float-right">
+            <a href="/Lead" class="btn btn-danger">Cancel</a>
+            <button class="btn btn-primary" style=" margin-right: 61px!important;" ng-click="AddCompany(Company)">Add</button>
+        </div>
+    </div>
+    @*Billing Infromation*@
+    <!--<div class="jumbotron PageHeading">
+        <div class="row text-center">
+            <h2 class="SegmentHeading">Billing Infromation</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-12 form-group">
+                <button class="btn btn-primary pull-right" style=" margin-top: 20px;" ng-click="AddRow()">Add Row</button>
+            </div>
+            <div ng-if="BillingInformationsList.length > 0">
+                <table class="table " width="100%">
+                    <tr>
+                        <th>SR#</th>
+                        <th>Vendor</th>
+                        <th>OTC</th>
+                        <th>MRC</th>
+                        <th>Bandwidth</th>
+                        <th>Type</th>
+                        <th>Remarks</th>
+
+                    </tr>
+                    <tr ng-repeat="BillingInfo in BillingInformationsList">
+                        <td>{{$index+1}}</td>-->
+                        @*<td>
+                            <select ng-model="feasibility.VendorId" class="form-control">
+                                <option selected value="">Select Vendor</option>
+                                <option ng-repeat="Vendor in Vendors" value="{{Vendor.Id}}" ng-selected="feasibility.VendorId == Vendor.Id">{{Vendor.Name}}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" ng-model="feasibility.OTC" />
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" ng-model="feasibility.MRC" />
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" ng-model="feasibility.Bandwidth" />
+                        </td>
+                        <td>
+                            <select ng-model="feasibility.ConnectivityType" class="form-control">
+                                <option selected value="">Select Connection Type</option>
+                                <option value="0" ng-selected="feasibility.ConnectivityType == 0">Fiber</option>
+                                <option value="1" ng-selected="feasibility.ConnectivityType == 1">Radio</option>
+                            </select>
+                        </td>*@
+                        <!--<td>
+                            <input type="text" class="form-control" ng-model="feasibility.Remarks" />
+                        </td>
+
+                        <td>
+                            <i class="fas fa-trash-alt" ng-click="RemoveRow($index)"></i>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>-->
+
+
+</div>
+

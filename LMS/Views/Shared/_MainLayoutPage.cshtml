@@ -1,0 +1,259 @@
+﻿
+
+@using Microsoft.AspNet.Identity;
+@using UserRoles = LMS.Models.Enums.Roles;
+<!DOCTYPE html>
+<html ng-app="LmsApp">
+<head>
+    <title>@ViewBag.Title - The Lead Management System</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script type="text/javascript" src="~/Content/js/Jquery.min.js"></script>
+    <link href="~/Content/toaster.css" rel="stylesheet" />
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+    @*Select2 Css*@
+    <!-- Select2 theme -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css">
+
+    <!-- ui-select files -->
+
+    <link href="~/Content/Select/Select.css" rel="stylesheet" />
+</head>
+<body ng-controller="baseCtrl" ng-class="ServiceClassBinder">
+    <toaster-container toaster-options="{'time-out': 3000}"></toaster-container>
+    @*<button class="btn-primary" ng-click="Pop()">Pop</button>*@
+    <div>
+        <div id="loader" ng-if="TotalNumberOfServicesRunning > 0"></div>
+    </div>
+
+    <div class="wrapper" style="overflow:hidden;">
+        <nav class="nav-f" id="sidebar">
+            <div class="sidebar-header">
+                <a href="/Home"><h3 style=" padding-left: 9px;">SharpTel</h3></a>
+            </div>
+            <ul class="lisst-unstyled components" style="padding-top: 2px;">
+
+                @*@if (User.IsInRole(UserRoles.SuperAdmin))
+                {
+                    <li>
+                        <a href="/Department"> Departments <i class="fas fa-caret-right NavbarLink"></i></a>
+                    </li>
+                }*@
+                @if (User.IsInRole(UserRoles.Admin) || User.IsInRole(UserRoles.Lead_Sales) || User.IsInRole(UserRoles.SuperAdmin) || User.IsInRole(UserRoles.HR))
+                {
+                    <li>
+                        <a href="/Lead"> Leads <i class="fas fa-caret-right NavbarLink"></i></a>
+                    </li>
+                }
+                @if (User.IsInRole(UserRoles.Pmd_Feasibility) || User.IsInRole(UserRoles.PreSale))
+                {
+                    <li>
+                        <a href="/Lead/List"> Leads <i class="fas fa-caret-right NavbarLink"></i></a>
+                    </li>
+                }
+                @if (User.IsInRole(UserRoles.PreSale) || User.IsInRole(UserRoles.Core) || User.IsInRole(UserRoles.SD) || User.IsInRole(UserRoles.Lead_Sales))
+                {
+                    <li>
+                        <a href="/PurchaseOrder/"> Purchase Orders <i class="fas fa-caret-right NavbarLink"></i></a>
+                    </li>
+                }
+                @if (User.IsInRole(UserRoles.Pmd_Feasibility) || User.IsInRole(UserRoles.PreSale) || User.IsInRole(UserRoles.Lead_Sales))
+                {
+                    <li>
+                        <a href="/Company"> Companies <i class="fas fa-caret-right NavbarLink"></i></a>
+                    </li>
+                    @*<li>
+                <a href="/CompanySubcription/"> Subcriptions <i class="fas fa-caret-right NavbarLink"></i></a>
+            </li>*@
+                }
+
+
+
+                @if (User.IsInRole(UserRoles.Admin) || User.IsInRole(UserRoles.SD))
+                {
+                    <li>
+                        <a href="#ServiceDesk" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Service Desk <b class="caret NavbarLink"></b></a>
+                        <ul class="collapse list-unstyled" id="ServiceDesk">
+                            <li>
+                                <a href="/CompanyAccounts/ParentCompanies">Parent Company<i class="fas fa-caret-right NavbarLink"></i></a>
+                            </li>
+                            <li>
+                                <a href="/Ticket/">Tickets<i class="fas fa-caret-right NavbarLink"></i></a>
+                            </li>
+                        </ul>
+                    </li>
+
+                }
+
+
+
+                @if (User.IsInRole(UserRoles.HR) || User.IsInRole(UserRoles.SuperAdmin) || User.IsInRole(UserRoles.Admin))
+                {
+                    <li>
+                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Users <b class="caret NavbarLink"></b></a>
+                        <ul class="collapse list-unstyled" id="pageSubmenu">
+                            @if (User.IsInRole(UserRoles.SuperAdmin))
+                            {
+                                <li>
+                                    <a href="/User/AddAdmin">Add Admin <i class="fas fa-caret-right NavbarLink"></i></a>
+                                </li>
+                            }
+                            @if (User.IsInRole(UserRoles.HR))
+                            {
+                                <li>
+                                    <a href="/User/Add">Add User <i class="fas fa-caret-right NavbarLink"></i></a>
+                                </li>
+                            }
+
+                            <li>
+                                <a href="/User/">Users <i class="fas fa-caret-right NavbarLink"></i></a>
+                            </li>
+                        </ul>
+                    </li>
+
+                }
+                @if (User.IsInRole(UserRoles.HR)|| User.IsInRole(UserRoles.Admin) || User.IsInRole(UserRoles.SuperAdmin) || User.IsInRole(UserRoles.Accounts) || User.IsInRole(UserRoles.Pmd_Feasibility))
+                {
+                    <li>
+                        <a href="/Vendor"> Vendors <i class="fas fa-caret-right NavbarLink"></i></a>
+                    </li>
+                    <li>
+                        <a href="#Billing" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Billing <b class="caret NavbarLink"></b></a>
+                        <ul class="collapse list-unstyled" id="Billing">
+                            <li>
+                                <a href="/Billing/">Companies<i class="fas fa-caret-right NavbarLink"></i></a>
+                            </li>
+                            <li>
+                                <a href="/Invoice/">Invoices<i class="fas fa-caret-right NavbarLink"></i></a>
+                            </li>
+                            <li>
+                                <a href="/PurchaseOrder/">Purchase Orders<i class="fas fa-caret-right NavbarLink"></i></a>
+                            </li>
+                            <li>
+                                <a href="/Payment/">Payments<i class="fas fa-caret-right NavbarLink"></i></a>
+                            </li>
+                            <li>
+                                <a href="/CompanyAccounts/">Accounts<i class="fas fa-caret-right NavbarLink"></i></a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#Charges" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Charges <b class="caret NavbarLink"></b></a>
+                        <ul class="collapse list-unstyled" id="Charges">
+                            <li>
+                                <a href="/Charge/index?Type=Tax">Taxes<i class="fas fa-caret-right NavbarLink"></i></a>
+                            </li>
+                        </ul>
+                    </li>
+
+                }
+                @if (!User.IsInRole(UserRoles.SD) || User.IsInRole(UserRoles.HR))
+                {
+                    <li>
+                        <a href="/Ticket/"> Tickets <i class="fas fa-caret-right NavbarLink"></i></a>
+                    </li>
+                }
+                @if (User.IsInRole(UserRoles.HR))
+                {
+                    <li>
+                        <a href="/AgentAttendance/"> Attendance <i class="fas fa-caret-right NavbarLink"></i></a>
+                    </li>
+                }
+                <li>
+                    <a href="#" ng-click="MarkAgentSignOff()">Mark Sign Off Time<i class="fas fa-caret-right NavbarLink"></i></a>
+                </li>
+                <li>
+                    <a href="/BugReport/">Repot Bug <i class="fas fa-caret-right NavbarLink"></i></a>
+                </li>
+
+            </ul>
+        </nav>
+
+
+        <div id="content" style="overflow: hidden;">
+            <nav class=" navbar-expand-lg navbar-light header HeaderMenu">
+                <div class="">
+                    <div class="padding-t-12">
+                        <button type="button" id="sidebarCollapse" class="btn  btn-dark">
+                            <i class="fas fa-bars"></i>
+                            <span></span>
+                        </button>
+
+                        <div class="LayoutProfile">
+                            @Html.Partial("_LoginPartial")
+                        </div>
+                        <div class="dropdown LayoutProfile">
+                            <a href="#" class="dropdown-toggle bg-none" data-toggle="dropdown">
+                                <i class="fas fa-bell NotificationIcon"></i> <span class="badge badge-notification" >{{Notifications.TotalNotification}}</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                @*with style means it has not yet been read*@
+                                <li ng-repeat="noti in Notifications.Data" class="Notification-read" ng-if="noti.IsRead">@*<span>{{noti.CreatedAt | date:'MMM d, y'}}</span>*@<a href="{{noti.Link}}">{{noti.CreatedAt | date:'MMM d, y'}} {{noti.Content}}</a><small>{{noti.Date}}</small></li>
+                                <li ng-repeat="noti in Notifications.Data" class="Notification-notread" ng-if="!noti.IsRead">@*<span>{{noti.CreatedAt | date:'MMM d, y'}}</span>*@<a href="{{noti.Link}}">{{noti.CreatedAt | date:'MMM d, y'}} {{noti.Content}}</a><small>{{noti.Date| date:'MMM d, y' }}</small></li>
+                                @*<li class="Notification-read"><a href="#">Lead#1004 has been Disapproved</a></li>
+                                    <li class="Notification-read"><a href="#">Lead#1006 has been Marked Feasible</a></li>
+                                    <li class="Notification-notread"><a href="#">Lead#1002 has been Marked Not Feasible</a></li>
+                                    <li class="Notification-notread"><a href="#">Lead#1003 has been Closed</a></li>
+                                    <li class="Notification-read"><a href="#">Lead#1009 has been Closed</a></li>*@
+                                    <li class="divider" style="padding:0; margin:0px;"></li>
+                                <li style="padding-bottom:0px;"><a href="/Notification/" class="text-center">View All</a></li>
+                            </ul>
+                        </div>
+                        @*<div class="LayoutProfile dropdown">
+                                <a href="#nobody" data-toggle="dropdown"><i class="fas fa-bell NotificationIcon"></i> <span class="badge badge-notification">5</span></a>
+                            </div>*@
+                    </div>
+
+                </div>
+            </nav>
+            <div class="container body-content">
+                @RenderBody()
+                <br />
+                <br />
+                @*<hr />*@
+                @*<div>
+                    <footer class="navbar-fixed-bottom  MainFooter">
+                        <p>&copy; @DateTime.Now.Year - Daretech</p>
+                    </footer>
+                </div>*@
+
+            </div>
+        </div>
+    </div>
+
+    @*<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    @*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>*@
+    <script src="~/Content/js/Angular/moment.min.js"></script>
+    <script src="~/Content/js/jquery.min.js"></script>
+    <script src="~/Content/js/angular.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="~/Content/js/toaster.js"></script>
+    @*<script src="~/Content/js/AngularCtrl.js"></script>*@
+    <script src="~/Content/Select/select.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-sanitize.js"></script>
+    @Scripts.Render("~/Content/js/Angular/AngularBundle")
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Content/js/Angular-Chart.js"></script>
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Content/js/Angular-Chart.min.js"></script>
+    @RenderSection("scripts", required: false)
+
+
+
+    <script>
+
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,417 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+}
+
+
+@{
+    ViewBag.Title = "UpdateBilling";
+}
+<div ng-controller="BillingCtrl" ng-init="AddInit()">
+    <div class="jumbotron PageHeading">
+        <div class="row"><div class="col-md-3"><h2>Company Billing</h2></div></div>
+    </div>
+    @*Billing Infromation*@
+    <div class="jumbotron PageHeading">
+        <div class="text-center">
+            <div class="row"> <h2 class="SegmentHeading">Billing Information</h2></div>
+        </div>
+        <div class="row">
+            <form id="LeadAddForm ">
+                @*<div class="form-group">
+                        <div class="col-md-3">
+                            <label>Company</label><a href="#" data-toggle="modal" data-target="#myModal"><i class="fas fa-plus"></i><span class="text-danger"> *</span></a>
+                            <ui-select ng-model="CompanyId" theme="select2" class="form-control CompanySearch" ng-change="GetCompanyData(CompanyId)">
+                                <ui-select-match placeholder="Select a company in the list...">{{$select.selected.Name}}</ui-select-match>
+                                <ui-select-choices repeat="item in Companies | filter: $select.search">
+                                    <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>*@
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Billing Address 1<span class="text-danger">*</span></label>
+                        <textarea type="text" class="form-control" readonly ng-model="Billing.Address1" cols="4"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Billing Address 2</label>
+                        <textarea type="text" class="form-control" readonly ng-model="Billing.Address2" cols="4"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>City</label>
+                        <input type="text" class="form-control" readonly ng-model="Billing.City" placeholder="" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>State</label>
+                        <input type="text" class="form-control" readonly ng-model="Billing.State" placeholder="" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Country</label>
+                        <input type="text" class="form-control" readonly ng-model="Billing.Country" placeholder="" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Zip</label>
+                        <input type="text" class="form-control" readonly ng-model="Billing.Zip" placeholder="" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Billing Format</label>
+                        <select ng-model="Billing.BillingFormatType" class="form-control" disabled>
+                            <option selected value="">Select Billing Format</option>
+                            <option ng-selected="Billing.BillingFormatType=='Format Type 1'" value="Format Type 1">Format Type 1</option>
+                            <option ng-selected="Billing.BillingFormatType=='Format Type 2'" value="Format Type 2">Format Type 2</option>
+                            <option ng-selected="Billing.BillingFormatType=='Format Type 3'" value="Format Type 3">Format Type 3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>POC Name</label>
+                        <input type="text" class="form-control" ng-model="Billing.POCName" readonly placeholder="" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>POC Contact</label>
+                        <input type="text" class="form-control" ng-model="Billing.POCContact" readonly placeholder="" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Company Contact</label>
+                        <input type="text" class="form-control" ng-model="Billing.CompanyContact" readonly placeholder="" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Company Email</label>
+                        <input type="email" required class="form-control" ng-model="Billing.CompanyEmail" readonly placeholder="" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Delivery Mode</label>
+                        <select ng-model="Billing.DeliveryMode" class="form-control" disabled>
+                            <option selected value="">Select Delivery Mode</option>
+                            <option ng-selected="Billing.DeliveryMode=='DeliveryMode 1'" value="DeliveryMode 1">DeliveryMode 1</option>
+                            <option ng-selected="Billing.DeliveryMode=='DeliveryMode 2'" value="DeliveryMode 2">DeliveryMode 2</option>
+                            <option ng-selected="Billing.DeliveryMode=='DeliveryMode 3'" value="DeliveryMode 3">DeliveryMode 3</option>
+                        </select>
+                    </div>
+                </div>
+                @*<div class="form-group">
+                        <div class="col-md-3">
+                            <label>Billing Status</label>
+                            <select ng-model="Billing.Billingtatus" class="form-control">
+                                <option selected value="">Select Status</option>
+                                <option ng-selected="Billing.Billingtatus==0" value="0">Enabled</option>
+                                <option ng-selected="Billing.Billingtatus==1" value="1">Disabled</option>
+                                <option ng-selected="Billing.Billingtatus==2" value="2">Suspended</option>
+                            </select>
+                        </div>
+                    </div>*@
+            </form>
+        </div>
+
+    </div>
+
+    @*Billing Details*@
+    <div class="jumbotron PageHeading">
+        <div class="row text-center ">
+            <h2 class="SegmentHeading">Billing Details</h2>
+        </div>
+        <div ng-if="BillingInformationsList.length > 0" id="#BillingDetails">
+            <div class="" style="margin-top: 50px">
+                <div class="row" style="border:1px solid grey;margin-top:10px " ng-repeat="BillingDetail in BillingInformationsList">
+                    <div><h3>Number # {{$index+1}} <span class="float-right" ng-if="BillingDetail.Id == 0"><a href="#BillingDetails" ng-click="RemoveRow($index)"><i class="fas fa-trash-alt" ng-click="RemoveRow($index)"></i></a> </span> </h3></div>
+                    <form id="LeadAddForm ">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Customer Str<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.CustomerStr" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Birth Date <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" readonly ng-model="BillingDetail.BirthDate" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Installation Date <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" readonly ng-model="BillingDetail.InstallationDate" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Link Type <span class="text-danger">*</span></label>
+                                <select ng-model="BillingDetail.CPEType" class="form-control" disabled>
+                                    <option selected value="">Select Link Type</option>
+                                    <option ng-selected="BillingDetail.CPEType=='Fiber'" value="Fiber">Fiber</option>
+                                    <option ng-selected="BillingDetail.CPEType=='Radio'" value="Radio">Radio</option>
+                                    <option ng-selected="BillingDetail.CPEType=='Wimax_LTE'" value="Wimax_LTE">Wimax / LTE</option>
+                                    <option ng-selected="BillingDetail.CPEType=='Bulk_Bandwidht'" value="Bulk_Bandwidht">Bulk Bandwidht</option>
+                                    <option ng-selected="BillingDetail.CPEType=='IPs'" value="IPs">IPs</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Verification Status <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.VerificationStatus" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Bill ReceivedBy Cr Status<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.BillReceivedByCrStatus" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Verification Remarks<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.VerificationRemarks" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>InstalledBy<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.InstalledBy" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>MGM Existing Customer Sng<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.MGM_ExistingCustomerSng" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Migration Category<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.InfinityMigrationCategory" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Ref MLR<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.InfinityRefMLR" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Collection Agent<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.CollectionAgent" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>National Id No<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.NationalIdNo" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Passport No<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.PassportNo" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Retail Outlet ID<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.RetailOutletID" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Age Range<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.AgeRange" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Ref AccNo<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.InfinityRefAccNo" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Bill Delivery Cr Status Date<span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" readonly ng-model="BillingDetail.BillDeliveryCrStatusDate" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Ref Name 1<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.RefName1" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Ref Contact 1<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.RefContact1" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Ref Email 1<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.RefEmail1" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Ref CNIC 1<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.RefCNIC1" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Ref Address 1<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.RefAddress1" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Ref Name 2<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.RefName2" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Ref Contact 2<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.RefContact2" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Ref Email 2<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.RefEmail2" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Ref CNIC 2<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.RefCNIC2" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Ref Address 2<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.RefAddress2" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>CSAF Number<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control"readonly ng-model="BillingDetail.CSAFNumber" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Reason<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.Reason" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Ref CPE Type<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.InfinityRefCPEType" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Customer NTN<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.CustomerNTN" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Wifi Router<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.WifiRouter" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Package<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.Package" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Sales Rep Id<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.SalesRepId" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Unsuccessful Migration Reason<span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" readonly ng-model="BillingDetail.InfinityUnsuccessfulMigrationReason" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <label>Billing Status</label>
+                                <select ng-model="BillingDetail.BillingStatus" class="form-control" disabled>
+                                    <option selected value="">Select Status</option>
+                                    <option ng-selected="BillingDetail.BillingStatus==0" value="0">Enabled</option>
+                                    <option ng-selected="BillingDetail.BillingStatus==1" value="1">Disabled</option>
+                                    <option ng-selected="BillingDetail.BillingStatus==2" value="2">Suspended</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <div class="col-md-4" style=" margin-top: 22px;">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <div class="col-md-4" style=" margin-top: 22px;">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-4" style=" margin-top: 22px;">
+                                <label>Is Initial Payment Received<span class="text-danger">*</span></label>
+                                <input type="checkbox" class="" disabled ng-model="BillingDetail.IsInitialPaymentReceived" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4" style=" margin-top: 22px;">
+                                <label>Is Paper Bill Required <span class="text-danger">*</span></label>
+                                <input type="checkbox" class="" disabled ng-model="BillingDetail.IsPaperBillRequired" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4" style=" margin-top: 22px;">
+                                <label>Is Direct Billing <span class="text-danger">*</span></label>
+                                <input type="checkbox" class="" disabled ng-model="BillingDetail.IsDirectBilling" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row float-right">
+                <a href="/Billing/List" class="btn btn-danger">Cancel</a>
+               
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
