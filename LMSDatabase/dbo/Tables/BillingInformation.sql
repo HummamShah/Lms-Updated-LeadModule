@@ -15,6 +15,7 @@
 	[DeliveryMode] nvarchar(max),
 	[BillingStatus] int default(0),
 	[IsActive] bit,
+	[NTN] nvarchar(max),
 	[CreatedBy] nvarchar(max),
 	[CreatedAt] DateTime,
 	[UpdatedBy] nvarchar(max),

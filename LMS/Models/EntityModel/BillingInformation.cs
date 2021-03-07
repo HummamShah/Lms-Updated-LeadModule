@@ -17,8 +17,8 @@ namespace LMS.Models.EntityModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public BillingInformation()
         {
-            this.BillingDetails = new HashSet<BillingDetails>();
             this.Company = new HashSet<Company>();
+            this.BillingDetails = new HashSet<BillingDetails>();
         }
     
         public int Id { get; set; }
@@ -41,10 +41,11 @@ namespace LMS.Models.EntityModel
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedAt { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
+        public string NTN { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BillingDetails> BillingDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Company> Company { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BillingDetails> BillingDetails { get; set; }
     }
 }

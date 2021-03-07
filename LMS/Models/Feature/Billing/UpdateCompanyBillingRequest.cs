@@ -44,6 +44,8 @@ namespace LMS.Models.Feature.Billing
                 BillingInformation.Zip = request.BillingData.BillingInformation.Zip;
                 BillingInformation.POCName = request.BillingData.BillingInformation.POCName;
                 BillingInformation.POCNumber = request.BillingData.BillingInformation.POCContact;
+                BillingInformation.State = request.BillingData.BillingInformation.State;
+                BillingInformation.NTN = request.BillingData.BillingInformation.NTN;
                 BillingInformation.DeliveryMode = request.BillingData.BillingInformation.DeliveryMode;
                 BillingInformation.UpdatedBy = request.UpdatedBy;
                 BillingInformation.UpdatedAt = DateTime.Now;
@@ -65,6 +67,9 @@ namespace LMS.Models.Feature.Billing
                 BillingInformation.POCName = request.BillingData.BillingInformation.POCName;
                 BillingInformation.POCNumber = request.BillingData.BillingInformation.POCContact;
                 BillingInformation.DeliveryMode = request.BillingData.BillingInformation.DeliveryMode;
+                BillingInformation.NTN = request.BillingData.BillingInformation.NTN;
+                BillingInformation.State = request.BillingData.BillingInformation.State;
+
                 BillingInformation.CreatedBy = request.UpdatedBy;
                 BillingInformation.CreatedAt = DateTime.Now;
                 BillingInformation.Date = DateTime.Now.Date;
@@ -94,99 +99,41 @@ namespace LMS.Models.Feature.Billing
                     //Update here
                     BillingDetail = _dbContext.BillingDetails.Where(x => x.Id == BillingDetailRow.Id).FirstOrDefault();
                     BillingDetail.BillingName = BillingDetailRow.BillingName;
-                    BillingDetail.AgeRange = BillingDetailRow.AgeRange;
-                    BillingDetail.BillDeliveryCrStatusDate = BillingDetailRow.BillDeliveryCrStatusDate;
                     BillingDetail.BillingStatus = BillingDetailRow.BillingStatus;
-                    BillingDetail.BillReceivedByCrStatus = BillingDetailRow.BillReceivedByCrStatus;
                     BillingDetail.BirthDate = BillingDetailRow.BirthDate;
-                    BillingDetail.CollectionAgent = BillingDetailRow.CollectionAgent;
-                    BillingDetail.CPEType = BillingDetailRow.CPEType;
-                    BillingDetail.CSAFNumber = BillingDetailRow.CSAFNumber;
-                    BillingDetail.CustomerNTN = BillingDetailRow.CustomerNTN;
-                    BillingDetail.CustomerStr = BillingDetailRow.CustomerStr;
-                    BillingDetail.InfinityMappedQubeePackageId = BillingDetailRow.InfinityMappedQubeePackageId;
-                    BillingDetail.InfinityMigrationCategory = BillingDetailRow.InfinityMigrationCategory;
-                    BillingDetail.InfinityRefAccNo = BillingDetailRow.InfinityRefAccNo;
-                    BillingDetail.InfinityRefCPEType = BillingDetailRow.InfinityRefCPEType;
-                    BillingDetail.InfinityRefMLR = BillingDetailRow.InfinityRefMLR;
-                    BillingDetail.InfinityUnsuccessfulMigrationReason = BillingDetailRow.InfinityUnsuccessfulMigrationReason;
                     BillingDetail.InstallationDate = BillingDetailRow.InstallationDate;
-                    BillingDetail.InstalledBy = BillingDetailRow.InstalledBy;
                     BillingDetail.IsDirectBilling = BillingDetailRow.IsDirectBilling;
-                    BillingDetail.IsInitialPaymentReceived = BillingDetailRow.IsInitialPaymentReceived;
                     BillingDetail.IsPaperBillRequired = BillingDetailRow.IsPaperBillRequired;
-                    BillingDetail.MGM_ExistingCustomerSng = BillingDetailRow.MGM_ExistingCustomerSng;
-                    BillingDetail.NationalIdNo = BillingDetailRow.NationalIdNo;
                     BillingDetail.Package = BillingDetailRow.Package;
-                    BillingDetail.PassportNo = BillingDetailRow.PassportNo;
-                    BillingDetail.Reason = BillingDetailRow.Reason;
-                    BillingDetail.RefAddress1 = BillingDetailRow.RefAddress1;
-                    BillingDetail.RefAddress2 = BillingDetailRow.RefAddress2;
-                    BillingDetail.RefCNIC1 = BillingDetailRow.RefCNIC1;
-                    BillingDetail.RefCNIC2 = BillingDetailRow.RefCNIC2;
-                    BillingDetail.RefContact1 = BillingDetailRow.RefContact1;
-                    BillingDetail.RefContact2 = BillingDetailRow.RefContact2;
-                    BillingDetail.RefEmail1 = BillingDetailRow.RefEmail1;
-                    BillingDetail.RefEmail2 = BillingDetailRow.RefEmail2;
-                    BillingDetail.RefName1 = BillingDetailRow.RefName1;
-                    BillingDetail.RefName2 = BillingDetailRow.RefName2;
-                    BillingDetail.RetailOutletID = BillingDetailRow.RetailOutletID;
                     BillingDetail.SalesAgentId = BillingDetailRow.SalesAgentId;
-                    BillingDetail.SalesRepId = BillingDetailRow.SalesRepId;
-                    BillingDetail.VerificationRemarks = BillingDetailRow.VerificationRemarks;
-                    BillingDetail.VerificationStatus = BillingDetailRow.VerificationStatus;
-                    BillingDetail.WifiRouter = BillingDetailRow.WifiRouter;
                     BillingDetail.UpdatedBy = request.UpdatedBy ;
                     BillingDetail.UpdatedAt = DateTime.Now;
-
-
+                    BillingDetail.OTC = BillingDetailRow.OTC;
+                    BillingDetail.Medium = BillingDetailRow.Medium;
+                    BillingDetail.MRC = BillingDetailRow.MRC;
                 }
                 else
                 {
                     //add here
-                    BillingDetail.AgeRange = BillingDetailRow.AgeRange;
+                    
                     BillingDetail.BillingName = BillingDetailRow.BillingName;
-                    BillingDetail.BillDeliveryCrStatusDate = BillingDetailRow.BillDeliveryCrStatusDate;
+                  
                     BillingDetail.BillingStatus = BillingDetailRow.BillingStatus;
-                    BillingDetail.BillReceivedByCrStatus = BillingDetailRow.BillReceivedByCrStatus;
+                  
                     BillingDetail.BirthDate = BillingDetailRow.BirthDate;
-                    BillingDetail.CollectionAgent = BillingDetailRow.CollectionAgent;
-                    BillingDetail.CPEType = BillingDetailRow.CPEType;
-                    BillingDetail.CSAFNumber = BillingDetailRow.CSAFNumber;
-                    BillingDetail.CustomerNTN = BillingDetailRow.CustomerNTN;
-                    BillingDetail.CustomerStr = BillingDetailRow.CustomerStr;
-                    BillingDetail.InfinityMappedQubeePackageId = BillingDetailRow.InfinityMappedQubeePackageId;
-                    BillingDetail.InfinityMigrationCategory = BillingDetailRow.InfinityMigrationCategory;
-                    BillingDetail.InfinityRefAccNo = BillingDetailRow.InfinityRefAccNo;
-                    BillingDetail.InfinityRefCPEType = BillingDetailRow.InfinityRefCPEType;
-                    BillingDetail.InfinityRefMLR = BillingDetailRow.InfinityRefMLR;
-                    BillingDetail.InfinityUnsuccessfulMigrationReason = BillingDetailRow.InfinityUnsuccessfulMigrationReason;
+                    
                     BillingDetail.InstallationDate = BillingDetailRow.InstallationDate;
-                    BillingDetail.InstalledBy = BillingDetailRow.InstalledBy;
+                    
                     BillingDetail.IsDirectBilling = BillingDetailRow.IsDirectBilling;
-                    BillingDetail.IsInitialPaymentReceived = BillingDetailRow.IsInitialPaymentReceived;
+                    
                     BillingDetail.IsPaperBillRequired = BillingDetailRow.IsPaperBillRequired;
-                    BillingDetail.MGM_ExistingCustomerSng = BillingDetailRow.MGM_ExistingCustomerSng;
-                    BillingDetail.NationalIdNo = BillingDetailRow.NationalIdNo;
+                   
                     BillingDetail.Package = BillingDetailRow.Package;
-                    BillingDetail.PassportNo = BillingDetailRow.PassportNo;
-                    BillingDetail.Reason = BillingDetailRow.Reason;
-                    BillingDetail.RefAddress1 = BillingDetailRow.RefAddress1;
-                    BillingDetail.RefAddress2 = BillingDetailRow.RefAddress2;
-                    BillingDetail.RefCNIC1 = BillingDetailRow.RefCNIC1;
-                    BillingDetail.RefCNIC2 = BillingDetailRow.RefCNIC2;
-                    BillingDetail.RefContact1 = BillingDetailRow.RefContact1;
-                    BillingDetail.RefContact2 = BillingDetailRow.RefContact2;
-                    BillingDetail.RefEmail1 = BillingDetailRow.RefEmail1;
-                    BillingDetail.RefEmail2 = BillingDetailRow.RefEmail2;
-                    BillingDetail.RefName1 = BillingDetailRow.RefName1;
-                    BillingDetail.RefName2 = BillingDetailRow.RefName2;
-                    BillingDetail.RetailOutletID = BillingDetailRow.RetailOutletID;
+                   
                     BillingDetail.SalesAgentId = BillingDetailRow.SalesAgentId;
-                    BillingDetail.SalesRepId = BillingDetailRow.SalesRepId;
-                    BillingDetail.VerificationRemarks = BillingDetailRow.VerificationRemarks;
-                    BillingDetail.VerificationStatus = BillingDetailRow.VerificationStatus;
-                    BillingDetail.WifiRouter = BillingDetailRow.WifiRouter;
+                    BillingDetail.OTC = BillingDetailRow.OTC;
+                    BillingDetail.Medium = BillingDetailRow.Medium;
+                    BillingDetail.MRC = BillingDetailRow.MRC;
                     BillingDetail.CreatedBy = request.UpdatedBy;
                     BillingDetail.CreatedAt = DateTime.Now;
                     BillingDetail.Date = DateTime.Now.Date;

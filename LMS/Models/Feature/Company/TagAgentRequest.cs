@@ -26,6 +26,11 @@ namespace LMS.Models.Feature.Company
 			var Notification = new LMS.Models.EntityModel.Notification();
 			var Company = _dbContext.Company.Where(x => x.Id == request.CompanyId).FirstOrDefault();
 			Company.AgentId = request.AgentId;
+			//var Branches = _dbContext.Company.Where(x => x.ParentCompanyId == request.CompanyId);
+   //         foreach (var branch in Branches)
+   //         {
+			//	branch.AgentId = request.AgentId;
+   //         }
 			Notification.AgentId = request.AgentId ;
 			Notification.CreatedAt = DateTime.Now;
 			Notification.Date = DateTime.Now.Date;

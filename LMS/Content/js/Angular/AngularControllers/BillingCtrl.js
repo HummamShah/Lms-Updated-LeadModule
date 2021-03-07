@@ -60,7 +60,7 @@
                         if (response.status == 200) {
                             // alert("Lead has been Added Successfully!");
                             toaster.pop('success', "success", "Billing Information Has Been Updated Successfully");
-                            $timeout(function () { window.location.href = '/Billing'; }, 2000);
+                            $timeout(function () { window.location.href = '/Company/Billing'; }, 2000);
                         } else {
                             //alert("Could Not Add new Lead");
                             toaster.pop('error', "error", "Could not update Billing!");
@@ -71,45 +71,14 @@
                 var BillingDetailRow = {
                     Id: 0,
                     BillingInformationId:0,
-                    CustomerStr: "",
                     SalesAgentId: 0,
                     IsPaperBillRequired: false,
                     BirthDate: new Date(),
                     InstallationDate: new Date(),
-                    CPEType: "",
-                    VerificationStatus: "",
-                    IsInitialPaymentReceived: false,
-                    BillReceivedByCrStatus: "",
-                    VerificationRemarks: "",
-                    InstalledBy: "",
-                    MGM_ExistingCustomerSng: "",
-                    InfinityMigrationCategory: "",
-                    InfinityRefMLR:"",
-                    CollectionAgent: "",
-                    NationalIdNo: "",
-                    PassportNo: "",
-                    RetailOutletID: 0,
-                    AgeRange: "",
-                    InfinityRefAccNo: "",
-                    InfinityMappedQubeePackageId: 0,
-                    BillDeliveryCrStatusDate: new Date(),
-                    RefName1: "",
-                    RefContact1: "",
-                    RefEmail1: "",
-                    RefCNIC1: "",
-                    RefAddress1: "",
-                    RefName2: "",
-                    RefContact2: "",
-                    RefEmail2: "",
-                    RefCNIC2: "",
-                    RefAddress2: "",
-                    CSAFNumber: "",
-                    Reason: "",
-                    InfinityRefCPEType: "",
-                    CustomerNTN: "",
-                    WifiRouter: "",
+                    OTC: 0,
+                    MRC: 0,
+                    Medium:"",
                     Package: "",
-                    InfinityUnsuccessfulMigrationReason: "",
                     SalesRepId:null
                 }
                 $scope.BillingInformationsList.push(BillingDetailRow);

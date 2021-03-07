@@ -139,46 +139,15 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BillingInformationId" Type="int" Nullable="false" />
           <Property Name="BillingName" Type="nvarchar(max)" />
-          <Property Name="CustomerStr" Type="nvarchar(max)" />
           <Property Name="SalesAgentId" Type="int" />
           <Property Name="IsPaperBillRequired" Type="bit" />
           <Property Name="BirthDate" Type="datetime" />
           <Property Name="InstallationDate" Type="datetime" />
-          <Property Name="CPEType" Type="nvarchar(max)" />
-          <Property Name="VerificationStatus" Type="nvarchar(max)" />
-          <Property Name="IsInitialPaymentReceived" Type="bit" />
-          <Property Name="BillReceivedByCrStatus" Type="nvarchar(max)" />
-          <Property Name="VerificationRemarks" Type="nvarchar(max)" />
-          <Property Name="InstalledBy" Type="nvarchar(max)" />
-          <Property Name="MGM_ExistingCustomerSng" Type="nvarchar(max)" />
-          <Property Name="InfinityMigrationCategory" Type="nvarchar(max)" />
-          <Property Name="InfinityRefMLR" Type="nvarchar(max)" />
-          <Property Name="CollectionAgent" Type="nvarchar(max)" />
-          <Property Name="NationalIdNo" Type="nvarchar(max)" />
-          <Property Name="PassportNo" Type="nvarchar(max)" />
-          <Property Name="RetailOutletID" Type="int" />
-          <Property Name="AgeRange" Type="nvarchar(max)" />
-          <Property Name="InfinityRefAccNo" Type="nvarchar(max)" />
-          <Property Name="InfinityMappedQubeePackageId" Type="int" />
-          <Property Name="BillDeliveryCrStatusDate" Type="datetime" />
-          <Property Name="RefName1" Type="nvarchar(max)" />
-          <Property Name="RefContact1" Type="nvarchar(max)" />
-          <Property Name="RefEmail1" Type="nvarchar(max)" />
-          <Property Name="RefCNIC1" Type="nvarchar(max)" />
-          <Property Name="RefAddress1" Type="nvarchar(max)" />
-          <Property Name="RefName2" Type="nvarchar(max)" />
-          <Property Name="RefContact2" Type="nvarchar(max)" />
-          <Property Name="RefEmail2" Type="nvarchar(max)" />
-          <Property Name="RefCNIC2" Type="nvarchar(max)" />
-          <Property Name="RefAddress2" Type="nvarchar(max)" />
-          <Property Name="CSAFNumber" Type="nvarchar(max)" />
-          <Property Name="Reason" Type="nvarchar(max)" />
-          <Property Name="InfinityRefCPEType" Type="nvarchar(max)" />
-          <Property Name="CustomerNTN" Type="nvarchar(max)" />
-          <Property Name="WifiRouter" Type="nvarchar(max)" />
+          <Property Name="OTC" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="MRC" Type="decimal" Precision="18" Scale="3" Nullable="false" />
           <Property Name="Package" Type="nvarchar(max)" />
-          <Property Name="InfinityUnsuccessfulMigrationReason" Type="nvarchar(max)" />
-          <Property Name="SalesRepId" Type="int" />
+          <Property Name="Medium" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="BillingStatus" Type="int" />
           <Property Name="IsDirectBilling" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar(max)" />
@@ -206,6 +175,7 @@
           <Property Name="DeliveryMode" Type="nvarchar(max)" />
           <Property Name="BillingStatus" Type="int" />
           <Property Name="IsActive" Type="bit" />
+          <Property Name="NTN" Type="nvarchar(max)" />
           <Property Name="CreatedBy" Type="nvarchar(max)" />
           <Property Name="CreatedAt" Type="datetime" />
           <Property Name="UpdatedBy" Type="nvarchar(max)" />
@@ -1590,7 +1560,6 @@
           </AssociationSet>
           <EntitySet Name="Account" EntityType="Sharptel_Lms_DbModel.Account" />
           <EntitySet Name="AccountEntries" EntityType="Sharptel_Lms_DbModel.AccountEntries" />
-          <EntitySet Name="BillingDetails" EntityType="Sharptel_Lms_DbModel.BillingDetails" />
           <EntitySet Name="BillingInformation" EntityType="Sharptel_Lms_DbModel.BillingInformation" />
           <AssociationSet Name="FK_Account_Company" Association="Sharptel_Lms_DbModel.FK_Account_Company">
             <End Role="Company" EntitySet="Company" />
@@ -1599,10 +1568,6 @@
           <AssociationSet Name="FK_AccountEntries_Account" Association="Sharptel_Lms_DbModel.FK_AccountEntries_Account">
             <End Role="Account" EntitySet="Account" />
             <End Role="AccountEntries" EntitySet="AccountEntries" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BillingDetails_BillingInfromation" Association="Sharptel_Lms_DbModel.FK_BillingDetails_BillingInfromation">
-            <End Role="BillingInformation" EntitySet="BillingInformation" />
-            <End Role="BillingDetails" EntitySet="BillingDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_Company_BillingInformation" Association="Sharptel_Lms_DbModel.FK_Company_BillingInformation">
             <End Role="BillingInformation" EntitySet="BillingInformation" />
@@ -1710,6 +1675,11 @@
           <AssociationSet Name="FK_TicketDetails_Ticket" Association="Sharptel_Lms_DbModel.FK_TicketDetails_Ticket">
             <End Role="Ticket" EntitySet="Ticket" />
             <End Role="TicketComments" EntitySet="TicketComments" />
+          </AssociationSet>
+          <EntitySet Name="BillingDetails" EntityType="Sharptel_Lms_DbModel.BillingDetails" />
+          <AssociationSet Name="FK_BillingDetails_BillingInfromation" Association="Sharptel_Lms_DbModel.FK_BillingDetails_BillingInfromation">
+            <End Role="BillingInformation" EntitySet="BillingInformation" />
+            <End Role="BillingDetails" EntitySet="BillingDetails" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Agent">
@@ -2240,62 +2210,6 @@
           <Property Name="Date" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Account" Relationship="Sharptel_Lms_DbModel.FK_AccountEntries_Account" FromRole="AccountEntries" ToRole="Account" />
         </EntityType>
-        <EntityType Name="BillingDetails">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BillingInformationId" Type="Int32" Nullable="false" />
-          <Property Name="CustomerStr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SalesAgentId" Type="Int32" />
-          <Property Name="IsPaperBillRequired" Type="Boolean" />
-          <Property Name="BirthDate" Type="DateTime" Precision="3" />
-          <Property Name="InstallationDate" Type="DateTime" Precision="3" />
-          <Property Name="CPEType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="VerificationStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsInitialPaymentReceived" Type="Boolean" />
-          <Property Name="BillReceivedByCrStatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="VerificationRemarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="InstalledBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="MGM_ExistingCustomerSng" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="InfinityMigrationCategory" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="InfinityRefMLR" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CollectionAgent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NationalIdNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PassportNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="RetailOutletID" Type="Int32" />
-          <Property Name="AgeRange" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="InfinityRefAccNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="InfinityMappedQubeePackageId" Type="Int32" />
-          <Property Name="BillDeliveryCrStatusDate" Type="DateTime" Precision="3" />
-          <Property Name="RefName1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="RefContact1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="RefEmail1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="RefCNIC1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="RefAddress1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="RefName2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="RefContact2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="RefEmail2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="RefCNIC2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="RefAddress2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CSAFNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="InfinityRefCPEType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CustomerNTN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="WifiRouter" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Package" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="InfinityUnsuccessfulMigrationReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SalesRepId" Type="Int32" />
-          <Property Name="BillingStatus" Type="Int32" />
-          <Property Name="IsDirectBilling" Type="Boolean" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedAt" Type="DateTime" Precision="3" />
-          <Property Name="Date" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="BillingInformation" Relationship="Sharptel_Lms_DbModel.FK_BillingDetails_BillingInfromation" FromRole="BillingDetails" ToRole="BillingInformation" />
-          <Property Name="BillingName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="BillingInformation">
           <Key>
             <PropertyRef Name="Id" />
@@ -2320,8 +2234,9 @@
           <Property Name="UpdatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedAt" Type="DateTime" Precision="3" />
           <Property Name="Date" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="BillingDetails" Relationship="Sharptel_Lms_DbModel.FK_BillingDetails_BillingInfromation" FromRole="BillingInformation" ToRole="BillingDetails" />
           <NavigationProperty Name="Company" Relationship="Sharptel_Lms_DbModel.FK_Company_BillingInformation" FromRole="BillingInformation" ToRole="Company" />
+          <NavigationProperty Name="BillingDetails" Relationship="Sharptel_Lms_DbModel.FK_BillingDetails_BillingInfromation" FromRole="BillingInformation" ToRole="BillingDetails" />
+          <Property Name="NTN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Account_Company">
           <End Type="Sharptel_Lms_DbModel.Company" Role="Company" Multiplicity="1" />
@@ -2344,18 +2259,6 @@
             </Principal>
             <Dependent Role="AccountEntries">
               <PropertyRef Name="AccountId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_BillingDetails_BillingInfromation">
-          <End Type="Sharptel_Lms_DbModel.BillingInformation" Role="BillingInformation" Multiplicity="1" />
-          <End Type="Sharptel_Lms_DbModel.BillingDetails" Role="BillingDetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BillingInformation">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BillingDetails">
-              <PropertyRef Name="BillingInformationId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2906,6 +2809,43 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="BillingDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BillingInformationId" Type="Int32" Nullable="false" />
+          <Property Name="BillingName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SalesAgentId" Type="Int32" />
+          <Property Name="IsPaperBillRequired" Type="Boolean" />
+          <Property Name="BirthDate" Type="DateTime" Precision="3" />
+          <Property Name="InstallationDate" Type="DateTime" Precision="3" />
+          <Property Name="OTC" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="MRC" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="Package" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Medium" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BillingStatus" Type="Int32" />
+          <Property Name="IsDirectBilling" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="3" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BillingInformation" Relationship="Sharptel_Lms_DbModel.FK_BillingDetails_BillingInfromation" FromRole="BillingDetails" ToRole="BillingInformation" />
+        </EntityType>
+        <Association Name="FK_BillingDetails_BillingInfromation">
+          <End Type="Sharptel_Lms_DbModel.BillingInformation" Role="BillingInformation" Multiplicity="1" />
+          <End Type="Sharptel_Lms_DbModel.BillingDetails" Role="BillingDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BillingInformation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BillingDetails">
+              <PropertyRef Name="BillingInformationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3258,65 +3198,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BillingDetails">
-            <EntityTypeMapping TypeName="Sharptel_Lms_DbModel.BillingDetails">
-              <MappingFragment StoreEntitySet="BillingDetails">
-                <ScalarProperty Name="BillingName" ColumnName="BillingName" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsDirectBilling" ColumnName="IsDirectBilling" />
-                <ScalarProperty Name="BillingStatus" ColumnName="BillingStatus" />
-                <ScalarProperty Name="SalesRepId" ColumnName="SalesRepId" />
-                <ScalarProperty Name="InfinityUnsuccessfulMigrationReason" ColumnName="InfinityUnsuccessfulMigrationReason" />
-                <ScalarProperty Name="Package" ColumnName="Package" />
-                <ScalarProperty Name="WifiRouter" ColumnName="WifiRouter" />
-                <ScalarProperty Name="CustomerNTN" ColumnName="CustomerNTN" />
-                <ScalarProperty Name="InfinityRefCPEType" ColumnName="InfinityRefCPEType" />
-                <ScalarProperty Name="Reason" ColumnName="Reason" />
-                <ScalarProperty Name="CSAFNumber" ColumnName="CSAFNumber" />
-                <ScalarProperty Name="RefAddress2" ColumnName="RefAddress2" />
-                <ScalarProperty Name="RefCNIC2" ColumnName="RefCNIC2" />
-                <ScalarProperty Name="RefEmail2" ColumnName="RefEmail2" />
-                <ScalarProperty Name="RefContact2" ColumnName="RefContact2" />
-                <ScalarProperty Name="RefName2" ColumnName="RefName2" />
-                <ScalarProperty Name="RefAddress1" ColumnName="RefAddress1" />
-                <ScalarProperty Name="RefCNIC1" ColumnName="RefCNIC1" />
-                <ScalarProperty Name="RefEmail1" ColumnName="RefEmail1" />
-                <ScalarProperty Name="RefContact1" ColumnName="RefContact1" />
-                <ScalarProperty Name="RefName1" ColumnName="RefName1" />
-                <ScalarProperty Name="BillDeliveryCrStatusDate" ColumnName="BillDeliveryCrStatusDate" />
-                <ScalarProperty Name="InfinityMappedQubeePackageId" ColumnName="InfinityMappedQubeePackageId" />
-                <ScalarProperty Name="InfinityRefAccNo" ColumnName="InfinityRefAccNo" />
-                <ScalarProperty Name="AgeRange" ColumnName="AgeRange" />
-                <ScalarProperty Name="RetailOutletID" ColumnName="RetailOutletID" />
-                <ScalarProperty Name="PassportNo" ColumnName="PassportNo" />
-                <ScalarProperty Name="NationalIdNo" ColumnName="NationalIdNo" />
-                <ScalarProperty Name="CollectionAgent" ColumnName="CollectionAgent" />
-                <ScalarProperty Name="InfinityRefMLR" ColumnName="InfinityRefMLR" />
-                <ScalarProperty Name="InfinityMigrationCategory" ColumnName="InfinityMigrationCategory" />
-                <ScalarProperty Name="MGM_ExistingCustomerSng" ColumnName="MGM_ExistingCustomerSng" />
-                <ScalarProperty Name="InstalledBy" ColumnName="InstalledBy" />
-                <ScalarProperty Name="VerificationRemarks" ColumnName="VerificationRemarks" />
-                <ScalarProperty Name="BillReceivedByCrStatus" ColumnName="BillReceivedByCrStatus" />
-                <ScalarProperty Name="IsInitialPaymentReceived" ColumnName="IsInitialPaymentReceived" />
-                <ScalarProperty Name="VerificationStatus" ColumnName="VerificationStatus" />
-                <ScalarProperty Name="CPEType" ColumnName="CPEType" />
-                <ScalarProperty Name="InstallationDate" ColumnName="InstallationDate" />
-                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
-                <ScalarProperty Name="IsPaperBillRequired" ColumnName="IsPaperBillRequired" />
-                <ScalarProperty Name="SalesAgentId" ColumnName="SalesAgentId" />
-                <ScalarProperty Name="CustomerStr" ColumnName="CustomerStr" />
-                <ScalarProperty Name="BillingInformationId" ColumnName="BillingInformationId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="BillingInformation">
             <EntityTypeMapping TypeName="Sharptel_Lms_DbModel.BillingInformation">
               <MappingFragment StoreEntitySet="BillingInformation">
+                <ScalarProperty Name="NTN" ColumnName="NTN" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
@@ -3580,6 +3465,31 @@
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="TicketId" ColumnName="TicketId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BillingDetails">
+            <EntityTypeMapping TypeName="Sharptel_Lms_DbModel.BillingDetails">
+              <MappingFragment StoreEntitySet="BillingDetails">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsDirectBilling" ColumnName="IsDirectBilling" />
+                <ScalarProperty Name="BillingStatus" ColumnName="BillingStatus" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Medium" ColumnName="Medium" />
+                <ScalarProperty Name="Package" ColumnName="Package" />
+                <ScalarProperty Name="MRC" ColumnName="MRC" />
+                <ScalarProperty Name="OTC" ColumnName="OTC" />
+                <ScalarProperty Name="InstallationDate" ColumnName="InstallationDate" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="IsPaperBillRequired" ColumnName="IsPaperBillRequired" />
+                <ScalarProperty Name="SalesAgentId" ColumnName="SalesAgentId" />
+                <ScalarProperty Name="BillingName" ColumnName="BillingName" />
+                <ScalarProperty Name="BillingInformationId" ColumnName="BillingInformationId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

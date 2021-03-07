@@ -35,10 +35,10 @@ namespace LMS.Models.Feature.Company
                 var AccountData = new AccountData();
                 AccountData.AccountId = CompanyAccount.Id;
                 AccountData.AccountName = CompanyAccount.Name;
-                AccountData.CompanyAddress = CompanyAccount.Company.Address;
-                AccountData.CompanyContact = CompanyAccount.Company.Contact;
-                AccountData.CompanyEmail = CompanyAccount.Company.Email;
-                AccountData.NTN = CompanyAccount.Company.NTN;
+                AccountData.CompanyAddress = CompanyAccount.Company.BillingInformation.Address1;
+                AccountData.CompanyContact = CompanyAccount.Company.BillingInformation.CompanyContact;
+                AccountData.CompanyEmail = CompanyAccount.Company.BillingInformation.CompanyEmail;
+                AccountData.NTN = CompanyAccount.Company.BillingInformation.NTN;
                 response.Account = AccountData;
             }
             return response;

@@ -41,11 +41,9 @@
         <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Bug_Agent" />
         <EntityTypeShape EntityType="Sharptel_Lms_DbModel.Account" Width="1.5" PointX="8.25" PointY="29.625" />
         <EntityTypeShape EntityType="Sharptel_Lms_DbModel.AccountEntries" Width="1.5" PointX="10.5" PointY="29.875" />
-        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.BillingDetails" Width="1.5" PointX="3" PointY="20.875" />
         <EntityTypeShape EntityType="Sharptel_Lms_DbModel.BillingInformation" Width="1.5" PointX="0.75" PointY="9.875" />
         <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Account_Company" />
         <AssociationConnector Association="Sharptel_Lms_DbModel.FK_AccountEntries_Account" />
-        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_BillingDetails_BillingInfromation" />
         <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Company_BillingInformation" />
         <EntityTypeShape EntityType="Sharptel_Lms_DbModel.Notification" Width="1.5" PointX="10.875" PointY="7" />
         <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Notification_Agent" />
@@ -81,6 +79,8 @@
         <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Ticket_ShiftEngineerAgent" />
         <AssociationConnector Association="Sharptel_Lms_DbModel.FK_Ticket_Vendor" />
         <AssociationConnector Association="Sharptel_Lms_DbModel.FK_TicketDetails_Ticket" />
+        <EntityTypeShape EntityType="Sharptel_Lms_DbModel.BillingDetails" Width="1.5" PointX="3" PointY="15.125" />
+        <AssociationConnector Association="Sharptel_Lms_DbModel.FK_BillingDetails_BillingInfromation" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

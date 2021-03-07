@@ -21,6 +21,18 @@ namespace LMS.Controllers.Api
             return result;
         }
         [HttpGet]
+        public object GetParentListing([FromUri] GetParentListingRequest req)
+        {
+            var result = req.RunRequest(req);
+            return result;
+        }
+        [HttpGet]
+        public object GetBranchesListing([FromUri] GetBranchesListingRequest req)
+        {
+            var result = req.RunRequest(req);
+            return result;
+        }
+        [HttpGet]
         public object GetAllCompaniesDropDown()
         {
             var temp = new GetAllCompaniesDropDownRequest();
@@ -94,6 +106,12 @@ namespace LMS.Controllers.Api
         }
         [HttpPost]
         public object TagAgent(TagAgentRequest req)
+        {
+            var result = req.RunRequest(req);
+            return result;
+        }
+        [HttpGet]
+        public object GetCompaniesBillingListing([FromUri] GetCompaniesBillingListingRequest req)
         {
             var result = req.RunRequest(req);
             return result;

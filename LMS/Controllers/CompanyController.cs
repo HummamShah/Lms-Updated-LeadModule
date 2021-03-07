@@ -25,8 +25,37 @@ namespace LMS.Controllers
         {
             return View();
         }
+        public ActionResult Edit2()
+        {
+            return View();
+        }
         [Authorize]
         public ActionResult Detail()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult Parent()
+        {
+            return View();
+        }
+        [Authorize]
+        public ActionResult Children()
+        {
+            return View();
+        }
+        [Authorize]
+        public ActionResult AddParent()
+        {
+            return View();
+        }
+        [Authorize]
+        public ActionResult AddChildren()
+        {
+            return View();
+        }
+        public ActionResult Billing()
         {
             return View();
         }

@@ -391,12 +391,15 @@
     <Compile Include="Models\Feature\Company\EditCompanyRequest.cs" />
     <Compile Include="Models\Feature\Company\GetAccountByCompanyIdRequest.cs" />
     <Compile Include="Models\Feature\Company\GetAllCompaniesDropDownRequest.cs" />
+    <Compile Include="Models\Feature\Company\GetBranchesListingRequest.cs" />
     <Compile Include="Models\Feature\Company\GetCompaniesAccountDropdownRequest.cs" />
+    <Compile Include="Models\Feature\Company\GetCompaniesBillingListingRequest.cs" />
     <Compile Include="Models\Feature\Company\GetCompaniesDropdownRequest.cs" />
     <Compile Include="Models\Feature\Company\GetCompanyRequest.cs" />
     <Compile Include="Models\Feature\Company\GetHeadParentCompaniesDropdownRequest.cs" />
     <Compile Include="Models\Feature\Company\GetListingRequest.cs" />
     <Compile Include="Models\Feature\Company\GetParentCompaniesDropdownRequest.cs" />
+    <Compile Include="Models\Feature\Company\GetParentListingRequest.cs" />
     <Compile Include="Models\Feature\Company\TagAgentRequest.cs" />
     <Compile Include="Models\Feature\Demo\DemoRequest.cs" />
     <Compile Include="Models\Feature\Department\AddDepartmentRequest.cs" />
@@ -490,6 +493,7 @@
     <Content Include="Content\js\Angular\AngularControllers\BillingCtrl.js" />
     <Content Include="Content\js\Angular\AngularControllers\BugCtrl.js" />
     <Content Include="Content\js\Angular\AngularControllers\ChargeCtrl.js" />
+    <Content Include="Content\js\Angular\AngularControllers\Company2Ctrl.js" />
     <Content Include="Content\js\Angular\AngularControllers\CompanyAccountsCtrl.js" />
     <Content Include="Content\js\Angular\AngularControllers\CompanyCtrl.js" />
     <Content Include="Content\js\Angular\AngularControllers\CompanySubcriptionCtrl.js" />
@@ -639,6 +643,12 @@
     <Content Include="Views\CompanyAccounts\ParentCompanies.cshtml" />
     <Content Include="Views\CompanyAccounts\ChildCompanies.cshtml" />
     <Content Include="Views\AgentAttendance\Index.cshtml" />
+    <Content Include="Views\Company\Parent.cshtml" />
+    <Content Include="Views\Company\Children.cshtml" />
+    <Content Include="Views\Company\AddParent.cshtml" />
+    <Content Include="Views\Company\AddChildren.cshtml" />
+    <Content Include="Views\Company\Edit2.cshtml" />
+    <Content Include="Views\Company\Billing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -42,7 +42,6 @@ namespace LMS.Models.EntityModel
         public virtual DbSet<BugReporting> BugReporting { get; set; }
         public virtual DbSet<Account> Account { get; set; }
         public virtual DbSet<AccountEntries> AccountEntries { get; set; }
-        public virtual DbSet<BillingDetails> BillingDetails { get; set; }
         public virtual DbSet<BillingInformation> BillingInformation { get; set; }
         public virtual DbSet<Notification> Notification { get; set; }
         public virtual DbSet<Charge> Charge { get; set; }
@@ -55,5 +54,6 @@ namespace LMS.Models.EntityModel
         public virtual DbSet<CompanySubcription> CompanySubcription { get; set; }
         public virtual DbSet<Ticket> Ticket { get; set; }
         public virtual DbSet<TicketComments> TicketComments { get; set; }
+        public virtual DbSet<BillingDetails> BillingDetails { get; set; }
     }
 }

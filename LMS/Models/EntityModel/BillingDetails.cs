@@ -16,46 +16,16 @@ namespace LMS.Models.EntityModel
     {
         public int Id { get; set; }
         public int BillingInformationId { get; set; }
-        public string CustomerStr { get; set; }
+        public string BillingName { get; set; }
         public Nullable<int> SalesAgentId { get; set; }
         public Nullable<bool> IsPaperBillRequired { get; set; }
         public Nullable<System.DateTime> BirthDate { get; set; }
         public Nullable<System.DateTime> InstallationDate { get; set; }
-        public string CPEType { get; set; }
-        public string VerificationStatus { get; set; }
-        public Nullable<bool> IsInitialPaymentReceived { get; set; }
-        public string BillReceivedByCrStatus { get; set; }
-        public string VerificationRemarks { get; set; }
-        public string InstalledBy { get; set; }
-        public string MGM_ExistingCustomerSng { get; set; }
-        public string InfinityMigrationCategory { get; set; }
-        public string InfinityRefMLR { get; set; }
-        public string CollectionAgent { get; set; }
-        public string NationalIdNo { get; set; }
-        public string PassportNo { get; set; }
-        public Nullable<int> RetailOutletID { get; set; }
-        public string AgeRange { get; set; }
-        public string InfinityRefAccNo { get; set; }
-        public Nullable<int> InfinityMappedQubeePackageId { get; set; }
-        public Nullable<System.DateTime> BillDeliveryCrStatusDate { get; set; }
-        public string RefName1 { get; set; }
-        public string RefContact1 { get; set; }
-        public string RefEmail1 { get; set; }
-        public string RefCNIC1 { get; set; }
-        public string RefAddress1 { get; set; }
-        public string RefName2 { get; set; }
-        public string RefContact2 { get; set; }
-        public string RefEmail2 { get; set; }
-        public string RefCNIC2 { get; set; }
-        public string RefAddress2 { get; set; }
-        public string CSAFNumber { get; set; }
-        public string Reason { get; set; }
-        public string InfinityRefCPEType { get; set; }
-        public string CustomerNTN { get; set; }
-        public string WifiRouter { get; set; }
+        public decimal OTC { get; set; }
+        public decimal MRC { get; set; }
         public string Package { get; set; }
-        public string InfinityUnsuccessfulMigrationReason { get; set; }
-        public Nullable<int> SalesRepId { get; set; }
+        public string Medium { get; set; }
+        public string Description { get; set; }
         public Nullable<int> BillingStatus { get; set; }
         public bool IsDirectBilling { get; set; }
         public string CreatedBy { get; set; }
@@ -63,7 +33,6 @@ namespace LMS.Models.EntityModel
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedAt { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
-        public string BillingName { get; set; }
     
         public virtual BillingInformation BillingInformation { get; set; }
     }

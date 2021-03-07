@@ -1,0 +1,144 @@
+﻿@{
+    ViewBag.Title = "Add";
+}
+<div ng-controller="Company2Ctrl" ng-init="AddParentInit()">
+    <div class="jumbotron PageHeading">
+        <div class="row"><div class="col-md-3"><h2>Add Parent Company</h2></div></div>
+    </div>
+    @*basic Infromtaion*@
+    <div class="jumbotron PageHeading">
+        <div class="text-center">
+            <div class="row"> <h2 class="SegmentHeading">Basic Information</h2></div>
+        </div>
+        <div class="row">
+            <form id="VendorAddForm ">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" ng-model="Company.Name" placeholder="Company Name" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <label>Description</label>
+                        <input type="text" class="form-control" ng-model="Company.Description" placeholder="Description" />
+                    </div>
+                </div>
+
+                
+            </form>
+        </div>
+
+    </div>
+    @*Contact Infromation*@
+    <div class="jumbotron PageHeading">
+        <div class="row text-center">
+            <h2 class="SegmentHeading">Company Contact Information<br /><small>(Do not enter POC's information)</small></h2>
+        </div>
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label>Mode Of Communication</label>
+                <select ng-model="Company.MOCId" class="form-control">
+                    <option selected value="">Mode of Commincation</option>
+                    <option ng-repeat="MOC in MOCS" value="{{MOC.Id}}">{{MOC.Name}}</option>
+                </select>
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Business Operation Time</label>
+                <select ng-model="Company.BOT" class="form-control">
+                    <option selected value="">Operation Time</option>
+                    <option value="0">Morning</option>
+                    <option value="1">Evening</option>
+                    <option value="3">Night</option>
+                    <option value="2">24/7</option>
+                </select>
+            </div>
+
+            <div class="col-md-4 form-group">
+
+                <label>Email</label>
+                <input type="email" class="form-control" ng-model="Company.Email" placeholder="E-mail" />
+
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Contact <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" ng-model="Company.Contact" placeholder="03XX-XXXXXXX" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Alternate Number</label>
+                <input type="text" class="form-control" ng-model="Company.CompanyAlternateContact" placeholder="03XX-XXXXXXX" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Website</label>
+                <input type="text" class="form-control" ng-model="Company.Website" placeholder="www.demo.com" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Latitude <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" ng-model="Company.Latitude" placeholder="Latitude" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Longitude <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" ng-model="Company.Longitude" placeholder="Longitude" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>City</label>
+                <select ng-model="Company.City" class="form-control">
+                    <option selected value="">Select City</option>
+                    <option ng-repeat="City in CityDropDown" ng-selected="Company.City==City.id" value="{{City.id}}">{{City.Name}}</option>
+                </select>
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Address <span class="text-danger">*</span></label>
+                <input type="text" ng-model="Company.Address" class="form-control" placeholder="Address" />
+            </div>
+
+        </div>
+    </div>
+    @*Bussiness Information*@
+    <div class="jumbotron PageHeading">
+        <div class="row text-center">
+            <h2 class="SegmentHeading">Business Infromation</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label>Number of Users</label>
+                <select ng-model="Company.NOE" class="form-control">
+                    <option selected value="">Number of Users</option>
+                    <option value="0">1-5</option>
+                    <option value="1">5-10</option>
+                    <option value="3">10-50</option>
+                    <option value="3">50-100</option>
+                    <option value="4">100+</option>
+                </select>
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Numbe of Branch offices</label>
+                <input type="number" ng-model="Company.NoBracnhOffices" class="form-control" placeholder="No Of Branches" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Business Industry</label>
+                <select ng-model="Company.BusinessIndustry" class="form-control">
+                    <option selected value="">Business Industry</option>
+                    <option ng-repeat="segment in BusinessSegmentationDropDown" ng-selected="Company.BusinessIndustry==segment.id" value="{{segment.id}}">{{segment.Name}}</option>
+                </select>
+            </div>
+            <div class="col-md-4 form-group">
+                <label>NTN</label>
+                <input type="text" ng-model="Company.NTN" class="form-control" placeholder="XXXXXXX-X" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Currently using IT platform</label>
+                <input type="text" ng-model="Company.CurrentItPlatform" class="form-control" placeholder="IT Platform" />
+            </div>
+            <div class="col-md-4 form-group">
+                <label>Number of links</label>
+                <input type="number" class="form-control" ng-model="Company.NoLinks" placeholder="No Of Links" />
+            </div>
+        </div>
+        <div class="row float-right">
+            <a href="/Lead" class="btn btn-danger">Cancel</a>
+            <button class="btn btn-primary" style=" margin-right: 61px!important;" ng-click="AddParentCompany(Company)">Add</button>
+        </div>
+    </div>
+</div>
+

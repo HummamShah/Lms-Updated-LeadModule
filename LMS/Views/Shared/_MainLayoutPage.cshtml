@@ -36,11 +36,11 @@
             <ul class="lisst-unstyled components" style="padding-top: 2px;">
 
                 @*@if (User.IsInRole(UserRoles.SuperAdmin))
-                {
-                    <li>
-                        <a href="/Department"> Departments <i class="fas fa-caret-right NavbarLink"></i></a>
-                    </li>
-                }*@
+        {
+            <li>
+                <a href="/Department"> Departments <i class="fas fa-caret-right NavbarLink"></i></a>
+            </li>
+        }*@
                 @if (User.IsInRole(UserRoles.Admin) || User.IsInRole(UserRoles.Lead_Sales) || User.IsInRole(UserRoles.SuperAdmin) || User.IsInRole(UserRoles.HR))
                 {
                     <li>
@@ -59,14 +59,26 @@
                         <a href="/PurchaseOrder/"> Purchase Orders <i class="fas fa-caret-right NavbarLink"></i></a>
                     </li>
                 }
-                @if (User.IsInRole(UserRoles.Pmd_Feasibility) || User.IsInRole(UserRoles.PreSale) || User.IsInRole(UserRoles.Lead_Sales))
+                @if (User.IsInRole(UserRoles.Pmd_Feasibility) || User.IsInRole(UserRoles.Admin) || User.IsInRole(UserRoles.PreSale) || User.IsInRole(UserRoles.Lead_Sales))
                 {
-                    <li>
-                        <a href="/Company"> Companies <i class="fas fa-caret-right NavbarLink"></i></a>
-                    </li>
                     @*<li>
-                <a href="/CompanySubcription/"> Subcriptions <i class="fas fa-caret-right NavbarLink"></i></a>
-            </li>*@
+                        <a href="/Company"> Companies <i class="fas fa-caret-right NavbarLink"></i></a>
+                    </li>*@
+                    <li>
+                        <a href="#Company" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Companies<b class="caret NavbarLink"></b></a>
+                        <ul class="collapse list-unstyled" id="Company">
+                            <li>
+                                <a href="/Company/Parent">Parent Company<i class="fas fa-caret-right NavbarLink"></i></a>
+                            </li>
+                            <li>
+                                <a href="/Company/">All Companies<i class="fas fa-caret-right NavbarLink"></i></a>
+                            </li>
+                            <li>
+                                <a href="/Company/Billing">Company Billings<i class="fas fa-caret-right NavbarLink"></i></a>
+                            </li>
+                        </ul>
+                    </li>
+
                 }
 
 
@@ -114,7 +126,7 @@
                     </li>
 
                 }
-                @if (User.IsInRole(UserRoles.HR)|| User.IsInRole(UserRoles.Admin) || User.IsInRole(UserRoles.SuperAdmin) || User.IsInRole(UserRoles.Accounts) || User.IsInRole(UserRoles.Pmd_Feasibility))
+                @if (User.IsInRole(UserRoles.HR) || User.IsInRole(UserRoles.Admin) || User.IsInRole(UserRoles.SuperAdmin) || User.IsInRole(UserRoles.Accounts) || User.IsInRole(UserRoles.Pmd_Feasibility))
                 {
                     <li>
                         <a href="/Vendor"> Vendors <i class="fas fa-caret-right NavbarLink"></i></a>
@@ -122,9 +134,9 @@
                     <li>
                         <a href="#Billing" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Billing <b class="caret NavbarLink"></b></a>
                         <ul class="collapse list-unstyled" id="Billing">
-                            <li>
+                            @*<li>
                                 <a href="/Billing/">Companies<i class="fas fa-caret-right NavbarLink"></i></a>
-                            </li>
+                            </li>*@
                             <li>
                                 <a href="/Invoice/">Invoices<i class="fas fa-caret-right NavbarLink"></i></a>
                             </li>
@@ -150,13 +162,13 @@
                     </li>
 
                 }
-                @if (!User.IsInRole(UserRoles.SD) || User.IsInRole(UserRoles.HR))
+                @if (!User.IsInRole(UserRoles.SD) && (User.IsInRole(UserRoles.HR) || User.IsInRole(UserRoles.Admin) || User.IsInRole(UserRoles.SuperAdmin)))
                 {
                     <li>
                         <a href="/Ticket/"> Tickets <i class="fas fa-caret-right NavbarLink"></i></a>
                     </li>
                 }
-                @if (User.IsInRole(UserRoles.HR))
+                @if (User.IsInRole(UserRoles.HR) || User.IsInRole(UserRoles.Admin) || User.IsInRole(UserRoles.SuperAdmin))
                 {
                     <li>
                         <a href="/AgentAttendance/"> Attendance <i class="fas fa-caret-right NavbarLink"></i></a>
